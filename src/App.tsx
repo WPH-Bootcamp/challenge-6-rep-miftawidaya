@@ -1,7 +1,7 @@
 function App() {
   return (
-    <div className='min-h-screen bg-background text-foreground'>
-      <h1 className='text-4xl font-bold p-8 '>Movie Explorer App</h1>
+    <div className='bg-background text-foreground min-h-screen'>
+      <h1 className='p-8 text-4xl font-bold'>Movie Explorer App</h1>
     </div>
   );
 }
