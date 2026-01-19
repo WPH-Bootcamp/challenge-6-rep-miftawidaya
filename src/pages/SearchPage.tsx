@@ -1,0 +1,101 @@
+import { type FC } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { api } from '../lib/api';
+import {
+  MovieListItem,
+  MovieListItemSkeleton,
+} from '../features/movies/components/MovieListItem';
+import type { Movie } from '../types/movie';
+import { useTitle } from '../hooks/useTitle';
+import { Button } from '../components/ui/Button';
+
+/**
+ * SearchPage displaying results for a query with infinite scroll support.
+ * Redesigned to match Figma list layout and states.
+ */
+export const SearchPage: FC = () => {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q') || '';
+  useTitle(query ? `Search: ${query}` : 'Search');
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteQuery({
+      queryKey: ['search', query],
+      queryFn: async ({ pageParam = 1 }) => {
+        const { data } = await api.get('/search/movie', {
+          params: { query, page: pageParam },
+        });
+        return data;
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page < lastPage.total_pages) {
+          return lastPage.page + 1;
+        }
+        return undefined;
+      },
+      enabled: !!query,
+    });
+
+  const movies = (data?.pages.flatMap((page) => page.results) as Movie[]) || [];
+
+  // Initial State: No query (blank screen per Figma search-mobile_Init.jpg)
+  if (!query) {
+    return <div className='bg-background min-h-screen pt-16 md:pt-22.5' />;
+  }
+
+  return (
+    <div className='bg-background min-h-screen pt-16 pb-20 md:pt-22.5'>
+      <div className='custom-container pt-6 md:pt-16'>
+        {isLoading ? (
+          /* Loading State */
+          <div className='flex flex-col gap-8 md:gap-12'>
+            {[...Array(5)].map((_, i) => (
+              <MovieListItemSkeleton key={i} />
+            ))}
+          </div>
+        ) : movies.length > 0 ? (
+          /* Found State */
+          <div className='flex flex-col gap-8 md:gap-12'>
+            {movies.map((movie) => (
+              <div key={movie.id} className='flex flex-col gap-8 md:gap-12'>
+                <MovieListItem movie={movie} />
+                <div className='h-px w-full bg-neutral-800/60' />
+              </div>
+            ))}
+
+            {hasNextPage && (
+              <div className='flex justify-center pt-8'>
+                <Button
+                  variant='outline'
+                  onClick={() => fetchNextPage()}
+                  disabled={isFetchingNextPage}
+                  size='lg'
+                  className='rounded-full'
+                >
+                  {isFetchingNextPage ? 'Loading more...' : 'Load More'}
+                </Button>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Not Found State (clapperboard illustration) */
+          <div className='flex flex-col items-center justify-center pt-24 text-center md:pt-40'>
+            <img
+              src='/images/clapperboard.svg'
+              alt='Not Found'
+              className='mb-6 size-40 opacity-80'
+            />
+            <h2 className='mb-2 text-xl font-bold text-white md:text-2xl'>
+              Data Not Found
+            </h2>
+            <p className='text-sm text-neutral-500 md:text-base'>
+              Try other keywords
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

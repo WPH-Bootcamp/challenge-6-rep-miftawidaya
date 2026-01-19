@@ -1,70 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@theme {
+  /* --- Typography --- */
+  --font-poppins: 'Poppins', sans-serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Text Sizes & Line Heights */
+  --text-display-3xl: 3.75rem;
+  --text-display-3xl--line-height: 4.5rem;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --text-display-2xl: 3rem;
+  --text-display-2xl--line-height: 3.75rem;
+  --text-display-2xl--letter-spacing: -2%;
+
+  --text-display-xl: 2.5rem;
+  --text-display-xl--line-height: 3rem;
+  --text-display-xl--letter-spacing: -2%;
+
+  --text-display-lg: 2.25rem;
+  --text-display-lg--line-height: 2.75rem;
+  --text-display-lg--letter-spacing: -2%;
+
+  --text-display-md: 2rem;
+  --text-display-md--line-height: 2.5rem;
+
+  --text-display-sm: 1.75rem;
+  --text-display-sm--line-height: 2.375rem;
+
+  --text-display-xs: 1.5rem;
+  --text-display-xs--line-height: 2.25rem;
+
+  /* --- Colors --- */
+
+  /* Neutral Palette */
+  --color-neutral-25: #fafafa;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e9eaeb;
+  --color-neutral-300: #d5d7da;
+  --color-neutral-400: #a4a7ae;
+  --color-neutral-500: #717680;
+  --color-neutral-600: #737373;
+  --color-neutral-700: #414651;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #181d27;
+  --color-neutral-950: #0a0d12;
+
+  /* Primary Palette */
+  --color-primary-100: #ead0cc;
+  --color-primary-200: #b96155;
+  --color-primary-300: #961200;
+  --color-primary-400: #640c00;
+
+  /* Base Colors */
+  --color-base-white: #ffffff;
+  --color-base-black: #000000;
+  --color-background: #000000;
+
+  /* --- Spacing System --- */
+  --spacing-xxs: 0.125rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.375rem;
+  --spacing-md: 0.5rem;
+  --spacing-lg: 0.75rem;
+  --spacing-xl: 1rem;
+  --spacing-2xl: 1.25rem;
+  --spacing-3xl: 1.5rem;
+  --spacing-4xl: 2rem;
+  --spacing-5xl: 2.5rem;
+  --spacing-6xl: 3rem;
+  --spacing-7xl: 4rem;
+  --spacing-8xl: 5rem;
+  --spacing-9xl: 6rem;
+  --spacing-10xl: 8rem;
+  --spacing-11xl: 8.75rem;
+
+  /* --- Border Radius --- */
+  --radius-xxs: 0.125rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* --- Global Base Styles --- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
-  a:hover {
-    color: #747bff;
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-base-white);
+    font-family: var(--font-poppins);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+/* --- Reusable Components Layer --- */
+@layer components {
+  .custom-container {
+    margin-left: auto;
+    margin-right: auto;
+    @apply max-w-302 pr-6 pl-6;
+  }
+
+  .glassmorphism {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --- Functional Utilities Layer --- */
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .flex-start {
+    @apply flex items-center justify-start;
   }
 }
