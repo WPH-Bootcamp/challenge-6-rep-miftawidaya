@@ -66,24 +66,27 @@ export const HomePage: FC = () => {
         isLoading={isLoadingTrending}
       />
 
-      <section className='custom-container relative z-10 -mt-12 flex flex-col gap-6 md:gap-8'>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-display-xs md:text-display-sm font-bold'>
-            Trending Movies
-          </h1>
-        </div>
+      {/* Trending Section */}
+      <section className='flex flex-col gap-10 pb-20'>
+        <h2
+          className='text-display-sm text-neutral-10 md:text-display-lg font-bold'
+          style={{
+            paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 24px)',
+          }}
+        >
+          Trending Now
+        </h2>
         <TrendingSlider
           movies={trendingMovies || []}
           isLoading={isLoadingTrending}
         />
       </section>
 
-      <section className='custom-container flex flex-col gap-6 md:gap-8'>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-display-xs md:text-display-sm font-bold'>
-            New Releases
-          </h1>
-        </div>
+      {/* New Release Section */}
+      <section className='custom-container flex flex-col gap-10 pb-20'>
+        <h2 className='text-display-sm text-neutral-10 md:text-display-lg font-bold'>
+          New Release
+        </h2>
 
         <div className='grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:grid-cols-5'>
           {isLoadingNowPlaying
