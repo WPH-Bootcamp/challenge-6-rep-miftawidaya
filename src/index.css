@@ -33,16 +33,16 @@
   /* --- Colors --- */
 
   /* Neutral Palette */
-  --color-neutral-25: #fdfdfd;
+  --color-neutral-25: #fafafa;
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
   --color-neutral-200: #e9eaeb;
   --color-neutral-300: #d5d7da;
   --color-neutral-400: #a4a7ae;
   --color-neutral-500: #717680;
-  --color-neutral-600: #535862;
+  --color-neutral-600: #737373;
   --color-neutral-700: #414651;
-  --color-neutral-800: #252b37;
+  --color-neutral-800: #262626;
   --color-neutral-900: #181d27;
   --color-neutral-950: #0a0d12;
 
@@ -54,7 +54,8 @@
 
   /* Base Colors */
   --color-base-white: #ffffff;
-  --color-background: #0c0d0d;
+  --color-base-black: #000000;
+  --color-background: #000000;
 
   /* --- Spacing System --- */
   --spacing-xxs: 0.125rem;
@@ -108,6 +109,13 @@
     margin-left: auto;
     margin-right: auto;
     @apply max-w-302 pr-6 pl-6;
+  }
+
+  .glassmorphism {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 

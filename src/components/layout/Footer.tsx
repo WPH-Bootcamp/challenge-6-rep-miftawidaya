@@ -13,7 +13,7 @@ export const Footer: FC = () => {
         <div className='flex items-center'>
           <img src={logo} alt='Movie Explorer' className='h-7 w-auto md:h-10' />
         </div>
-        <div className='mt-2 text-xs font-normal text-neutral-600 md:mt-0 md:ml-auto md:text-base'>
+        <div className='mt-2 text-xs font-normal text-[#535862] md:mt-0 md:ml-auto md:text-base'>
           Copyright © {currentYear} Movie Explorer
         </div>
       </div>
