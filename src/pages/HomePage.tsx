@@ -60,31 +60,42 @@ export const HomePage: FC = () => {
   const allMovies = infiniteData?.pages.flatMap((page) => page.results) || [];
 
   return (
-    <div className='flex flex-col border-b border-neutral-900'>
+    <div className='flex flex-col gap-15 pb-20'>
       <HeroSection
         movies={trendingMovies || []}
         isLoading={isLoadingTrending}
       />
 
-      <TrendingSlider
-        movies={trendingMovies || []}
-        isLoading={isLoadingTrending}
-      />
+      <section className='custom-container relative z-10 -mt-12 flex flex-col gap-6 md:gap-8'>
+        <div className='flex items-center justify-between'>
+          <h1 className='text-display-xs md:text-display-sm font-bold'>
+            Trending Movies
+          </h1>
+        </div>
+        <TrendingSlider
+          movies={trendingMovies || []}
+          isLoading={isLoadingTrending}
+        />
+      </section>
 
-      <section className='custom-container py-spacing-8xl'>
-        <h2 className='text-display-sm mb-spacing-xl font-bold'>
-          New Releases
-        </h2>
+      <section className='custom-container flex flex-col gap-6 md:gap-8'>
+        <div className='flex items-center justify-between'>
+          <h1 className='text-display-xs md:text-display-sm font-bold'>
+            New Releases
+          </h1>
+        </div>
 
-        <div className='gap-spacing-xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+        <div className='grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:grid-cols-5'>
           {isLoadingNowPlaying
-            ? [...Array(10)].map((_, i) => <MovieCardSkeleton key={i} />)
+            ? Array.from({ length: 10 }, (_, i) => (
+                <MovieCardSkeleton key={`skeleton-${i}`} />
+              ))
             : allMovies.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
               ))}
 
           {isFetchingNextPage &&
-            [...Array(5)].map((_, i) => (
+            Array.from({ length: 5 }, (_, i) => (
               <MovieCardSkeleton key={`loading-${i}`} />
             ))}
         </div>

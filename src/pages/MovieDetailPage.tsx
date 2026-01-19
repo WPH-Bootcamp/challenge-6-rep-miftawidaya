@@ -68,7 +68,7 @@ export const MovieDetailPage: FC = () => {
             className='h-full w-full object-cover'
           />
         )}
-        <div className='from-background via-background/60 absolute inset-0 bg-gradient-to-t to-transparent' />
+        <div className='from-background via-background/60 absolute inset-0 bg-linear-to-t to-transparent' />
 
         <Link to='/' className='left-spacing-xl absolute top-24'>
           <Button variant='secondary' className='size-12 rounded-full p-0'>
@@ -82,7 +82,7 @@ export const MovieDetailPage: FC = () => {
         <div className='gap-spacing-4xl grid grid-cols-1 md:grid-cols-12'>
           {/* Poster */}
           <div className='md:col-span-4 lg:col-span-3'>
-            <div className='rounded-radius-3xl aspect-[2/3] overflow-hidden border border-neutral-800 shadow-2xl'>
+            <div className='rounded-radius-3xl aspect-2/3 overflow-hidden border border-neutral-800 shadow-2xl'>
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}

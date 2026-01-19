@@ -74,8 +74,8 @@ export const Navbar: FC = () => {
   const handleSearchChange = (val: string) => {
     setSearch(val);
     const trimmed = val.trim();
-    // Incremental search: trigger navigation on 3+ characters
-    if (trimmed.length > 2) {
+    // Incremental search: trigger navigation on 1+ characters
+    if (trimmed.length > 0) {
       navigate(`/search?q=${encodeURIComponent(trimmed)}`, { replace: true });
     } else if (trimmed.length === 0 && location.pathname === '/search') {
       // Clear query while staying on search page
@@ -106,13 +106,11 @@ export const Navbar: FC = () => {
     <>
       <nav
         className={cn(
-          'fixed top-0 z-50 w-full transition-all duration-300',
-          isScrolled
-            ? 'glassmorphism h-16 border-b border-white/10 md:h-22.5'
-            : 'h-16 border-b border-transparent bg-transparent md:h-22.5'
+          'fixed top-0 z-50 flex h-16 w-full items-center py-3 transition-all duration-300 md:h-22.5 md:py-4',
+          isScrolled ? 'bg-neutral-950/60 backdrop-blur-lg' : 'bg-transparent'
         )}
       >
-        <div className='md:px-11xl flex h-full items-center justify-between px-4'>
+        <div className='custom-container flex w-full items-center justify-between'>
           {/* Default Mobile Nav Content (unless search is active) */}
           {!isMobileSearchActive && (
             <>

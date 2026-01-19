@@ -11,18 +11,18 @@
 
   --text-display-2xl: 3rem;
   --text-display-2xl--line-height: 3.75rem;
-  --text-display-2xl--letter-spacing: -2%;
+  --text-display-2xl--letter-spacing: -0.02em;
 
   --text-display-xl: 2.5rem;
-  --text-display-xl--line-height: 3rem;
-  --text-display-xl--letter-spacing: -2%;
+  --text-display-xl--line-height: 3.5rem;
+  --text-display-xl--letter-spacing: -0.02em;
 
   --text-display-lg: 2.25rem;
-  --text-display-lg--line-height: 2.75rem;
-  --text-display-lg--letter-spacing: -2%;
+  --text-display-lg--line-height: 3rem;
+  --text-display-lg--letter-spacing: -0.02em;
 
   --text-display-md: 2rem;
-  --text-display-md--line-height: 2.5rem;
+  --text-display-md--line-height: 2.875rem;
 
   --text-display-sm: 1.75rem;
   --text-display-sm--line-height: 2.375rem;
@@ -30,9 +30,25 @@
   --text-display-xs: 1.5rem;
   --text-display-xs--line-height: 2.25rem;
 
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 2.125rem;
+
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 2rem;
+
+  --text-md: 1rem;
+  --text-md--line-height: 1.875rem;
+
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.75rem;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5rem;
+
   /* --- Colors --- */
 
   /* Neutral Palette */
+  --color-neutral-10: #fdfdfd;
   --color-neutral-25: #fafafa;
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
@@ -51,6 +67,9 @@
   --color-primary-200: #b96155;
   --color-primary-300: #961200;
   --color-primary-400: #640c00;
+
+  /* Accent Colors */
+  --color-yellow-500: #e4a802;
 
   /* Base Colors */
   --color-base-white: #ffffff;
@@ -85,18 +104,44 @@
   --radius-2xl: 1rem;
   --radius-3xl: 1.25rem;
   --radius-4xl: 1.5rem;
+
+  /* --- Animations --- */
+  --animate-scale-up: scale-up 20s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  --animate-delay-100: 100ms;
+  --animate-delay-200: 200ms;
+  --animate-delay-300: 300ms;
+
+  @keyframes scale-up {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.15);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* --- Global Base Styles --- */
 @layer base {
   html {
+    font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-base-white);
-    font-family: var(--font-poppins);
+    @apply bg-background text-neutral-25;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -131,5 +176,13 @@
 
   .flex-start {
     @apply flex items-center justify-start;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

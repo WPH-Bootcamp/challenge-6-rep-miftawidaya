@@ -44,7 +44,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
   return (
     <div
       className={cn(
-        'group flex flex-col gap-6 md:flex-row md:items-start md:gap-6',
+        'group flex flex-col gap-6 border-b border-neutral-800/60 pb-8 last:border-none md:flex-row md:items-start md:gap-6',
         className
       )}
     >

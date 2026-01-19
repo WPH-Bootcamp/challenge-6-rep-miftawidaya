@@ -17,39 +17,32 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 }) => {
   if (isLoading) {
     return (
-      <section className='custom-container py-spacing-8xl'>
-        <h2 className='text-display-sm mb-spacing-xl font-bold'>
-          Trending Now
-        </h2>
-        <div className='gap-spacing-xl flex overflow-hidden'>
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className='min-w-[200px] flex-1'>
-              <MovieCardSkeleton />
-            </div>
-          ))}
-        </div>
-      </section>
+      <div className='flex gap-4 overflow-hidden'>
+        {Array.from({ length: 5 }, (_, i) => (
+          <div key={`skeleton-${i}`} className='w-40 shrink-0 md:w-57.5'>
+            <MovieCardSkeleton />
+          </div>
+        ))}
+      </div>
     );
   }
 
   return (
-    <section className='custom-container py-spacing-8xl relative z-20 mt-[-var(--spacing-6xl)] overflow-hidden'>
-      <h2 className='text-display-sm mb-spacing-xl font-bold'>Trending Now</h2>
-
-      <div className='gap-spacing-xl pb-spacing-md scrollbar-hide flex overflow-x-auto'>
+    <div className='group relative'>
+      <div className='scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4'>
         {movies.slice(0, 10).map((movie, index) => (
           <div
             key={movie.id}
-            className='relative min-w-[200px] flex-1 transition-transform hover:scale-105'
+            className='relative w-40 shrink-0 snap-start transition-transform duration-300 hover:scale-105 md:w-57.5'
           >
             {/* Rank Number */}
-            <div className='text-display-3xl absolute -bottom-8 -left-2 z-20 font-black text-white/40 select-none'>
+            <div className='text-display-3xl absolute -bottom-6 -left-2 z-20 font-black text-white/40 drop-shadow-lg select-none'>
               {index + 1}
             </div>
             <MovieCard movie={movie} className='h-full pl-6' />
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
