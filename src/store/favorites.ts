@@ -1,13 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  vote_average: number;
-  release_date: string;
-}
+import type { Movie } from '../types/movie';
 
 interface FavoritesState {
   favorites: Movie[];
@@ -16,6 +10,9 @@ interface FavoritesState {
   isFavorite: (movieId: number) => boolean;
 }
 
+/**
+ * Zustand store for managing favorite movies with persistence.
+ */
 export const useFavoritesStore = create<FavoritesState>()(
   persist(
     (set, get) => ({
