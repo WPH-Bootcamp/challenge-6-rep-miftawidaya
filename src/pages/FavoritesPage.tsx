@@ -7,7 +7,6 @@ import { Button } from '../components/ui/Button';
 
 /**
  * FavoritesPage displaying movies saved by the user.
- * Synced with Figma list layout.
  */
 export const FavoritesPage: FC = () => {
   useTitle('Favorites');

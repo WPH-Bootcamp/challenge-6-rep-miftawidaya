@@ -12,7 +12,6 @@ import { Button } from '../components/ui/Button';
 
 /**
  * SearchPage displaying results for a query with infinite scroll support.
- * Redesigned to match Figma list layout and states.
  */
 export const SearchPage: FC = () => {
   const [searchParams] = useSearchParams();
@@ -40,7 +39,7 @@ export const SearchPage: FC = () => {
 
   const movies = (data?.pages.flatMap((page) => page.results) as Movie[]) || [];
 
-  // Initial State: No query (blank screen per Figma search-mobile_Init.jpg)
+  // Initial State: No query (blank screen)
   if (!query) {
     return <div className='bg-background min-h-screen pt-16 md:pt-22.5' />;
   }

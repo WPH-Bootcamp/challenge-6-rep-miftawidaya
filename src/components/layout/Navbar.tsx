@@ -15,7 +15,6 @@ import logo from '../../assets/images/logo.svg';
 
 /**
  * Navbar component with logo, navigation links, and search functionality.
- * Aligns with Figma designs for desktop and mobile states.
  */
 export const Navbar: FC = () => {
   const navigate = useNavigate();
