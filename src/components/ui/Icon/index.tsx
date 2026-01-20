@@ -283,3 +283,121 @@ export const StarFillIcon: FC<Readonly<IconProps>> = ({
     />
   </svg>
 );
+
+/**
+ * Calendar Icon (vuesax/linear/calendar)
+ */
+export const CalendarIcon: FC<Readonly<IconProps>> = ({
+  size = 24,
+  className,
+  ...props
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={cn('text-white', className)}
+    {...props}
+  >
+    <path
+      d='M8 2V5'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M16 2V5'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M3.5 9.09H20.5'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M15.6947 13.7H15.7037'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M15.6947 16.7H15.7037'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M11.9955 13.7H12.0045'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M11.9955 16.7H12.0045'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M8.29431 13.7H8.30329'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M8.29431 16.7H8.30329'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+/**
+ * Video Icon (vuesax/bold/video)
+ */
+export const VideoIcon: FC<Readonly<IconProps>> = ({
+  size = 24,
+  className,
+  ...props
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={cn('text-white', className)}
+    {...props}
+  >
+    <path
+      d='M21.15 6.17C20.74 5.95 19.88 5.72 18.71 6.54L17.24 7.58C17.13 4.47 15.78 3.25 12.5 3.25H6.5C3.08 3.25 1.75 4.58 1.75 8V16C1.75 18.3 3 20.75 6.5 20.75H12.5C15.78 20.75 17.13 19.53 17.24 16.42L18.71 17.46C19.33 17.9 19.87 18.04 20.3 18.04C20.67 18.04 20.96 17.93 21.15 17.83C21.56 17.62 22.25 17.05 22.25 15.62V8.38C22.25 6.95 21.56 6.38 21.15 6.17ZM10.12 14.12C9.29 14.94 8.21 15.35 7.13 15.35C6.05 15.35 4.97 14.95 4.13 14.12C2.47 12.45 2.47 9.73 4.13 8.07C5.79 6.41 8.51 6.41 10.12 8.07C11.79 9.74 11.79 12.45 10.12 14.12Z'
+      fill='currentColor'
+    />
+  </svg>
+);

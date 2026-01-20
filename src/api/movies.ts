@@ -33,3 +33,11 @@ export const getMovieDetails = async (id: number) => {
   const { data } = await api.get(`/movie/${id}`);
   return data;
 };
+
+/**
+ * Fetches movie credits (cast and crew) by ID.
+ */
+export const getMovieCredits = async (id: number) => {
+  const { data } = await api.get(`/movie/${id}/credits`);
+  return data;
+};

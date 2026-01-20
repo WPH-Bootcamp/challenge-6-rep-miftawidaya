@@ -1,18 +1,37 @@
 import { type FC } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getMovieDetails } from '../api/movies';
-import { Badge } from '../components/ui/Badge';
+import { getMovieDetails, getMovieCredits } from '../api/movies';
 import { Button } from '../components/ui/Button';
-import { Star, Play, Calendar, Clock, ChevronLeft } from 'lucide-react';
+import {
+  PlayIcon,
+  HeartOutlineIcon,
+  CalendarIcon,
+  StarFillIcon,
+  VideoIcon,
+  EmojiHappyIcon,
+} from '../components/ui/Icon';
 import { useTitle } from '../hooks/useTitle';
+import { useFavoritesStore } from '../store/favorites';
 import type { Movie } from '../types/movie';
 
+interface CastMember {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+}
+
+interface MovieCredits {
+  cast: CastMember[];
+}
+
 /**
- * MovieDetailPage displaying full metadata, synopsis, and backdrop.
+ * MovieDetailPage displaying full metadata, synopsis, cast, and backdrop.
  */
 export const MovieDetailPage: FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
 
   const {
     data: movie,
@@ -30,7 +49,24 @@ export const MovieDetailPage: FC = () => {
     enabled: !!id,
   });
 
+  const { data: credits } = useQuery<MovieCredits>({
+    queryKey: ['movie', id, 'credits'],
+    queryFn: () => getMovieCredits(Number(id)),
+    enabled: !!id,
+  });
+
   useTitle(movie?.title || 'Movie Details');
+
+  const favorite = movie ? isFavorite(movie.id) : false;
+
+  const toggleFavorite = () => {
+    if (!movie) return;
+    if (favorite) {
+      removeFavorite(movie.id);
+    } else {
+      addFavorite(movie);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -42,10 +78,10 @@ export const MovieDetailPage: FC = () => {
 
   if (error || !movie) {
     return (
-      <div className='custom-container pb-spacing-11xl pt-24 text-center'>
+      <div className='custom-container pt-24 pb-20 text-center'>
         <h1 className='text-display-sm text-red-500'>Movie not found</h1>
         <Link to='/'>
-          <Button variant='outline' className='mt-spacing-lg'>
+          <Button variant='outline' className='mt-4'>
             Back to Home
           </Button>
         </Link>
@@ -57,10 +93,23 @@ export const MovieDetailPage: FC = () => {
     ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
     : '';
 
+  const posterUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : '';
+
+  const releaseDate = new Date(movie.release_date).toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  const primaryGenre = movie.genres?.[0]?.name || 'N/A';
+  const cast = credits?.cast?.slice(0, 5) || [];
+
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col pb-20'>
       {/* Hero Backdrop */}
-      <div className='relative h-[60vh] w-full'>
+      <div className='relative h-103 w-full'>
         {backdropUrl && (
           <img
             src={backdropUrl}
@@ -68,87 +117,159 @@ export const MovieDetailPage: FC = () => {
             className='h-full w-full object-cover'
           />
         )}
-        <div className='from-background via-background/60 absolute inset-0 bg-linear-to-t to-transparent' />
-
-        <Link to='/' className='left-spacing-xl absolute top-24'>
-          <Button variant='secondary' className='size-12 rounded-full p-0'>
-            <ChevronLeft />
-          </Button>
-        </Link>
+        <div className='absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent' />
       </div>
 
-      {/* Content */}
-      <div className='custom-container -mt-spacing-11xl pb-spacing-11xl relative z-10'>
-        <div className='gap-spacing-4xl grid grid-cols-1 md:grid-cols-12'>
+      {/* Main Content */}
+      <div className='custom-container relative z-10 -mt-60 flex flex-col gap-12'>
+        {/* Top Section: Poster + Info */}
+        <div className='flex flex-col gap-8 md:flex-row md:gap-8'>
           {/* Poster */}
-          <div className='md:col-span-4 lg:col-span-3'>
-            <div className='rounded-radius-3xl aspect-2/3 overflow-hidden border border-neutral-800 shadow-2xl'>
+          <div className='shrink-0'>
+            <div className='h-96 w-65 overflow-hidden rounded-xl'>
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={posterUrl}
                 alt={movie.title}
                 className='h-full w-full object-cover'
               />
             </div>
           </div>
 
-          {/* Details */}
-          <div className='gap-spacing-xl pt-spacing-8xl flex flex-col md:col-span-8 md:pt-20 lg:col-span-9'>
-            <div className='gap-spacing-xs flex flex-col'>
-              {movie.tagline && (
-                <span className='text-primary-300 text-sm font-medium tracking-widest uppercase'>
-                  {movie.tagline}
-                </span>
-              )}
-              <h1 className='text-display-xl font-bold'>{movie.title}</h1>
-            </div>
+          {/* Movie Info */}
+          <div className='flex flex-col gap-6'>
+            {/* Title + Date + Buttons Row */}
+            <div className='flex flex-col gap-4 md:flex-row md:items-start md:justify-between'>
+              <div className='flex flex-col gap-4'>
+                {/* Title */}
+                <h1 className='text-display-lg text-neutral-10 md:text-display-xl font-bold'>
+                  {movie.title}
+                </h1>
 
-            <div className='gap-spacing-xl flex flex-wrap items-center text-neutral-400'>
-              <div className='flex items-center gap-1.5'>
-                <Star className='size-5 fill-yellow-500 text-yellow-500' />
-                <span className='font-bold text-white'>
-                  {movie.vote_average.toFixed(1)}
-                </span>
-                <span>/ 10</span>
+                {/* Release Date */}
+                <div className='flex items-center gap-2'>
+                  <CalendarIcon size={24} className='text-neutral-10' />
+                  <span className='text-md font-normal text-white'>
+                    {releaseDate}
+                  </span>
+                </div>
               </div>
-              <div className='flex items-center gap-1.5'>
-                <Clock className='size-5' />
-                <span>{movie.runtime} min</span>
-              </div>
-              <div className='flex items-center gap-1.5'>
-                <Calendar className='size-5' />
-                <span>{new Date(movie.release_date).getFullYear()}</span>
-              </div>
-            </div>
 
-            <div className='gap-spacing-sm flex flex-wrap'>
-              {movie.genres.map((genre) => (
-                <Badge
-                  key={genre.id}
-                  variant='secondary'
-                  className='glassmorphism text-neutral-300'
+              {/* Action Buttons */}
+              <div className='flex items-center gap-4'>
+                <Button variant='primary' size='lg' className='gap-2 px-6'>
+                  Watch Trailer
+                  <PlayIcon />
+                </Button>
+                <button
+                  onClick={toggleFavorite}
+                  className='flex size-13 cursor-pointer items-center justify-center rounded-full border border-neutral-700 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105'
+                  aria-label={
+                    favorite ? 'Remove from favorites' : 'Add to favorites'
+                  }
                 >
-                  {genre.name}
-                </Badge>
-              ))}
+                  <HeartOutlineIcon
+                    size={24}
+                    className={
+                      favorite
+                        ? 'fill-primary-300 text-primary-300'
+                        : 'text-neutral-10'
+                    }
+                  />
+                </button>
+              </div>
             </div>
 
-            <div className='gap-spacing-md flex max-w-3xl flex-col'>
-              <h3 className='text-xl font-bold'>Overview</h3>
-              <p className='text-lg leading-relaxed text-neutral-400'>
-                {movie.overview}
-              </p>
-            </div>
+            {/* Stats Cards */}
+            <div className='flex flex-wrap gap-5'>
+              {/* Rating Card */}
+              <div className='flex w-full flex-col items-center gap-2 rounded-2xl border border-neutral-700 bg-black p-5 md:w-69'>
+                <StarFillIcon size={32} className='text-yellow-500' />
+                <div className='flex flex-col items-center gap-0.5'>
+                  <span className='text-md font-normal text-neutral-300'>
+                    Rating
+                  </span>
+                  <span className='text-neutral-10 text-xl font-semibold'>
+                    {movie.vote_average.toFixed(1)}/10
+                  </span>
+                </div>
+              </div>
 
-            <div className='gap-spacing-md mt-spacing-xl flex items-center'>
-              <Button variant='primary' size='lg' className='gap-2 px-10'>
-                <Play className='fill-current' /> Watch Trailer
-              </Button>
-              <Button variant='secondary' size='lg' className='px-10'>
-                Share
-              </Button>
+              {/* Genre Card */}
+              <div className='flex w-full flex-col items-center gap-2 rounded-2xl border border-neutral-700 bg-black p-5 md:w-69'>
+                <VideoIcon size={32} className='text-neutral-10' />
+                <div className='flex flex-col items-center gap-0.5'>
+                  <span className='text-md font-normal text-neutral-300'>
+                    Genre
+                  </span>
+                  <span className='text-neutral-10 text-xl font-semibold'>
+                    {primaryGenre}
+                  </span>
+                </div>
+              </div>
+
+              {/* Age Limit Card */}
+              <div className='flex w-full flex-col items-center gap-2 rounded-2xl border border-neutral-700 bg-black p-5 md:w-69'>
+                <EmojiHappyIcon size={32} className='text-neutral-10' />
+                <div className='flex flex-col items-center gap-0.5'>
+                  <span className='text-md font-normal text-neutral-300'>
+                    Age Limit
+                  </span>
+                  <span className='text-neutral-10 text-xl font-semibold'>
+                    13
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Overview Section */}
+        <div className='flex flex-col gap-2'>
+          <h2 className='text-display-sm text-neutral-10 md:text-display-md font-bold'>
+            Overview
+          </h2>
+          <p className='text-md leading-relaxed font-normal text-neutral-400'>
+            {movie.overview}
+          </p>
+        </div>
+
+        {/* Cast & Crew Section */}
+        {cast.length > 0 && (
+          <div className='flex flex-col gap-6'>
+            <h2 className='text-display-sm text-neutral-10 md:text-display-md font-bold'>
+              Cast & Crew
+            </h2>
+            <div className='grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3'>
+              {cast.map((member) => (
+                <div key={member.id} className='flex items-center gap-4'>
+                  {/* Cast Image */}
+                  <div className='h-26 w-17.25 shrink-0 overflow-hidden rounded-lg bg-neutral-800'>
+                    {member.profile_path ? (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w185${member.profile_path}`}
+                        alt={member.name}
+                        className='h-full w-full object-cover'
+                      />
+                    ) : (
+                      <div className='flex h-full w-full items-center justify-center text-neutral-500'>
+                        N/A
+                      </div>
+                    )}
+                  </div>
+                  {/* Cast Info */}
+                  <div className='flex flex-col gap-1'>
+                    <span className='text-md text-neutral-10 font-semibold'>
+                      {member.name}
+                    </span>
+                    <span className='text-md font-normal text-neutral-400'>
+                      {member.character}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
