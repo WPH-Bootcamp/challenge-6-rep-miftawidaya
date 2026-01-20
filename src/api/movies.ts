@@ -41,3 +41,13 @@ export const getMovieCredits = async (id: number) => {
   const { data } = await api.get(`/movie/${id}/credits`);
   return data;
 };
+
+/**
+ * Searches for movies by query with pagination.
+ */
+export const searchMovies = async (query: string, page = 1) => {
+  const { data } = await api.get('/search/movie', {
+    params: { query, page },
+  });
+  return data;
+};

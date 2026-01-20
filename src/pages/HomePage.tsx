@@ -68,12 +68,7 @@ export const HomePage: FC = () => {
 
       {/* Trending Section */}
       <section className='flex flex-col gap-6 pb-10 md:gap-10 md:pb-20'>
-        <h2
-          className='text-display-xs text-neutral-10 md:text-display-lg font-bold'
-          style={{
-            paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
-          }}
-        >
+        <h2 className='slider-padding-left text-display-xs text-neutral-10 md:text-display-lg font-bold'>
           Trending Now
         </h2>
         <TrendingSlider

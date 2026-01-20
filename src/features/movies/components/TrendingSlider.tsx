@@ -100,12 +100,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
   if (isLoading) {
     return (
-      <div
-        className='flex gap-4 overflow-hidden px-4 md:gap-5 md:px-0'
-        style={{
-          paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
-        }}
-      >
+      <div className='slider-padding-left flex gap-4 overflow-hidden md:gap-5'>
         {Array.from({ length: 6 }, (_, i) => (
           <TrendingCardSkeleton key={`skeleton-${i}`} />
         ))}
@@ -125,14 +120,10 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
-        className={`scrollbar-hide flex gap-4 overflow-x-auto md:gap-5 ${
+        className={`slider-padding scrollbar-hide flex gap-4 overflow-x-auto md:gap-5 ${
           isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
-        style={{
-          scrollBehavior: isDragging ? 'auto' : 'smooth',
-          paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
-          paddingRight: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
-        }}
+        style={{ scrollBehavior: isDragging ? 'auto' : 'smooth' }}
       >
         {movies.slice(0, 10).map((movie, index) => (
           <div

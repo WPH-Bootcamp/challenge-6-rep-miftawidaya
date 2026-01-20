@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { api } from '../lib/api';
+import { searchMovies } from '../api/movies';
 import {
   MovieListItem,
   MovieListItemSkeleton,
@@ -21,12 +21,7 @@ export const SearchPage: FC = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: ['search', query],
-      queryFn: async ({ pageParam = 1 }) => {
-        const { data } = await api.get('/search/movie', {
-          params: { query, page: pageParam },
-        });
-        return data;
-      },
+      queryFn: ({ pageParam = 1 }) => searchMovies(query, pageParam as number),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
         if (lastPage.page < lastPage.total_pages) {
