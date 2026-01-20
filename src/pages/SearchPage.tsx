@@ -21,7 +21,7 @@ export const SearchPage: FC = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: ['search', query],
-      queryFn: ({ pageParam = 1 }) => searchMovies(query, pageParam as number),
+      queryFn: ({ pageParam }) => searchMovies(query, pageParam),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
         if (lastPage.page < lastPage.total_pages) {

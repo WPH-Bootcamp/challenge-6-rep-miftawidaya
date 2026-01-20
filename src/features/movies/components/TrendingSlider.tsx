@@ -110,9 +110,9 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
   return (
     <div className='relative'>
-      {/* Scrollable List */}
-      <div
+      <section
         ref={scrollContainerRef}
+        aria-label='Trending movies carousel'
         onScroll={handleScroll}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -134,11 +134,11 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
             <TrendingCard movie={movie} rank={index + 1} />
           </div>
         ))}
-      </div>
+      </section>
 
       {/* Left Fade Overlay & Navigation Arrow */}
       {canScrollLeft && (
-        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-30.75 items-center justify-start bg-gradient-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
+        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-30.75 items-center justify-start bg-linear-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('left')}
             className='pointer-events-auto ml-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:ml-4 md:size-14'
@@ -151,7 +151,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
       {/* Right Fade Overlay & Navigation Arrow */}
       {canScrollRight && (
-        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-30.75 items-center justify-end bg-gradient-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
+        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-30.75 items-center justify-end bg-linear-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('right')}
             className='pointer-events-auto mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:mr-4 md:size-14'
