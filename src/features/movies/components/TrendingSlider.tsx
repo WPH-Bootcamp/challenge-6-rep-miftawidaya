@@ -9,8 +9,8 @@ interface TrendingSliderProps {
 }
 
 /**
- * TrendingSlider component with draggable scroll, navigation arrows,
- * and proper layout where nav buttons are outside the container.
+ * TrendingSlider component with draggable scroll, navigation arrows.
+ * Responsive: Mobile shows 2 columns with gap-4, Desktop shows horizontal scroll with gap-5.
  */
 export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
   movies,
@@ -50,27 +50,37 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
     scrollContainerRef.current.scrollBy({ left: amount, behavior: 'smooth' });
   };
 
-  // Drag handlers
+  // Drag handlers - only activate drag after movement threshold
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollContainerRef.current) return;
-    setIsDragging(true);
+    setIsMouseDown(true);
     setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
     setScrollLeft(scrollContainerRef.current.scrollLeft);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !scrollContainerRef.current) return;
-    e.preventDefault();
+    if (!isMouseDown || !scrollContainerRef.current) return;
     const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+    const distance = Math.abs(x - startX);
+
+    // Only start dragging after moving more than 5px
+    if (distance > 5) {
+      setIsDragging(true);
+      e.preventDefault();
+      const walk = (x - startX) * 1.5;
+      scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+    }
   };
 
   const handleMouseUp = () => {
+    setIsMouseDown(false);
     setIsDragging(false);
   };
 
   const handleMouseLeave = () => {
+    setIsMouseDown(false);
     setIsDragging(false);
   };
 
@@ -91,9 +101,9 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
   if (isLoading) {
     return (
       <div
-        className='flex gap-5 overflow-hidden'
+        className='flex gap-4 overflow-hidden px-4 md:gap-5 md:px-0'
         style={{
-          paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 24px)',
+          paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
         }}
       >
         {Array.from({ length: 6 }, (_, i) => (
@@ -105,7 +115,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
   return (
     <div className='relative'>
-      {/* Scrollable List - extends beyond container */}
+      {/* Scrollable List */}
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
@@ -115,13 +125,13 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
-        className={`scrollbar-hide flex gap-5 overflow-x-auto ${
+        className={`scrollbar-hide flex gap-4 overflow-x-auto md:gap-5 ${
           isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
         style={{
           scrollBehavior: isDragging ? 'auto' : 'smooth',
-          paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 24px)',
-          paddingRight: 'max(calc((100vw - 1208px) / 2 + 24px), 24px)',
+          paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
+          paddingRight: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
         }}
       >
         {movies.slice(0, 10).map((movie, index) => (
@@ -137,26 +147,26 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
       {/* Left Fade Overlay & Navigation Arrow */}
       {canScrollLeft && (
-        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-80.25 w-107.5 items-center justify-start bg-gradient-to-r from-black to-transparent'>
+        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-30.75 items-center justify-start bg-gradient-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('left')}
-            className='pointer-events-auto ml-4 flex size-14 items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105'
+            className='pointer-events-auto ml-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:ml-4 md:size-14'
             aria-label='Scroll left'
           >
-            <ChevronLeft className='text-neutral-10 size-7' />
+            <ChevronLeft className='text-neutral-10 size-5.5 md:size-7' />
           </button>
         </div>
       )}
 
       {/* Right Fade Overlay & Navigation Arrow */}
       {canScrollRight && (
-        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-80.25 w-107.5 items-center justify-end bg-gradient-to-l from-black to-transparent'>
+        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-30.75 items-center justify-end bg-gradient-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('right')}
-            className='pointer-events-auto mr-4 flex size-14 items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105'
+            className='pointer-events-auto mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:mr-4 md:size-14'
             aria-label='Scroll right'
           >
-            <ChevronRight className='text-neutral-10 size-7' />
+            <ChevronRight className='text-neutral-10 size-5.5 md:size-7' />
           </button>
         </div>
       )}

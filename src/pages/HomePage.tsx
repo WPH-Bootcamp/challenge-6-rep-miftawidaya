@@ -67,11 +67,11 @@ export const HomePage: FC = () => {
       />
 
       {/* Trending Section */}
-      <section className='flex flex-col gap-10 pb-20'>
+      <section className='flex flex-col gap-6 pb-10 md:gap-10 md:pb-20'>
         <h2
-          className='text-display-sm text-neutral-10 md:text-display-lg font-bold'
+          className='text-display-xs text-neutral-10 md:text-display-lg font-bold'
           style={{
-            paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 24px)',
+            paddingLeft: 'max(calc((100vw - 1208px) / 2 + 24px), 16px)',
           }}
         >
           Trending Now

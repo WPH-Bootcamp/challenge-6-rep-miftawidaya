@@ -12,7 +12,7 @@ interface TrendingCardProps {
 
 /**
  * TrendingCard component for the Trending Slider.
- * Displays movie poster with rank badge, title, and rating.
+ * Responsive: Mobile (173x266), Desktop (216x321).
  */
 export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
   movie,
@@ -25,11 +25,15 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
 
   return (
     <div
-      className={cn('group flex flex-col items-start gap-3', 'w-54', className)}
+      className={cn(
+        'group flex flex-col items-start',
+        'w-43.25 gap-2 md:w-54 md:gap-3',
+        className
+      )}
     >
       {/* Image Container */}
-      <Link to={`/movie/${movie.id}`} className='relative block'>
-        <div className='relative h-80.25 w-54 overflow-hidden rounded-xl'>
+      <Link to={`/movie/${movie.id}`} className='relative block w-full'>
+        <div className='relative h-66.5 w-full overflow-hidden rounded-lg md:h-80.25 md:rounded-xl'>
           <img
             src={imageUrl}
             alt={movie.title}
@@ -37,9 +41,9 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
             loading='lazy'
           />
 
-          {/* Rank Badge */}
-          <div className='absolute top-3 left-3 flex size-12 items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md'>
-            <span className='text-neutral-10 text-lg font-semibold'>
+          {/* Rank Badge - 32px mobile, 48px desktop */}
+          <div className='absolute top-2 left-2 flex size-8 items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md md:top-3 md:left-3 md:size-12'>
+            <span className='text-neutral-10 text-sm font-semibold md:text-lg'>
               {rank}
             </span>
           </div>
@@ -48,17 +52,17 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
 
       {/* Movie Info */}
       <div className='flex flex-col items-start gap-0.5 self-stretch'>
-        {/* Movie Title */}
+        {/* Movie Title - Text md/Semibold mobile, Text lg/Semibold desktop */}
         <Link to={`/movie/${movie.id}`} className='w-full'>
-          <h3 className='font-poppins text-neutral-10 line-clamp-1 w-full text-lg font-semibold'>
+          <h3 className='font-poppins text-md text-neutral-10 line-clamp-1 w-full font-semibold md:text-lg'>
             {movie.title}
           </h3>
         </Link>
 
-        {/* Rating Container */}
+        {/* Rating Container - Star 18px mobile, 20px desktop */}
         <div className='flex flex-row items-center gap-1'>
-          <StarFillIcon className='h-5 w-5 text-yellow-500' />
-          <span className='font-poppins text-md font-normal text-neutral-400'>
+          <StarFillIcon className='h-4.5 w-4.5 text-yellow-500 md:h-5 md:w-5' />
+          <span className='font-poppins md:text-md text-sm font-normal text-neutral-400'>
             {movie.vote_average.toFixed(1)}/10
           </span>
         </div>
@@ -68,11 +72,11 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
 };
 
 /**
- * Skeleton loader for TrendingCard.
+ * Skeleton loader for TrendingCard - responsive.
  */
 export const TrendingCardSkeleton: FC = () => (
-  <div className='flex w-54 animate-pulse flex-col gap-3'>
-    <div className='h-80.25 w-54 rounded-xl bg-neutral-800' />
+  <div className='flex w-43.25 animate-pulse flex-col gap-2 md:w-54 md:gap-3'>
+    <div className='h-66.5 w-full rounded-lg bg-neutral-800 md:h-80.25 md:rounded-xl' />
     <div className='flex flex-col gap-1'>
       <div className='h-5 w-3/4 rounded bg-neutral-800' />
       <div className='h-4 w-1/3 rounded bg-neutral-800' />

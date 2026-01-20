@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { MainLayout } from './components/layout/MainLayout';
+import { ScrollToTop } from './components/ScrollToTop';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage').then((m) => ({ default: m.HomePage }))
@@ -29,6 +30,7 @@ const ComponentTestPage = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Toaster
         position='top-center'
         toastOptions={{
