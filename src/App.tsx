@@ -35,7 +35,7 @@ function App() {
         position='top-center'
         toastOptions={{
           className:
-            'glassmorphism rounded-radius-3xl text-white border-neutral-800',
+            'glassmorphism rounded-full text-white border-neutral-800 px-6 py-3',
           duration: 3000,
         }}
       />

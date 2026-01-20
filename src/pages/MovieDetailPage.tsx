@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { getMovieDetails, getMovieCredits } from '../api/movies';
 import { Button } from '../components/ui/Button';
 import {
@@ -64,8 +65,10 @@ export const MovieDetailPage: FC = () => {
     if (!movie) return;
     if (favorite) {
       removeFavorite(movie.id);
+      toast.success('Removed from Favorites');
     } else {
       addFavorite(movie);
+      toast.success('Success Add to Favorites');
     }
   };
 
