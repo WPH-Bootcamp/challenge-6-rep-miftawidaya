@@ -5,6 +5,7 @@ import { getMovieDetails, getMovieCredits } from '../api/movies';
 import { Button } from '../components/ui/Button';
 import {
   PlayIcon,
+  HeartFillIcon,
   HeartOutlineIcon,
   CalendarIcon,
   StarFillIcon,
@@ -70,7 +71,7 @@ export const MovieDetailPage: FC = () => {
 
   if (isLoading) {
     return (
-      <div className='flex h-[80vh] items-center justify-center pt-24'>
+      <div className='flex h-[80vh] items-center justify-center'>
         <div className='border-primary-300 size-12 animate-spin rounded-full border-4 border-t-transparent' />
       </div>
     );
@@ -107,9 +108,9 @@ export const MovieDetailPage: FC = () => {
   const cast = credits?.cast?.slice(0, 5) || [];
 
   return (
-    <div className='flex flex-col pb-20'>
-      {/* Hero Backdrop */}
-      <div className='relative h-103 w-full'>
+    <div className='relative min-h-screen pb-37.5'>
+      {/* Full Backdrop - starts from top, behind navbar */}
+      <div className='absolute inset-x-0 top-0 h-103 w-full'>
         {backdropUrl && (
           <img
             src={backdropUrl}
@@ -117,12 +118,13 @@ export const MovieDetailPage: FC = () => {
             className='h-full w-full object-cover'
           />
         )}
-        <div className='absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent' />
+        {/* Gradient overlay */}
+        <div className='absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent' />
       </div>
 
       {/* Main Content */}
-      <div className='custom-container relative z-10 -mt-60 flex flex-col gap-12'>
-        {/* Top Section: Poster + Info */}
+      <div className='custom-container relative z-10 flex flex-col gap-12 pt-103'>
+        {/* Top Section: Poster + Info Row */}
         <div className='flex flex-col gap-8 md:flex-row md:gap-8'>
           {/* Poster */}
           <div className='shrink-0'>
@@ -135,12 +137,13 @@ export const MovieDetailPage: FC = () => {
             </div>
           </div>
 
-          {/* Movie Info */}
-          <div className='flex flex-col gap-6'>
-            {/* Title + Date + Buttons Row */}
-            <div className='flex flex-col gap-4 md:flex-row md:items-start md:justify-between'>
+          {/* Movie Info - Title, Date, Buttons, Stats */}
+          <div className='flex flex-1 flex-col gap-6'>
+            {/* Title + Date + Buttons Block */}
+            <div className='flex flex-col gap-8 md:flex-row md:items-start md:justify-between'>
+              {/* Left: Title + Date */}
               <div className='flex flex-col gap-4'>
-                {/* Title */}
+                {/* Title - Display xl/Bold */}
                 <h1 className='text-display-lg text-neutral-10 md:text-display-xl font-bold'>
                   {movie.title}
                 </h1>
@@ -152,30 +155,27 @@ export const MovieDetailPage: FC = () => {
                     {releaseDate}
                   </span>
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className='flex items-center gap-4'>
-                <Button variant='primary' size='lg' className='gap-2 px-6'>
-                  Watch Trailer
-                  <PlayIcon />
-                </Button>
-                <button
-                  onClick={toggleFavorite}
-                  className='flex size-13 cursor-pointer items-center justify-center rounded-full border border-neutral-700 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105'
-                  aria-label={
-                    favorite ? 'Remove from favorites' : 'Add to favorites'
-                  }
-                >
-                  <HeartOutlineIcon
-                    size={24}
-                    className={
-                      favorite
-                        ? 'fill-primary-300 text-primary-300'
-                        : 'text-neutral-10'
+                {/* Action Buttons */}
+                <div className='flex items-center gap-4'>
+                  <Button variant='primary' size='lg' className='gap-2 px-6'>
+                    Watch Trailer
+                    <PlayIcon />
+                  </Button>
+                  <button
+                    onClick={toggleFavorite}
+                    className='flex size-11 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:size-13'
+                    aria-label={
+                      favorite ? 'Remove from favorites' : 'Add to favorites'
                     }
-                  />
-                </button>
+                  >
+                    {favorite ? (
+                      <HeartFillIcon size={24} className='text-primary-300' />
+                    ) : (
+                      <HeartOutlineIcon size={24} className='text-neutral-10' />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -228,7 +228,7 @@ export const MovieDetailPage: FC = () => {
           <h2 className='text-display-sm text-neutral-10 md:text-display-md font-bold'>
             Overview
           </h2>
-          <p className='text-md leading-relaxed font-normal text-neutral-400'>
+          <p className='text-md font-normal text-neutral-400'>
             {movie.overview}
           </p>
         </div>
@@ -239,6 +239,7 @@ export const MovieDetailPage: FC = () => {
             <h2 className='text-display-sm text-neutral-10 md:text-display-md font-bold'>
               Cast & Crew
             </h2>
+            {/* Cast Grid */}
             <div className='grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3'>
               {cast.map((member) => (
                 <div key={member.id} className='flex items-center gap-4'>
