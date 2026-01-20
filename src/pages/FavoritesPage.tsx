@@ -27,12 +27,20 @@ export const FavoritesPage: FC = () => {
           ))}
         </div>
       ) : (
-        <div className='flex flex-col items-center justify-center pt-24 text-center md:pt-40'>
-          <p className='mb-8 text-lg text-neutral-500'>
+        <div className='mx-auto flex w-full max-w-75 flex-col items-center justify-center pt-10 text-center md:pt-20'>
+          <img
+            src='/images/clapperboard.svg'
+            alt='Data Empty'
+            className='mb-6 size-40 opacity-80'
+          />
+          <h2 className='mb-2 text-xl font-bold text-white md:text-2xl'>
+            Data Empty
+          </h2>
+          <p className='mb-6 text-sm text-neutral-500 md:text-base'>
             You don't have a favorite movie yet
           </p>
-          <Link to='/'>
-            <Button variant='primary' className='rounded-full'>
+          <Link to='/' className='w-full'>
+            <Button variant='primary' size='lg' className='w-full rounded-full'>
               Explore Movie
             </Button>
           </Link>
