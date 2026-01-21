@@ -20,13 +20,12 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
 }) => {
   const { currentIdx, isFading } = useHeroCarousel(movies);
 
+  // Return empty placeholder with proper height while loading
+  // (no skeleton needed - hero has reveal animation)
   if (isLoading || !movies?.length) {
     return (
-      <header className='relative h-202.5 w-full animate-pulse bg-neutral-950'>
-        <div className='custom-container pb-spacing-10xl flex h-full flex-col justify-end'>
-          <div className='mb-spacing-md h-12 w-1/3 rounded bg-neutral-800' />
-          <div className='h-20 w-1/2 rounded bg-neutral-800' />
-        </div>
+      <header className='relative h-202.5 w-full bg-black'>
+        <div className='absolute inset-0 bg-linear-to-t from-black to-transparent' />
       </header>
     );
   }

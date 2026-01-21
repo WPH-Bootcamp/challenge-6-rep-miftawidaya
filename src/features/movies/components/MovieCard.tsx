@@ -71,9 +71,12 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
  * Skeleton loader for MovieCard.
  */
 export const MovieCardSkeleton: FC = () => (
-  <div className='gap-spacing-md flex animate-pulse flex-col'>
-    <div className='rounded-radius-2xl aspect-2/3 bg-neutral-800' />
-    <div className='h-4 w-3/4 rounded bg-neutral-800' />
-    <div className='h-3 w-1/4 rounded bg-neutral-800' />
+  <div className='flex w-43 animate-pulse flex-col gap-2 md:w-54 md:gap-3'>
+    {/* Poster Skeleton */}
+    <div className='h-66.5 w-full rounded-lg bg-neutral-800 md:h-80 md:rounded-xl' />
+    {/* Title Skeleton */}
+    <div className='h-5 w-3/4 rounded bg-neutral-800 md:h-6' />
+    {/* Rating Skeleton */}
+    <div className='h-4 w-1/3 rounded bg-neutral-800' />
   </div>
 );

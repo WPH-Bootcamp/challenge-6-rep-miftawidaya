@@ -21,7 +21,9 @@ export const MainLayout: FC = () => {
             </div>
           }
         >
-          <Outlet />
+          <main className='flex-1'>
+            <Outlet />
+          </main>
         </Suspense>
       </ErrorBoundary>
       <Footer />
