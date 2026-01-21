@@ -2,6 +2,10 @@
 
 # Challenge 8 - Slicing Figma Movie App with Tanstack Query
 
+## 🔗 Live Preview
+
+**[View Demo →](https://movie-explorer-webapp.vercel.app/)**
+
 # Description
 
 In this assignment, you'll translate a provided Figma design into a functional webpage using React Vite, Tailwind CSS, and Tanstack Query.
