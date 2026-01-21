@@ -5,9 +5,9 @@ import {
   useLocation,
   useSearchParams,
 } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { Input } from '../ui/Input';
-import { ArrowLeftIcon, CloseRoundedIcon, MenuIcon } from '../ui/Icon';
+import { ArrowLeftIcon, MenuIcon } from '../ui/Icon';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '../../lib/cn';
 
@@ -223,7 +223,7 @@ export const Navbar: FC = () => {
             className='hover:text-primary-300 mr-[-8px] flex size-10 cursor-pointer items-center justify-center text-white transition-colors'
             aria-label='Close menu'
           >
-            <CloseRoundedIcon size={24} className='text-neutral-700' />
+            <X size={24} className='text-white' />
           </button>
         </div>
 
