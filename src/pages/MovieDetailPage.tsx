@@ -184,7 +184,7 @@ export const MovieDetailPage: FC = () => {
 
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : '';
+    : null;
 
   const releaseDate = new Date(movie.release_date).toLocaleDateString('id-ID', {
     day: 'numeric',
@@ -206,9 +206,11 @@ export const MovieDetailPage: FC = () => {
             className='h-full w-full object-cover'
           />
         )}
-        {/* Gradient overlay */}
+        {/* Gradient overlay - inside backdrop */}
         <div className='absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent' />
       </div>
+      {/* Extended gradient - blends backdrop into content area */}
+      <div className='absolute inset-x-0 top-90 h-20 bg-linear-to-b from-transparent to-black' />
 
       {/* Main Content */}
       <div className='custom-container relative z-10 flex flex-col gap-12 pt-103'>
@@ -216,12 +218,45 @@ export const MovieDetailPage: FC = () => {
         <div className='flex flex-col gap-8 md:flex-row md:gap-8'>
           {/* Poster */}
           <div className='shrink-0'>
-            <div className='h-96 w-65 overflow-hidden rounded-xl'>
-              <img
-                src={posterUrl}
-                alt={movie.title}
-                className='h-full w-full object-cover'
-              />
+            <div className='h-96 w-65 overflow-hidden rounded-xl bg-neutral-800'>
+              {posterUrl ? (
+                <img
+                  src={posterUrl}
+                  alt={movie.title}
+                  className='h-full w-full object-cover'
+                />
+              ) : (
+                <div className='flex h-full w-full items-center justify-center'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='64'
+                    height='64'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='1.5'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    className='text-neutral-500'
+                  >
+                    <rect
+                      x='2'
+                      y='2'
+                      width='20'
+                      height='20'
+                      rx='2.18'
+                      ry='2.18'
+                    />
+                    <line x1='7' y1='2' x2='7' y2='22' />
+                    <line x1='17' y1='2' x2='17' y2='22' />
+                    <line x1='2' y1='12' x2='22' y2='12' />
+                    <line x1='2' y1='7' x2='7' y2='7' />
+                    <line x1='2' y1='17' x2='7' y2='17' />
+                    <line x1='17' y1='17' x2='22' y2='17' />
+                    <line x1='17' y1='7' x2='22' y2='7' />
+                  </svg>
+                </div>
+              )}
             </div>
           </div>
 

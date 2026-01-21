@@ -12,7 +12,6 @@ interface TrendingCardProps {
 
 /**
  * TrendingCard component for the Trending Slider.
- * Responsive: Mobile (173x266), Desktop (216x321).
  */
 export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
   movie,
@@ -21,7 +20,7 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
 }) => {
   const imageUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : 'https://via.placeholder.com/500x750?text=No+Image';
+    : null;
 
   return (
     <div
@@ -34,12 +33,38 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
       {/* Image Container */}
       <Link to={`/movie/${movie.id}`} className='relative block w-full'>
         <div className='relative h-66.5 w-full overflow-hidden rounded-lg md:h-80.25 md:rounded-xl'>
-          <img
-            src={imageUrl}
-            alt={movie.title}
-            className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-110'
-            loading='lazy'
-          />
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={movie.title}
+              className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-110'
+              loading='lazy'
+            />
+          ) : (
+            <div className='flex h-full w-full items-center justify-center bg-neutral-800'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='48'
+                height='48'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='text-neutral-500'
+              >
+                <rect x='2' y='2' width='20' height='20' rx='2.18' ry='2.18' />
+                <line x1='7' y1='2' x2='7' y2='22' />
+                <line x1='17' y1='2' x2='17' y2='22' />
+                <line x1='2' y1='12' x2='22' y2='12' />
+                <line x1='2' y1='7' x2='7' y2='7' />
+                <line x1='2' y1='17' x2='7' y2='17' />
+                <line x1='17' y1='17' x2='22' y2='17' />
+                <line x1='17' y1='7' x2='22' y2='7' />
+              </svg>
+            </div>
+          )}
 
           {/* Rank Badge - 32px mobile, 48px desktop */}
           <div className='absolute top-2 left-2 flex size-8 items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md md:top-3 md:left-3 md:size-12'>

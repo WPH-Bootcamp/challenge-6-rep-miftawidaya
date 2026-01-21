@@ -41,7 +41,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
 
   const imageUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : 'https://via.placeholder.com/500x750?text=No+Image';
+    : null;
 
   return (
     <div
@@ -53,12 +53,38 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
       <div className='flex flex-1 gap-4 md:gap-6'>
         {/* Poster */}
         <Link to={`/movie/${movie.id}`} className='shrink-0'>
-          <img
-            src={imageUrl}
-            alt={movie.title}
-            className='h-39 w-26 rounded-lg object-cover md:h-67.5 md:w-45.5 md:rounded-xl'
-            loading='lazy'
-          />
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={movie.title}
+              className='h-39 w-26 rounded-lg object-cover md:h-67.5 md:w-45.5 md:rounded-xl'
+              loading='lazy'
+            />
+          ) : (
+            <div className='flex h-39 w-26 items-center justify-center rounded-lg bg-neutral-800 md:h-67.5 md:w-45.5 md:rounded-xl'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='32'
+                height='32'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='text-neutral-500'
+              >
+                <rect x='2' y='2' width='20' height='20' rx='2.18' ry='2.18' />
+                <line x1='7' y1='2' x2='7' y2='22' />
+                <line x1='17' y1='2' x2='17' y2='22' />
+                <line x1='2' y1='12' x2='22' y2='12' />
+                <line x1='2' y1='7' x2='7' y2='7' />
+                <line x1='2' y1='17' x2='7' y2='17' />
+                <line x1='17' y1='17' x2='22' y2='17' />
+                <line x1='17' y1='7' x2='22' y2='7' />
+              </svg>
+            </div>
+          )}
         </Link>
 
         {/* Content Area */}
