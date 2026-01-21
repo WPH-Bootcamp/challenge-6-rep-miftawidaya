@@ -16,7 +16,7 @@ export const MainLayout: FC = () => {
       <ErrorBoundary>
         <Suspense
           fallback={
-            <div className='flex h-[50vh] items-center justify-center'>
+            <div className='flex min-h-svh items-center justify-center'>
               <div className='border-primary h-12 w-12 animate-spin rounded-full border-b-2' />
             </div>
           }
