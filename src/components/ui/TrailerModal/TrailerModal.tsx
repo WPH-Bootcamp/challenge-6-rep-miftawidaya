@@ -1,7 +1,7 @@
 import { type FC, useEffect, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getMovieVideos } from '../../../api/movies';
-import { cn } from '../../../lib/cn';
+import { TrailerContent } from './TrailerContent';
 import type { MovieVideo } from '../../../types/movie';
 
 interface TrailerModalProps {
@@ -12,8 +12,10 @@ interface TrailerModalProps {
 }
 
 /**
- * TrailerModal displays an embedded YouTube trailer in a modal overlay.
- * Fetches trailer data from TMDB API and prioritizes official trailers.
+ * TrailerModal Component
+ *
+ * Displays trailer in a modal overlay with guaranteed UI foundation.
+ * Container renders with proper dimensions regardless of API state.
  */
 export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
   movieId,
@@ -21,26 +23,32 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
   isOpen,
   onClose,
 }) => {
-  const { data: videos, isLoading } = useQuery<MovieVideo[]>({
+  // Data fetching
+  const {
+    data: videos,
+    isLoading,
+    isError,
+  } = useQuery<MovieVideo[]>({
     queryKey: ['movie', movieId, 'videos'],
     queryFn: () => getMovieVideos(movieId),
     enabled: isOpen && !!movieId,
+    retry: 2,
+    staleTime: 1000 * 60 * 5,
   });
 
-  // Find the best trailer (prioritize official YouTube trailers)
+  // Find best trailer (prioritize official YouTube trailers)
   const trailer =
     videos?.find(
-      (v) => v.site === 'YouTube' && v.type === 'Trailer' && v.official === true
+      (v) => v.site === 'YouTube' && v.type === 'Trailer' && v.official
     ) ??
     videos?.find((v) => v.site === 'YouTube' && v.type === 'Trailer') ??
-    videos?.find((v) => v.site === 'YouTube');
+    videos?.find((v) => v.site === 'YouTube') ??
+    null;
 
-  // Close on ESC key press
+  // Keyboard handling
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+      if (e.key === 'Escape') onClose();
     },
     [onClose]
   );
@@ -56,87 +64,59 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
     };
   }, [isOpen, handleKeyDown]);
 
+  // Early return if closed
   if (!isOpen) return null;
 
   return (
+    // Layer 1: Overlay
     <div
-      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm'
+      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm'
       onClick={onClose}
       role='dialog'
       aria-modal='true'
       aria-labelledby='trailer-modal-title'
     >
-      {/* Modal Content */}
+      {/* Layer 2: Modal container */}
       <div
-        className='relative w-full max-w-5xl px-4'
+        className='relative w-full max-w-302'
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className='absolute -top-12 right-4 flex size-10 cursor-pointer items-center justify-center rounded-full bg-neutral-800/80 text-white transition-colors hover:bg-neutral-700'
-          aria-label='Close trailer'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          >
-            <line x1='18' y1='6' x2='6' y2='18' />
-            <line x1='6' y1='6' x2='18' y2='18' />
-          </svg>
-        </button>
-
-        {/* Title (visually hidden for screen readers) */}
+        {/* Screen reader title */}
         <h2 id='trailer-modal-title' className='sr-only'>
           {movieTitle} - Trailer
         </h2>
 
-        {/* Video Container */}
-        <div
-          className={cn(
-            'aspect-video w-full overflow-hidden rounded-2xl bg-neutral-900',
-            isLoading && 'animate-pulse'
-          )}
-        >
-          {isLoading ? (
-            <div className='flex h-full items-center justify-center'>
-              <div className='border-primary h-12 w-12 animate-spin rounded-full border-b-2' />
-            </div>
-          ) : trailer ? (
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${trailer.key}?autoplay=1&rel=0`}
-              title={`${movieTitle} - ${trailer.name}`}
-              className='h-full w-full'
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-              allowFullScreen
-            />
-          ) : (
-            <div className='flex h-full flex-col items-center justify-center gap-2 text-neutral-400'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='48'
-                height='48'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <polygon points='23 7 16 12 23 17 23 7' />
-                <rect x='1' y='5' width='15' height='14' rx='2' ry='2' />
-                <line x1='1' y1='1' x2='23' y2='23' />
-              </svg>
-              <p className='text-lg'>No trailer available</p>
-            </div>
-          )}
+        {/* Layer 3: Video container - guaranteed dimensions */}
+        <div className='min-h-video relative aspect-video w-full overflow-hidden rounded-2xl bg-neutral-900'>
+          {/* Close button - inside container */}
+          <button
+            onClick={onClose}
+            className='absolute top-3 right-3 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-black/80'
+            aria-label='Close trailer'
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='20'
+              height='20'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            >
+              <line x1='18' y1='6' x2='6' y2='18' />
+              <line x1='6' y1='6' x2='18' y2='18' />
+            </svg>
+          </button>
+
+          {/* Content - renders based on state */}
+          <TrailerContent
+            isLoading={isLoading}
+            isError={isError}
+            trailer={trailer}
+            movieTitle={movieTitle}
+          />
         </div>
       </div>
     </div>

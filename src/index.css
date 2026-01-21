@@ -105,6 +105,9 @@
   --radius-3xl: 1.25rem;
   --radius-4xl: 1.5rem;
 
+  /* Video Container */
+  --min-h-video: clamp(12.5rem, 50vw, 30rem);
+
   /* --- Animations --- */
   --animate-scale-up: scale-up 20s ease-out forwards;
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
