@@ -73,7 +73,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
               <Button
                 variant='primary'
                 size='lg'
-                className='w-full gap-2 md:min-w-57.5'
+                className='w-full gap-2 md:w-auto md:min-w-57.5'
                 onClick={() => setIsTrailerOpen(true)}
               >
                 Watch Trailer
@@ -83,7 +83,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
                 <Button
                   variant='secondary'
                   size='lg'
-                  className='w-full md:min-w-57.5'
+                  className='w-full md:w-auto md:min-w-57.5'
                 >
                   See Detail
                 </Button>
