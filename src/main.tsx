@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
-import { Toaster } from 'sonner';
+import { Toaster } from './components/ui/Toaster';
 import App from './App';
 
 import { QueryClientProvider } from '@tanstack/react-query';

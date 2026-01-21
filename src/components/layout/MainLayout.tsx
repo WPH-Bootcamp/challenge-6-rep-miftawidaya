@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { Toaster } from '../ui/Toaster';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -27,7 +26,6 @@ export const MainLayout: FC = () => {
         </Suspense>
       </ErrorBoundary>
       <Footer />
-      <Toaster />
     </div>
   );
 };
