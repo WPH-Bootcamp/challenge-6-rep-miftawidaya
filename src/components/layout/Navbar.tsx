@@ -110,80 +110,84 @@ export const Navbar: FC = () => {
         )}
       >
         <div className='custom-container flex w-full items-center justify-between'>
-          {/* Default Mobile Nav Content (unless search is active) */}
-          {!isMobileSearchActive && (
-            <>
-              {/* Left: Logo & Desktop Links */}
-              <div className='gap-8xl flex items-center'>
-                <Link
-                  to='/'
-                  className='flex shrink-0 transform items-center transition-transform hover:scale-105'
-                >
-                  <img
-                    src={logo}
-                    alt='Movie Explorer'
-                    className='h-7 w-auto md:h-10'
-                  />
-                </Link>
+          {/* Desktop Navbar - Always visible on md+ screens */}
+          {/* Mobile Navbar - Hidden when search is active */}
+          <div
+            className={cn(
+              'flex w-full items-center justify-between',
+              isMobileSearchActive ? 'hidden md:flex' : 'flex'
+            )}
+          >
+            {/* Left: Logo & Desktop Links */}
+            <div className='gap-8xl flex items-center'>
+              <Link
+                to='/'
+                className='flex shrink-0 transform items-center transition-transform hover:scale-105'
+              >
+                <img
+                  src={logo}
+                  alt='Movie Explorer'
+                  className='h-7 w-auto md:h-10'
+                />
+              </Link>
 
-                <div className='gap-6xl hidden items-center md:flex'>
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      className={cn(
-                        'hover:text-primary-300 text-base font-normal transition-colors',
-                        location.pathname === link.path
-                          ? 'text-white'
-                          : 'text-neutral-300'
-                      )}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right: Search & Mobile Menu Interface */}
-              <div className='gap-xl flex items-center'>
-                <form
-                  onSubmit={handleSearchSubmit}
-                  className='hidden w-60.75 md:block'
-                >
-                  <Input
-                    placeholder='Search movie...'
-                    value={search}
-                    onChange={(e) => handleSearchChange(e.target.value)}
-                    onClear={handleClear}
-                    className='border-neutral-800 bg-neutral-950/60'
-                    size='lg'
-                  />
-                </form>
-
-                {/* Mobile Actions */}
-                <div className='flex items-center gap-6 md:hidden'>
-                  <button
-                    onClick={() => navigate('/search')}
-                    className='hover:text-primary-300 transform cursor-pointer text-white transition-all active:scale-95'
-                    aria-label='Activate search'
+              <div className='gap-6xl hidden items-center md:flex'>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={cn(
+                      'hover:text-primary-300 text-base font-normal transition-colors',
+                      location.pathname === link.path
+                        ? 'text-white'
+                        : 'text-neutral-300'
+                    )}
                   >
-                    <Search className='size-6' />
-                  </button>
-                  <button
-                    onClick={() => setIsMenuOpen(true)}
-                    className='hover:text-primary-300 cursor-pointer text-white transition-colors'
-                    aria-label='Open menu'
-                  >
-                    <MenuIcon size={24} className='text-white' />
-                  </button>
-                </div>
+                    {link.name}
+                  </Link>
+                ))}
               </div>
-            </>
-          )}
+            </div>
 
-          {/* Mobile Search Input Header (Active State on /search) */}
+            {/* Right: Search & Mobile Menu Interface */}
+            <div className='gap-xl flex items-center'>
+              <form
+                onSubmit={handleSearchSubmit}
+                className='hidden w-60.75 md:block'
+              >
+                <Input
+                  placeholder='Search movie...'
+                  value={search}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  onClear={handleClear}
+                  className='border-neutral-800 bg-neutral-950/60'
+                  size='lg'
+                />
+              </form>
+
+              {/* Mobile Actions */}
+              <div className='flex items-center gap-6 md:hidden'>
+                <button
+                  onClick={() => navigate('/search')}
+                  className='hover:text-primary-300 transform cursor-pointer text-white transition-all active:scale-95'
+                  aria-label='Activate search'
+                >
+                  <Search className='size-6' />
+                </button>
+                <button
+                  onClick={() => setIsMenuOpen(true)}
+                  className='hover:text-primary-300 cursor-pointer text-white transition-colors'
+                  aria-label='Open menu'
+                >
+                  <MenuIcon size={24} className='text-white' />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Search Input Header (Active State on /search) - Mobile only */}
           {isMobileSearchActive && (
-            <div className='gap-xl animate-in fade-in slide-in-from-top-2 flex w-full items-center duration-300'>
+            <div className='gap-xl animate-in fade-in slide-in-from-top-2 flex w-full items-center duration-300 md:hidden'>
               <button
                 onClick={() => navigate(-1)}
                 className='flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-white/10'

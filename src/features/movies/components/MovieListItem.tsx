@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { toast } from 'sonner';
 import { useFavoritesStore } from '../../../store/favorites';
 import { Button } from '../../../components/ui/Button';
 import {
@@ -34,8 +35,10 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
     e.stopPropagation();
     if (isFav) {
       removeFavorite(movie.id);
+      toast.success('Removed from Favorites');
     } else {
       addFavorite(movie);
+      toast.success('Added to Favorites');
     }
   };
 
