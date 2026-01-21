@@ -76,6 +76,28 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
       aria-modal='true'
       aria-labelledby='trailer-modal-title'
     >
+      {/* Close button - fixed at top right corner of modal */}
+      <button
+        onClick={onClose}
+        className='absolute top-4 right-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/20 md:top-6 md:right-6'
+        aria-label='Close trailer'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+        >
+          <line x1='18' y1='6' x2='6' y2='18' />
+          <line x1='6' y1='6' x2='18' y2='18' />
+        </svg>
+      </button>
+
       {/* Layer 2: Modal container */}
       <div
         className='relative w-full max-w-302'
@@ -88,28 +110,6 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
 
         {/* Layer 3: Video container - guaranteed dimensions */}
         <div className='min-h-video relative aspect-video w-full overflow-hidden rounded-2xl bg-neutral-900'>
-          {/* Close button - inside container */}
-          <button
-            onClick={onClose}
-            className='absolute top-3 right-3 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-black/80'
-            aria-label='Close trailer'
-          >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='20'
-              height='20'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <line x1='18' y1='6' x2='6' y2='18' />
-              <line x1='6' y1='6' x2='18' y2='18' />
-            </svg>
-          </button>
-
           {/* Content - renders based on state */}
           <TrailerContent
             isLoading={isLoading}

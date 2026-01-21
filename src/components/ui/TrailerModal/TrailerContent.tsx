@@ -66,9 +66,22 @@ export const TrailerContent: FC<Readonly<TrailerContentProps>> = ({
 
   // Success State - Has Trailer
   if (trailer) {
+    // YouTube embed parameters:
+    // autoplay=1 - Start playing automatically
+    // rel=0 - Don't show related videos from other channels
+    // modestbranding=1 - Minimal YouTube branding
+    // iv_load_policy=3 - Hide video annotations
+    // disablekb=0 - Allow keyboard controls
+    const embedParams = new URLSearchParams({
+      autoplay: '1',
+      rel: '0',
+      modestbranding: '1',
+      iv_load_policy: '3',
+    });
+
     return (
       <iframe
-        src={`https://www.youtube-nocookie.com/embed/${trailer.key}?autoplay=1&rel=0`}
+        src={`https://www.youtube-nocookie.com/embed/${trailer.key}?${embedParams.toString()}`}
         title={`${movieTitle} - ${trailer.name}`}
         className='absolute inset-0 h-full w-full'
         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
