@@ -51,3 +51,11 @@ export const searchMovies = async (query: string, page = 1) => {
   });
   return data;
 };
+
+/**
+ * Fetches movie videos (trailers, clips) by ID.
+ */
+export const getMovieVideos = async (id: number) => {
+  const { data } = await api.get(`/movie/${id}/videos`);
+  return data.results;
+};

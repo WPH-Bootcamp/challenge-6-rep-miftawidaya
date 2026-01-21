@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import { useHeroCarousel } from '../hooks/useHeroCarousel';
 import { PlayIcon } from '../../../components/ui/Icon';
 import { Button } from '../../../components/ui/Button';
+import { TrailerModal } from '../../../components/ui/TrailerModal';
 import type { Movie } from '../../../types/movie';
 import { cn } from '../../../lib/cn';
 
@@ -19,6 +20,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   isLoading,
 }) => {
   const { currentIdx, isFading } = useHeroCarousel(movies);
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
 
   // Return empty placeholder with proper height while loading
   // (no skeleton needed - hero has reveal animation)
@@ -68,16 +70,15 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
             </div>
             {/* Call to Actions */}
             <div className='animate-fade-in-up fill-mode-forwards flex flex-col gap-4 opacity-0 delay-300 md:flex-row'>
-              <Link to={`/movie/${movie.id}`}>
-                <Button
-                  variant='primary'
-                  size='lg'
-                  className='w-full gap-2 md:min-w-57.5'
-                >
-                  Watch Trailer
-                  <PlayIcon className='fill-current' />
-                </Button>
-              </Link>
+              <Button
+                variant='primary'
+                size='lg'
+                className='w-full gap-2 md:min-w-57.5'
+                onClick={() => setIsTrailerOpen(true)}
+              >
+                Watch Trailer
+                <PlayIcon className='fill-current' />
+              </Button>
               <Link to={`/movie/${movie.id}`}>
                 <Button
                   variant='secondary'
@@ -91,6 +92,14 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
           </div>
         </div>
       </div>
+
+      {/* Trailer Modal */}
+      <TrailerModal
+        movieId={movie.id}
+        movieTitle={movie.title}
+        isOpen={isTrailerOpen}
+        onClose={() => setIsTrailerOpen(false)}
+      />
     </header>
   );
 };

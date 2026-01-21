@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchMovies } from '../api/movies';
@@ -9,6 +9,7 @@ import {
 import type { Movie } from '../types/movie';
 import { useTitle } from '../hooks/useTitle';
 import { Button } from '../components/ui/Button';
+import { TrailerModal } from '../components/ui/TrailerModal';
 
 /**
  * SearchPage displaying results for a query with infinite scroll support.
@@ -17,6 +18,8 @@ export const SearchPage: FC = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   useTitle(query ? `Search: ${query}` : 'Search');
+
+  const [trailerMovie, setTrailerMovie] = useState<Movie | null>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({
@@ -54,7 +57,11 @@ export const SearchPage: FC = () => {
       {!isLoading && movies.length > 0 && (
         <div className='flex flex-col gap-8'>
           {movies.map((movie) => (
-            <MovieListItem key={movie.id} movie={movie} />
+            <MovieListItem
+              key={movie.id}
+              movie={movie}
+              onWatchTrailer={() => setTrailerMovie(movie)}
+            />
           ))}
 
           {hasNextPage && (
@@ -91,6 +98,16 @@ export const SearchPage: FC = () => {
       )}
 
       <div ref={null} className='h-10' />
+
+      {/* Trailer Modal */}
+      {trailerMovie && (
+        <TrailerModal
+          movieId={trailerMovie.id}
+          movieTitle={trailerMovie.title}
+          isOpen={!!trailerMovie}
+          onClose={() => setTrailerMovie(null)}
+        />
+      )}
     </div>
   );
 };

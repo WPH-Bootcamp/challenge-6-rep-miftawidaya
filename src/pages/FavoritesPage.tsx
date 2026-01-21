@@ -1,9 +1,11 @@
-import { type FC } from 'react';
+import { type FC, useState } from 'react';
 import { useFavoritesStore } from '../store/favorites';
 import { MovieListItem } from '../features/movies/components/MovieListItem';
 import { useTitle } from '../hooks/useTitle';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
+import { TrailerModal } from '../components/ui/TrailerModal';
+import type { Movie } from '../types/movie';
 
 /**
  * FavoritesPage displaying movies saved by the user.
@@ -11,6 +13,7 @@ import { Button } from '../components/ui/Button';
 export const FavoritesPage: FC = () => {
   useTitle('Favorites');
   const { favorites } = useFavoritesStore();
+  const [trailerMovie, setTrailerMovie] = useState<Movie | null>(null);
 
   return (
     <div className='custom-container flex min-h-screen flex-col gap-8 pt-24 pb-20 md:pt-32'>
@@ -23,7 +26,11 @@ export const FavoritesPage: FC = () => {
       {favorites.length > 0 ? (
         <div className='flex flex-col gap-8'>
           {favorites.map((movie) => (
-            <MovieListItem key={movie.id} movie={movie} />
+            <MovieListItem
+              key={movie.id}
+              movie={movie}
+              onWatchTrailer={() => setTrailerMovie(movie)}
+            />
           ))}
         </div>
       ) : (
@@ -45,6 +52,16 @@ export const FavoritesPage: FC = () => {
             </Button>
           </Link>
         </div>
+      )}
+
+      {/* Trailer Modal */}
+      {trailerMovie && (
+        <TrailerModal
+          movieId={trailerMovie.id}
+          movieTitle={trailerMovie.title}
+          isOpen={!!trailerMovie}
+          onClose={() => setTrailerMovie(null)}
+        />
       )}
     </div>
   );

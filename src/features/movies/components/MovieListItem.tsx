@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 interface MovieListItemProps {
   movie: Movie;
   className?: string;
+  onWatchTrailer?: () => void;
 }
 
 /**
@@ -23,6 +24,7 @@ interface MovieListItemProps {
 export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
   movie,
   className,
+  onWatchTrailer,
 }) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
   const isFav = isFavorite(movie.id);
@@ -88,6 +90,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
             <Button
               variant='primary'
               className='h-13 w-50 rounded-full text-base font-semibold'
+              onClick={onWatchTrailer}
             >
               Watch Trailer
               <PlayIcon size={24} className='ml-2 text-white' />
@@ -114,6 +117,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
         <Button
           variant='primary'
           className='h-11 flex-1 rounded-full text-sm font-semibold'
+          onClick={onWatchTrailer}
         >
           Watch Trailer
           <PlayIcon size={20} className='ml-2 text-white' />
