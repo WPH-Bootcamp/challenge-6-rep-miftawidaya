@@ -12,6 +12,7 @@ import {
   StarFillIcon,
   VideoIcon,
   EmojiHappyIcon,
+  CheckIcon,
 } from '../components/ui/Icon';
 import { useTitle } from '../hooks/useTitle';
 import { useFavoritesStore } from '../store/favorites';
@@ -63,18 +64,25 @@ export const MovieDetailPage: FC = () => {
 
   const toggleFavorite = () => {
     if (!movie) return;
-    if (favorite) {
-      removeFavorite(movie.id);
-      toast.success('Removed from Favorites');
-    } else {
-      addFavorite(movie);
-      toast.success('Success Add to Favorites');
+    try {
+      if (favorite) {
+        removeFavorite(movie.id);
+        toast.success('Removed from Favorites');
+      } else {
+        addFavorite(movie);
+        toast.success('Success Add to Favorites', {
+          icon: <CheckIcon size={24} className='text-white' />,
+        });
+      }
+    } catch (error) {
+      console.error('Failed to toggle favorite:', error);
+      toast.error('Failed to update favorites. Please try again.');
     }
   };
 
   if (isLoading) {
     return (
-      <div className='flex h-[80vh] items-center justify-center'>
+      <div className='flex h-160 items-center justify-center'>
         <div className='border-primary-300 size-12 animate-spin rounded-full border-4 border-t-transparent' />
       </div>
     );

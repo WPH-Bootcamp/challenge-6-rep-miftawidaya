@@ -1,20 +1,31 @@
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-
-interface MainLayoutProps {
-  children: ReactNode;
-}
+import { Toaster } from '../ui/Toaster';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
 /**
  * MainLayout component that provides the common page structure.
  */
-export const MainLayout: FC<Readonly<MainLayoutProps>> = ({ children }) => {
+export const MainLayout: FC = () => {
   return (
     <div className='bg-background flex min-h-screen flex-col text-white'>
       <Navbar />
-      <main className='flex-1'>{children}</main>
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <div className='flex h-[50vh] items-center justify-center'>
+              <div className='border-primary h-12 w-12 animate-spin rounded-full border-b-2' />
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
+      </ErrorBoundary>
       <Footer />
+      <Toaster />
     </div>
   );
 };
