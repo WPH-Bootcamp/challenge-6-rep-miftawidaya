@@ -198,7 +198,7 @@ export const Navbar: FC = () => {
                   value={search}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   onClear={handleClear}
-                  className='focus-within:border-primary-300/50 rounded-xl border-neutral-800 bg-neutral-950/60 transition-all'
+                  className='rounded-xl border-neutral-800 bg-neutral-950/60 transition-all'
                   size='sm'
                 />
               </form>
