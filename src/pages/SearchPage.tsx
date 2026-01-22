@@ -1,5 +1,5 @@
 import { type FC, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchMovies } from '../api/movies';
 import {
@@ -10,36 +10,56 @@ import type { Movie } from '../types/movie';
 import { useTitle } from '../hooks/useTitle';
 import { Button } from '../components/ui/Button';
 import { TrailerModal } from '../components/ui/TrailerModal';
+import ErrorFallback from '../components/ui/ErrorFallback';
 
 /**
  * SearchPage displaying results for a query with infinite scroll support.
  */
 export const SearchPage: FC = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const query = searchParams.get('q') || '';
   useTitle(query ? `Search: ${query}` : 'Search');
 
   const [trailerMovie, setTrailerMovie] = useState<Movie | null>(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useInfiniteQuery({
-      queryKey: ['search', query],
-      queryFn: ({ pageParam }) => searchMovies(query, pageParam),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => {
-        if (lastPage.page < lastPage.total_pages) {
-          return lastPage.page + 1;
-        }
-        return undefined;
-      },
-      enabled: !!query,
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ['search', query],
+    queryFn: ({ pageParam }) => searchMovies(query, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
+      return undefined;
+    },
+    enabled: !!query,
+  });
 
   const movies = (data?.pages.flatMap((page) => page.results) as Movie[]) || [];
 
   // Initial State: No query (blank screen)
   if (!query) {
     return <div className='bg-background min-h-screen pt-16 md:pt-22.5' />;
+  }
+
+  // Error State
+  if (isError) {
+    return (
+      <ErrorFallback
+        error={error instanceof Error ? error : new Error('Search failed')}
+        onReset={() => navigate('/')}
+        onRefresh={() => globalThis.location.reload()}
+      />
+    );
   }
 
   return (

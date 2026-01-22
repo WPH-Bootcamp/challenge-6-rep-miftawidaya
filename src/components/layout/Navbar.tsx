@@ -224,7 +224,7 @@ export const Navbar: FC = () => {
           </Link>
           <button
             onClick={() => setIsMenuOpen(false)}
-            className='hover:text-primary-300 mr-[-8px] flex size-10 cursor-pointer items-center justify-center text-white transition-colors'
+            className='hover:text-primary-300 -mr-2 flex size-10 cursor-pointer items-center justify-center text-white transition-colors'
             aria-label='Close menu'
           >
             <X size={24} className='text-white' />

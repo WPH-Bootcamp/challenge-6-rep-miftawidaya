@@ -1,4 +1,5 @@
 import { type FC, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getTrendingMovies } from '../api/movies';
 import { useTitle } from '../hooks/useTitle';
@@ -9,6 +10,7 @@ import {
   MovieCard,
   MovieCardSkeleton,
 } from '../features/movies/components/MovieCard';
+import ErrorFallback from '../components/ui/ErrorFallback';
 import type { Movie } from '../types/movie';
 
 /**
@@ -16,11 +18,15 @@ import type { Movie } from '../types/movie';
  */
 export const HomePage: FC = () => {
   useTitle('Home');
+  const navigate = useNavigate();
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const { data: trendingMovies, isLoading: isLoadingTrending } = useQuery<
-    Movie[]
-  >({
+  const {
+    data: trendingMovies,
+    isLoading: isLoadingTrending,
+    isError: isErrorTrending,
+    error: errorTrending,
+  } = useQuery<Movie[]>({
     queryKey: ['trending'],
     queryFn: getTrendingMovies,
   });
@@ -31,6 +37,8 @@ export const HomePage: FC = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading: isLoadingNowPlaying,
+    isError: isErrorNowPlaying,
+    error: errorNowPlaying,
   } = useInfiniteMovies();
 
   useEffect(() => {
@@ -58,6 +66,20 @@ export const HomePage: FC = () => {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const allMovies = infiniteData?.pages.flatMap((page) => page.results) || [];
+
+  // Error State
+  if (isErrorTrending || isErrorNowPlaying) {
+    const error = errorTrending || errorNowPlaying;
+    return (
+      <ErrorFallback
+        error={
+          error instanceof Error ? error : new Error('Failed to load movies')
+        }
+        onReset={() => navigate('/')}
+        onRefresh={() => globalThis.location.reload()}
+      />
+    );
+  }
 
   return (
     <div className='flex flex-col gap-15 pb-20'>

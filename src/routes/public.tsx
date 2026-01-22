@@ -16,7 +16,7 @@ const FavoritesPage = lazy(() =>
   }))
 );
 const MovieDetailPage = lazy(() =>
-  import('../pages/MovieDetailPage').then((module) => ({
+  import('../pages/MovieDetail').then((module) => ({
     default: module.MovieDetailPage,
   }))
 );
