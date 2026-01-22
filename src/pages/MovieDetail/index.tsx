@@ -128,7 +128,7 @@ export const MovieDetailPage: FC = () => {
             <Button
               variant='primary'
               size='lg'
-              className='h-11 flex-1 gap-2 px-4 text-sm sm:flex-none md:h-13 md:px-6 md:text-base'
+              className='h-11 flex-1 gap-2 px-4 text-sm sm:flex-none md:h-13 md:min-w-55 md:px-6 md:text-base'
               onClick={() => setIsTrailerOpen(true)}
             >
               Watch Trailer
