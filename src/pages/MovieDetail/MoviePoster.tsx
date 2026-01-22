@@ -13,7 +13,7 @@ export const MoviePoster: FC<Readonly<MoviePosterProps>> = ({
   title,
 }) => (
   <div className='shrink-0'>
-    <div className='h-96 w-65 overflow-hidden rounded-xl bg-neutral-800'>
+    <div className='h-48 w-32 overflow-hidden rounded-lg bg-neutral-800 sm:h-96 sm:w-65 sm:rounded-xl'>
       {posterUrl ? (
         <img
           src={posterUrl}

@@ -13,13 +13,13 @@ export const CastSection: FC<Readonly<CastSectionProps>> = ({ cast }) => {
 
   return (
     <div className='flex flex-col gap-6'>
-      <h2 className='text-display-sm text-neutral-10 md:text-display-md font-bold'>
+      <h2 className='md:text-display-md text-neutral-10 text-xl font-bold'>
         Cast & Crew
       </h2>
       {/* Cast Grid */}
-      <div className='grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10 lg:grid-cols-3'>
         {cast.map((member) => (
-          <div key={member.id} className='flex items-center gap-4'>
+          <div key={member.id} className='flex items-center gap-4 md:gap-10'>
             {/* Cast Image */}
             <div className='h-26 w-17.25 shrink-0 overflow-hidden rounded-lg bg-neutral-800'>
               {member.profile_path ? (
@@ -36,10 +36,10 @@ export const CastSection: FC<Readonly<CastSectionProps>> = ({ cast }) => {
             </div>
             {/* Cast Info */}
             <div className='flex flex-col gap-1'>
-              <span className='text-md text-neutral-10 font-semibold'>
+              <span className='md:text-md text-neutral-10 text-sm font-semibold'>
                 {member.name}
               </span>
-              <span className='text-md font-normal text-neutral-400'>
+              <span className='md:text-md text-sm font-normal text-neutral-400'>
                 {member.character}
               </span>
             </div>

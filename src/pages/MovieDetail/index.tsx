@@ -102,68 +102,65 @@ export const MovieDetailPage: FC = () => {
       <HeroBackdrop backdropUrl={backdropUrl} title={movie.title} />
 
       {/* Main Content */}
-      <div className='custom-container relative z-10 flex flex-col gap-12 pt-103'>
-        {/* Top Section: Poster + Info Row */}
-        <div className='flex flex-col gap-8 md:flex-row md:gap-8'>
-          <MoviePoster posterUrl={posterUrl} title={movie.title} />
+      <div className='custom-container relative z-10 flex flex-col gap-8 pt-103 sm:gap-12'>
+        {/* Top Section: CSS Grid for responsive layout */}
+        <div className='grid grid-cols-[auto_1fr] gap-4 sm:gap-8'>
+          {/* Poster - row span on desktop */}
+          <div className='row-span-1 sm:row-span-3'>
+            <MoviePoster posterUrl={posterUrl} title={movie.title} />
+          </div>
 
-          {/* Movie Info - Title, Date, Buttons, Stats */}
-          <div className='flex flex-1 flex-col gap-6'>
-            {/* Title + Date + Buttons Block */}
-            <div className='flex flex-col gap-8 md:flex-row md:items-start md:justify-between'>
-              {/* Left: Title + Date */}
-              <div className='flex flex-col gap-4'>
-                {/* Title */}
-                <h1 className='text-display-lg text-neutral-10 md:text-display-xl font-bold'>
-                  {movie.title}
-                </h1>
-
-                {/* Release Date */}
-                <div className='flex items-center gap-2'>
-                  <CalendarIcon size={24} className='text-neutral-10' />
-                  <span className='text-md font-normal text-white'>
-                    {releaseDate}
-                  </span>
-                </div>
-
-                {/* Action Buttons */}
-                <div className='flex items-center gap-4'>
-                  <Button
-                    variant='primary'
-                    size='lg'
-                    className='gap-2 px-6'
-                    onClick={() => setIsTrailerOpen(true)}
-                  >
-                    Watch Trailer
-                    <PlayIcon />
-                  </Button>
-                  <button
-                    onClick={toggleFavorite}
-                    className='flex size-11 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:size-13'
-                    aria-label={
-                      favorite ? 'Remove from favorites' : 'Add to favorites'
-                    }
-                  >
-                    {favorite ? (
-                      <HeartFillIcon size={24} className='text-primary-300' />
-                    ) : (
-                      <HeartOutlineIcon size={24} className='text-neutral-10' />
-                    )}
-                  </button>
-                </div>
-              </div>
+          {/* Title + Date - always in second column */}
+          <div className='flex flex-col justify-start gap-1 sm:gap-4'>
+            <h1 className='text-neutral-10 sm:text-display-lg md:text-display-xl text-lg font-bold'>
+              {movie.title}
+            </h1>
+            <div className='flex items-center gap-2'>
+              <CalendarIcon className='text-neutral-10 size-4 md:size-6' />
+              <span className='md:text-md text-sm font-normal text-white'>
+                {releaseDate}
+              </span>
             </div>
+          </div>
 
+          {/* Action Buttons - full width on mobile, col 2 on desktop */}
+          <div className='col-span-2 flex items-center gap-3 sm:col-span-1 sm:col-start-2 sm:gap-4'>
+            <Button
+              variant='primary'
+              size='lg'
+              className='h-11 flex-1 gap-2 px-4 text-sm sm:flex-none md:h-13 md:px-6 md:text-base'
+              onClick={() => setIsTrailerOpen(true)}
+            >
+              Watch Trailer
+              <PlayIcon />
+            </Button>
+            <button
+              onClick={toggleFavorite}
+              className='flex size-11 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:size-13'
+              aria-label={
+                favorite ? 'Remove from favorites' : 'Add to favorites'
+              }
+            >
+              {favorite ? (
+                <HeartFillIcon className='text-primary-300 size-5 md:size-6' />
+              ) : (
+                <HeartOutlineIcon className='text-neutral-10 size-5 md:size-6' />
+              )}
+            </button>
+          </div>
+
+          {/* Stats - full width on mobile, col 2 on desktop */}
+          <div className='col-span-2 sm:col-span-1 sm:col-start-2'>
             <MovieStats rating={movie.vote_average} genre={primaryGenre} />
           </div>
         </div>
 
         {/* Overview Section */}
         <div className='flex flex-col gap-2'>
-          <h2 className='text-display-sm text-neutral-10 md:text-display-md font-bold'>
+          <h2 className='md:text-display-md text-neutral-10 text-xl font-bold'>
             Overview
           </h2>
-          <p className='text-md font-normal text-neutral-400'>
+          <p className='md:text-md text-sm font-normal text-neutral-400'>
             {movie.overview}
           </p>
         </div>
