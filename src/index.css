@@ -156,7 +156,7 @@
   .custom-container {
     margin-left: auto;
     margin-right: auto;
-    @apply max-w-302 pr-6 pl-6;
+    @apply max-w-302 pr-4 pl-4 md:pr-6 md:pl-6;
   }
 
   .glassmorphism {
