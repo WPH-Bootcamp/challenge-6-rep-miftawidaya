@@ -24,16 +24,12 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
   return (
     <div
       className={cn(
-        'group flex flex-col items-start gap-2 md:gap-3',
-        'w-43 md:w-54',
+        'group flex w-full flex-col items-start gap-2 md:gap-3',
         className
       )}
     >
-      <Link
-        to={`/movie/${movie.id}`}
-        className='relative order-0 flex flex-none grow-0'
-      >
-        <div className='relative order-0 flex h-66.5 w-43 flex-none grow-0 overflow-hidden rounded-lg md:h-80 md:w-54 md:rounded-xl'>
+      <Link to={`/movie/${movie.id}`} className='relative block w-full'>
+        <div className='relative aspect-2/3 w-full overflow-hidden rounded-lg md:rounded-xl'>
           {imageUrl ? (
             <img
               src={imageUrl}
@@ -97,9 +93,9 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
  * Skeleton loader for MovieCard.
  */
 export const MovieCardSkeleton: FC = () => (
-  <div className='flex w-43 animate-pulse flex-col gap-2 md:w-54 md:gap-3'>
+  <div className='flex w-full animate-pulse flex-col gap-2 md:gap-3'>
     {/* Poster Skeleton */}
-    <div className='h-66.5 w-full rounded-lg bg-neutral-800 md:h-80 md:rounded-xl' />
+    <div className='aspect-[2/3] w-full rounded-lg bg-neutral-800 md:rounded-xl' />
     {/* Title Skeleton */}
     <div className='h-5 w-3/4 rounded bg-neutral-800 md:h-6' />
     {/* Rating Skeleton */}

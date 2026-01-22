@@ -21,12 +21,14 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
 }) => {
   const { currentIdx, isFading } = useHeroCarousel(movies);
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  // Lock selected movie when trailer opens (prevents carousel from changing it)
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   // Return empty placeholder with proper height while loading
   // (no skeleton needed - hero has reveal animation)
   if (isLoading || !movies?.length) {
     return (
-      <header className='relative h-202.5 w-full bg-black'>
+      <header className='relative min-h-133.25 w-full bg-black md:h-202.5'>
         <div className='absolute inset-0 bg-linear-to-t from-black to-transparent' />
       </header>
     );
@@ -34,8 +36,18 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
 
   const movie = movies[currentIdx];
 
+  const handleOpenTrailer = () => {
+    setSelectedMovie(movie); // Lock current movie
+    setIsTrailerOpen(true);
+  };
+
+  const handleCloseTrailer = () => {
+    setIsTrailerOpen(false);
+    setSelectedMovie(null); // Clear selection
+  };
+
   return (
-    <header className='relative h-202.5 w-full overflow-hidden bg-black'>
+    <header className='relative min-h-133.25 w-full overflow-hidden bg-black md:h-202.5'>
       <div
         className={cn(
           'absolute inset-0 transition-opacity duration-500',
@@ -74,7 +86,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
                 variant='primary'
                 size='lg'
                 className='w-full gap-2 md:w-auto md:min-w-57.5'
-                onClick={() => setIsTrailerOpen(true)}
+                onClick={handleOpenTrailer}
               >
                 Watch Trailer
                 <PlayIcon className='fill-current' />
@@ -93,13 +105,15 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
         </div>
       </div>
 
-      {/* Trailer Modal */}
-      <TrailerModal
-        movieId={movie.id}
-        movieTitle={movie.title}
-        isOpen={isTrailerOpen}
-        onClose={() => setIsTrailerOpen(false)}
-      />
+      {/* Trailer Modal - uses locked selectedMovie, not carousel's current movie */}
+      {selectedMovie && (
+        <TrailerModal
+          movieId={selectedMovie.id}
+          movieTitle={selectedMovie.title}
+          isOpen={isTrailerOpen}
+          onClose={handleCloseTrailer}
+        />
+      )}
     </header>
   );
 };
