@@ -100,7 +100,7 @@ export const HomePage: FC = () => {
       </section>
 
       {/* New Release Section */}
-      <section className='custom-container z-10 flex flex-col gap-10 pb-20'>
+      <section className='custom-container z-10 flex w-full flex-col gap-10 pb-20'>
         <h2 className='text-display-sm text-neutral-10 md:text-display-lg font-bold'>
           New Release
         </h2>
