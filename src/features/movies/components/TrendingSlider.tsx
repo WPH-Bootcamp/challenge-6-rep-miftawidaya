@@ -9,8 +9,9 @@ interface TrendingSliderProps {
 }
 
 /**
- * TrendingSlider component with draggable scroll, navigation arrows.
- * Responsive: Mobile shows 2 columns with gap-4, Desktop shows horizontal scroll with gap-5.
+ * TrendingSlider component with native touch scroll and mouse drag for desktop.
+ * Mobile: Uses native scroll for natural momentum and inertia.
+ * Desktop: Adds mouse drag functionality for better UX.
  */
 export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
   movies,
@@ -21,7 +22,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [scrollLeftStart, setScrollLeftStart] = useState(0);
 
   const updateScrollState = useCallback(() => {
     if (!scrollContainerRef.current) return;
@@ -50,18 +51,18 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
     scrollContainerRef.current.scrollBy({ left: amount, behavior: 'smooth' });
   };
 
-  // Drag handlers - only activate drag after movement threshold
-  const [isMouseDown, setIsMouseDown] = useState(false);
-
+  // Mouse drag handlers for desktop only
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollContainerRef.current) return;
-    setIsMouseDown(true);
     setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-    setScrollLeft(scrollContainerRef.current.scrollLeft);
+    setScrollLeftStart(scrollContainerRef.current.scrollLeft);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isMouseDown || !scrollContainerRef.current) return;
+    if (!scrollContainerRef.current) return;
+    // Check if mouse button is pressed (buttons property)
+    if (e.buttons !== 1) return;
+
     const x = e.pageX - scrollContainerRef.current.offsetLeft;
     const distance = Math.abs(x - startX);
 
@@ -69,33 +70,18 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
     if (distance > 5) {
       setIsDragging(true);
       e.preventDefault();
-      const walk = (x - startX) * 1.5;
-      scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+      const walk = x - startX;
+      scrollContainerRef.current.scrollLeft = scrollLeftStart - walk;
     }
   };
 
   const handleMouseUp = () => {
-    setIsMouseDown(false);
-    setIsDragging(false);
+    // Small delay to prevent click events immediately after drag
+    setTimeout(() => setIsDragging(false), 50);
   };
 
   const handleMouseLeave = () => {
-    setIsMouseDown(false);
     setIsDragging(false);
-  };
-
-  // Touch handlers for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!scrollContainerRef.current) return;
-    setStartX(e.touches[0].pageX - scrollContainerRef.current.offsetLeft);
-    setScrollLeft(scrollContainerRef.current.scrollLeft);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!scrollContainerRef.current) return;
-    const x = e.touches[0].pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
   if (isLoading) {
@@ -118,17 +104,14 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        className={`slider-padding scrollbar-hide flex gap-4 overflow-x-auto md:gap-5 ${
-          isDragging ? 'cursor-grabbing' : 'cursor-grab'
+        className={`slider-padding scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth md:snap-none md:gap-5 ${
+          isDragging ? 'cursor-grabbing !scroll-auto' : 'cursor-grab'
         }`}
-        style={{ scrollBehavior: isDragging ? 'auto' : 'smooth' }}
       >
         {movies.slice(0, 10).map((movie, index) => (
           <div
             key={movie.id}
-            className='shrink-0 select-none'
+            className='shrink-0 snap-start select-none md:snap-align-none'
             style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
           >
             <TrendingCard movie={movie} rank={index + 1} />
