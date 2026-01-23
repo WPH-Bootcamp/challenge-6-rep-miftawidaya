@@ -102,18 +102,14 @@ export const SearchPage: FC = () => {
 
       {/* Not Found State */}
       {!isLoading && movies.length === 0 && (
-        <div className='flex flex-col items-center justify-center pt-50.5 text-center'>
+        <div className='flex flex-col items-center justify-center pt-20 text-center md:pt-50.5'>
           <img
             src='/images/clapperboard-not_found.svg'
             alt='Not Found'
             className='mb-6 size-40 opacity-80 mix-blend-luminosity'
           />
-          <h2 className='mb-2 text-xl font-bold text-white md:text-2xl'>
-            Data Not Found
-          </h2>
-          <p className='text-sm text-neutral-500 md:text-base'>
-            Try other keywords
-          </p>
+          <h2 className='text-md mb-2 font-bold text-white'>Data Not Found</h2>
+          <p className='text-sm text-neutral-500'>Try other keywords</p>
         </div>
       )}
     </div>
