@@ -63,10 +63,10 @@ export const SearchPage: FC = () => {
   }
 
   return (
-    <div className='custom-container flex min-h-screen flex-col gap-8 pt-24 pb-20 md:pt-32'>
+    <div className='custom-container flex min-h-screen flex-col gap-8 pt-20 pb-20 md:pt-38.5'>
       {/* Loading State */}
       {isLoading && (
-        <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-8 md:gap-12'>
           {Array.from({ length: 5 }, (_, i) => (
             <MovieListItemSkeleton key={`skeleton-${i}`} />
           ))}
@@ -75,7 +75,7 @@ export const SearchPage: FC = () => {
 
       {/* Found State */}
       {!isLoading && movies.length > 0 && (
-        <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-8 md:gap-12'>
           {movies.map((movie) => (
             <MovieListItem
               key={movie.id}
@@ -102,7 +102,7 @@ export const SearchPage: FC = () => {
 
       {/* Not Found State */}
       {!isLoading && movies.length === 0 && (
-        <div className='flex flex-col items-center justify-center pt-24 text-center md:pt-40'>
+        <div className='flex flex-col items-center justify-center text-center'>
           <img
             src='/images/clapperboard.svg'
             alt='Not Found'

@@ -137,7 +137,7 @@ export const Navbar: FC = () => {
                     key={link.name}
                     to={link.path}
                     className={cn(
-                      'hover:text-primary-300 text-base font-normal transition-colors',
+                      'hover:text-primary-300 text-md p-2 font-normal transition-colors',
                       location.pathname === link.path
                         ? 'text-white'
                         : 'text-neutral-300'

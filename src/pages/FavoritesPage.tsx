@@ -16,15 +16,15 @@ export const FavoritesPage: FC = () => {
   const [trailerMovie, setTrailerMovie] = useState<Movie | null>(null);
 
   return (
-    <div className='custom-container flex min-h-screen flex-col gap-8 pt-24 pb-20 md:pt-32'>
+    <div className='custom-container flex min-h-screen flex-col gap-8 pt-22 pb-20 md:gap-12 md:pt-38.5'>
       <header className='flex flex-col gap-2'>
-        <h1 className='text-display-sm md:text-display-md font-bold text-white'>
+        <h1 className='text-display-xs md:text-display-lg font-bold text-white'>
           Favorites
         </h1>
       </header>
 
       {favorites.length > 0 ? (
-        <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-8 md:gap-12'>
           {favorites.map((movie) => (
             <MovieListItem
               key={movie.id}
@@ -40,14 +40,16 @@ export const FavoritesPage: FC = () => {
             alt='Data Empty'
             className='mb-6 size-40 opacity-80'
           />
-          <h2 className='mb-2 text-xl font-bold text-white md:text-2xl'>
-            Data Empty
-          </h2>
-          <p className='mb-6 text-sm text-neutral-500 md:text-base'>
+          <h2 className='text-md mb-2 font-bold text-white'>Data Empty</h2>
+          <p className='mb-6 text-sm text-neutral-500'>
             You don't have a favorite movie yet
           </p>
           <Link to='/' className='w-full'>
-            <Button variant='primary' size='lg' className='w-full rounded-full'>
+            <Button
+              variant='primary'
+              size='lg'
+              className='md:text-md w-full rounded-full text-sm'
+            >
               Explore Movie
             </Button>
           </Link>

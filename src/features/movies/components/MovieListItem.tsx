@@ -49,10 +49,26 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
   return (
     <div
       className={cn(
-        'group flex flex-col gap-6 border-b border-neutral-800/60 pb-8 last:border-none md:flex-row md:items-start md:gap-6',
+        'group relative flex flex-col gap-6 border-b border-neutral-800/60 pb-8 last:border-none md:flex-row md:items-start md:gap-6 md:pb-12',
         className
       )}
     >
+      {/* Favorite Button - Desktop (Absolute Top Right) */}
+      <button
+        onClick={toggleFavorite}
+        className={cn(
+          'glassmorphism backdrop-blur-5 absolute top-0 right-0 hidden size-11 cursor-pointer items-center justify-center rounded-full border-neutral-900 transition-all hover:scale-105 md:flex md:size-14',
+          isFav ? 'text-primary-300' : 'text-white'
+        )}
+        aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
+      >
+        {isFav ? (
+          <HeartFillIcon size={24} className='text-primary-300' />
+        ) : (
+          <HeartOutlineIcon size={24} className='text-white' />
+        )}
+      </button>
+
       <div className='flex flex-1 gap-4 md:gap-6'>
         {/* Poster */}
         <Link to={`/movie/${movie.id}`} className='shrink-0'>
@@ -95,7 +111,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
           <div className='flex flex-col gap-1 md:gap-3'>
             {/* Title */}
             <Link to={`/movie/${movie.id}`}>
-              <h3 className='hover:text-primary-300 line-clamp-2 text-base font-bold text-white transition-colors md:line-clamp-1 md:text-2xl'>
+              <h3 className='hover:text-primary-300 text-md md:text-display-xs line-clamp-2 font-bold text-white transition-colors md:line-clamp-1 md:pr-15'>
                 {movie.title}
               </h3>
             </Link>
@@ -114,29 +130,16 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
             </p>
           </div>
 
-          {/* Desktop Actions (part of the content vertical stack) */}
-          <div className='mt-auto hidden items-center gap-4 md:flex'>
+          {/* Desktop Actions (Just Watch Trailer) */}
+          <div className='hidden items-center gap-2 md:flex md:gap-4'>
             <Button
               variant='primary'
-              className='h-13 w-50 rounded-full text-base font-semibold'
+              className='md:text-md h-13 w-50 rounded-full text-sm font-semibold'
               onClick={onWatchTrailer}
             >
               Watch Trailer
-              <PlayIcon size={24} className='ml-2 text-white' />
+              <PlayIcon size={24} className='text-white' />
             </Button>
-            <button
-              onClick={toggleFavorite}
-              className={cn(
-                'glassmorphism backdrop-blur-5 flex size-14 cursor-pointer items-center justify-center rounded-full border-neutral-800 transition-all hover:scale-105',
-                isFav ? 'text-primary-300' : 'text-white'
-              )}
-            >
-              {isFav ? (
-                <HeartFillIcon size={24} className='text-primary-300' />
-              ) : (
-                <HeartOutlineIcon size={24} className='text-white' />
-              )}
-            </button>
           </div>
         </div>
       </div>
@@ -149,7 +152,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
           onClick={onWatchTrailer}
         >
           Watch Trailer
-          <PlayIcon size={20} className='ml-2 text-white' />
+          <PlayIcon size={18} className='text-white' />
         </Button>
         <button
           onClick={toggleFavorite}
@@ -188,11 +191,12 @@ export const MovieListItemSkeleton: FC = () => (
         </div>
 
         {/* Desktop Actions Skeleton */}
-        <div className='mt-auto hidden gap-4 md:flex'>
+        <div className='hidden gap-4 md:flex'>
           <div className='h-13 w-50 rounded-full bg-neutral-800' />
-          <div className='size-14 rounded-full bg-neutral-800' />
         </div>
       </div>
+      {/* Floating Favorite Skeleton */}
+      <div className='absolute top-0 right-0 hidden size-14 rounded-full bg-neutral-800 md:block' />
     </div>
 
     {/* Mobile Actions Skeleton */}

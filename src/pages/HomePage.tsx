@@ -105,7 +105,7 @@ export const HomePage: FC = () => {
           New Release
         </h2>
 
-        <div className='grid grid-cols-2 justify-items-center gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+        <div className='grid grid-cols-2 justify-items-center gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
           {isLoadingNowPlaying
             ? Array.from({ length: 10 }, (_, i) => (
                 <MovieCardSkeleton key={`skeleton-${i}`} />

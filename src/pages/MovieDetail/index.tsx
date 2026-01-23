@@ -104,54 +104,57 @@ export const MovieDetailPage: FC = () => {
       {/* Main Content */}
       <div className='custom-container relative z-10 flex flex-col gap-8 pt-103 sm:gap-12'>
         {/* Top Section: CSS Grid for responsive layout */}
-        <div className='grid grid-cols-[auto_1fr] gap-4 sm:gap-8'>
-          {/* Poster - row span on desktop */}
-          <div className='row-span-1 sm:row-span-3'>
+        <div className='grid grid-cols-[auto_1fr] gap-4 sm:gap-x-8'>
+          {/* Poster */}
+          <div className='row-span-1'>
             <MoviePoster posterUrl={posterUrl} title={movie.title} />
           </div>
 
-          {/* Title + Date - always in second column */}
-          <div className='flex flex-col justify-start gap-1 sm:gap-4'>
-            <h1 className='text-neutral-10 sm:text-display-lg md:text-display-xl text-lg font-bold'>
-              {movie.title}
-            </h1>
-            <div className='flex items-center gap-2'>
-              <CalendarIcon className='text-neutral-10 size-4 md:size-6' />
-              <span className='md:text-md text-sm font-normal text-white'>
-                {releaseDate}
-              </span>
+          {/* Info Wrapper: 'contents' on mobile to keep grid behavior, 'flex' on desktop to stack tightly */}
+          <div className='contents sm:flex sm:flex-col sm:gap-4 md:gap-6'>
+            {/* Title + Date */}
+            <div className='flex flex-col justify-start gap-1 self-start sm:gap-4'>
+              <h1 className='text-neutral-10 sm:text-display-lg md:text-display-xl text-lg font-bold'>
+                {movie.title}
+              </h1>
+              <div className='flex items-center gap-2'>
+                <CalendarIcon className='text-neutral-10 size-4 md:size-6' />
+                <span className='md:text-md text-sm font-normal text-white'>
+                  {releaseDate}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Action Buttons - full width on mobile, col 2 on desktop */}
-          <div className='col-span-2 flex items-center gap-3 sm:col-span-1 sm:col-start-2 sm:gap-4'>
-            <Button
-              variant='primary'
-              size='lg'
-              className='h-11 flex-1 gap-2 px-4 text-sm sm:flex-none md:h-13 md:min-w-55 md:px-6 md:text-base'
-              onClick={() => setIsTrailerOpen(true)}
-            >
-              Watch Trailer
-              <PlayIcon />
-            </Button>
-            <button
-              onClick={toggleFavorite}
-              className='flex size-11 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:size-13'
-              aria-label={
-                favorite ? 'Remove from favorites' : 'Add to favorites'
-              }
-            >
-              {favorite ? (
-                <HeartFillIcon className='text-primary-300 size-5 md:size-6' />
-              ) : (
-                <HeartOutlineIcon className='text-neutral-10 size-5 md:size-6' />
-              )}
-            </button>
-          </div>
+            {/* Action Buttons - full width on mobile, part of flex column on desktop */}
+            <div className='col-span-2 flex items-center gap-3 self-start sm:col-span-1 sm:gap-4 md:h-13'>
+              <Button
+                variant='primary'
+                size='lg'
+                className='h-11 flex-1 gap-2 px-4 text-sm sm:flex-none md:h-13 md:min-w-55 md:px-6 md:text-base'
+                onClick={() => setIsTrailerOpen(true)}
+              >
+                Watch Trailer
+                <PlayIcon />
+              </Button>
+              <button
+                onClick={toggleFavorite}
+                className='flex size-11 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:size-13'
+                aria-label={
+                  favorite ? 'Remove from favorites' : 'Add to favorites'
+                }
+              >
+                {favorite ? (
+                  <HeartFillIcon className='text-primary-300 size-5 md:size-6' />
+                ) : (
+                  <HeartOutlineIcon className='text-neutral-10 size-5 md:size-6' />
+                )}
+              </button>
+            </div>
 
-          {/* Stats - full width on mobile, col 2 on desktop */}
-          <div className='col-span-2 sm:col-span-1 sm:col-start-2'>
-            <MovieStats rating={movie.vote_average} genre={primaryGenre} />
+            {/* Stats - full width on mobile, part of flex column on desktop */}
+            <div className='col-span-2 sm:col-span-1'>
+              <MovieStats rating={movie.vote_average} genre={primaryGenre} />
+            </div>
           </div>
         </div>
 
