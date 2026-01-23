@@ -38,7 +38,7 @@ export const MovieStats: FC<Readonly<MovieStatsProps>> = ({
         <span className='md:text-md text-xs font-normal text-neutral-300'>
           Genre
         </span>
-        <span className='text-neutral-10 text-sm font-semibold md:text-xl'>
+        <span className='text-neutral-10 text-center text-sm font-semibold md:text-xl'>
           {genre}
         </span>
       </div>
