@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useHeroCarousel } from '../hooks/useHeroCarousel';
 import { PlayIcon } from '../../../components/ui/Icon';
 import { Button } from '../../../components/ui/Button';
-import { TrailerModal } from '../../../components/ui/TrailerModal';
+import { useTrailerStore } from '../../../store/trailer';
 import type { Movie } from '../../../types/movie';
 import { cn } from '../../../lib/cn';
 
@@ -20,9 +20,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   isLoading,
 }) => {
   const { currentIdx, isFading } = useHeroCarousel(movies);
-  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
-  // Lock selected movie when trailer opens (prevents carousel from changing it)
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const openTrailer = useTrailerStore((state) => state.openTrailer);
 
   // Return empty placeholder with proper height while loading
   // (no skeleton needed - hero has reveal animation)
@@ -37,13 +35,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   const movie = movies[currentIdx];
 
   const handleOpenTrailer = () => {
-    setSelectedMovie(movie); // Lock current movie
-    setIsTrailerOpen(true);
-  };
-
-  const handleCloseTrailer = () => {
-    setIsTrailerOpen(false);
-    setSelectedMovie(null); // Clear selection
+    openTrailer(movie.id, movie.title);
   };
 
   return (
@@ -104,16 +96,6 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
           </div>
         </div>
       </div>
-
-      {/* Trailer Modal - uses locked selectedMovie, not carousel's current movie */}
-      {selectedMovie && (
-        <TrailerModal
-          movieId={selectedMovie.id}
-          movieTitle={selectedMovie.title}
-          isOpen={isTrailerOpen}
-          onClose={handleCloseTrailer}
-        />
-      )}
     </header>
   );
 };

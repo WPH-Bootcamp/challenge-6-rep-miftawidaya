@@ -20,11 +20,6 @@ const MovieDetailPage = lazy(() =>
     default: module.MovieDetailPage,
   }))
 );
-const ComponentTestPage = lazy(() =>
-  import('../pages/ComponentTestPage').then((module) => ({
-    default: module.ComponentTestPage,
-  }))
-);
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -45,10 +40,6 @@ export const publicRoutes: RouteObject[] = [
       {
         path: '/movie/:id',
         element: <MovieDetailPage />,
-      },
-      {
-        path: '/test',
-        element: <ComponentTestPage />,
       },
       {
         path: '*',

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -13,7 +13,7 @@ import {
 } from '../../components/ui/Icon';
 import { useTitle } from '../../hooks/useTitle';
 import { useFavoritesStore } from '../../store/favorites';
-import { TrailerModal } from '../../components/ui/TrailerModal';
+import { useTrailerStore } from '../../store/trailer';
 import type { MovieDetails, MovieCredits } from '../../types/movie';
 
 import { MovieDetailSkeleton } from './MovieDetailSkeleton';
@@ -30,7 +30,7 @@ import { CastSection } from './CastSection';
 export const MovieDetailPage: FC = () => {
   const { id } = useParams<{ id: string }>();
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
-  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+  const openTrailer = useTrailerStore((state) => state.openTrailer);
 
   const {
     data: movie,
@@ -131,7 +131,7 @@ export const MovieDetailPage: FC = () => {
                 variant='primary'
                 size='lg'
                 className='h-11 flex-1 gap-2 px-4 text-sm sm:flex-none md:h-13 md:min-w-55 md:px-6 md:text-base'
-                onClick={() => setIsTrailerOpen(true)}
+                onClick={() => movie && openTrailer(movie.id, movie.title)}
               >
                 Watch Trailer
                 <PlayIcon />
@@ -170,16 +170,6 @@ export const MovieDetailPage: FC = () => {
 
         <CastSection cast={cast} />
       </div>
-
-      {/* Trailer Modal */}
-      {movie && (
-        <TrailerModal
-          movieId={movie.id}
-          movieTitle={movie.title}
-          isOpen={isTrailerOpen}
-          onClose={() => setIsTrailerOpen(false)}
-        />
-      )}
     </div>
   );
 };

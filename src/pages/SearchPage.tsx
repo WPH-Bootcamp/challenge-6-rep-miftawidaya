@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchMovies } from '../api/movies';
@@ -9,8 +9,8 @@ import {
 import type { Movie } from '../types/movie';
 import { useTitle } from '../hooks/useTitle';
 import { Button } from '../components/ui/Button';
-import { TrailerModal } from '../components/ui/TrailerModal';
 import ErrorFallback from '../components/ui/ErrorFallback';
+import { useTrailerStore } from '../store/trailer';
 
 /**
  * SearchPage displaying results for a query with infinite scroll support.
@@ -21,7 +21,7 @@ export const SearchPage: FC = () => {
   const query = searchParams.get('q') || '';
   useTitle(query ? `Search: ${query}` : 'Search');
 
-  const [trailerMovie, setTrailerMovie] = useState<Movie | null>(null);
+  const openTrailer = useTrailerStore((state) => state.openTrailer);
 
   const {
     data,
@@ -80,7 +80,7 @@ export const SearchPage: FC = () => {
             <MovieListItem
               key={movie.id}
               movie={movie}
-              onWatchTrailer={() => setTrailerMovie(movie)}
+              onWatchTrailer={() => openTrailer(movie.id, movie.title)}
             />
           ))}
 
@@ -102,11 +102,11 @@ export const SearchPage: FC = () => {
 
       {/* Not Found State */}
       {!isLoading && movies.length === 0 && (
-        <div className='flex flex-col items-center justify-center text-center'>
+        <div className='flex flex-col items-center justify-center pt-50.5 text-center'>
           <img
-            src='/images/clapperboard.svg'
+            src='/images/clapperboard-not_found.svg'
             alt='Not Found'
-            className='mb-6 size-40 opacity-80'
+            className='mb-6 size-40 opacity-80 mix-blend-luminosity'
           />
           <h2 className='mb-2 text-xl font-bold text-white md:text-2xl'>
             Data Not Found
@@ -115,18 +115,6 @@ export const SearchPage: FC = () => {
             Try other keywords
           </p>
         </div>
-      )}
-
-      <div ref={null} className='h-10' />
-
-      {/* Trailer Modal */}
-      {trailerMovie && (
-        <TrailerModal
-          movieId={trailerMovie.id}
-          movieTitle={trailerMovie.title}
-          isOpen={!!trailerMovie}
-          onClose={() => setTrailerMovie(null)}
-        />
       )}
     </div>
   );
