@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { StarFillIcon } from '../../../components/ui/Icon';
 import { cn } from '../../../lib/cn';
 
@@ -12,11 +12,14 @@ interface MovieCardProps {
 
 /**
  * MovieCard component to display a movie poster with rating.
+ * Includes individual image loading state for smooth UX.
  */
 export const MovieCard: FC<Readonly<MovieCardProps>> = ({
   movie,
   className,
 }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const imageUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : null;
@@ -31,12 +34,22 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
       <Link to={`/movie/${movie.id}`} className='relative block w-full'>
         <div className='relative aspect-2/3 w-full overflow-hidden rounded-lg md:rounded-xl'>
           {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={movie.title}
-              className='h-full w-full object-cover transition-transform duration-300 group-hover:scale-110'
-              loading='lazy'
-            />
+            <>
+              {/* Image loading skeleton */}
+              {!isImageLoaded && (
+                <div className='absolute inset-0 animate-pulse bg-neutral-800' />
+              )}
+              <img
+                src={imageUrl}
+                alt={movie.title}
+                className={cn(
+                  'h-full w-full object-cover transition-all duration-300 group-hover:scale-110',
+                  isImageLoaded ? 'opacity-100' : 'opacity-0'
+                )}
+                loading='lazy'
+                onLoad={() => setIsImageLoaded(true)}
+              />
+            </>
           ) : (
             <div className='flex h-full w-full items-center justify-center bg-neutral-800'>
               <svg
