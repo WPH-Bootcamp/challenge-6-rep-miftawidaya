@@ -89,7 +89,7 @@ export const HomePage: FC = () => {
       />
 
       {/* Trending Section */}
-      <section className='z-10 flex flex-col gap-6 pb-10 md:-mt-10 md:gap-10 md:pb-20'>
+      <section className='flex flex-col gap-6 pb-10 md:z-10 md:-mt-11.5 md:gap-10 md:pb-20'>
         <h2 className='slider-padding-left text-display-xs text-neutral-10 md:text-display-lg font-bold'>
           Trending Now
         </h2>
@@ -100,12 +100,12 @@ export const HomePage: FC = () => {
       </section>
 
       {/* New Release Section */}
-      <section className='custom-container z-10 flex w-full flex-col gap-10 pb-20'>
-        <h2 className='text-display-sm text-neutral-10 md:text-display-lg font-bold'>
+      <section className='custom-container flex w-full flex-col gap-6 pb-20 md:z-10 md:gap-10'>
+        <h2 className='text-display-xs text-neutral-10 md:text-display-lg font-bold'>
           New Release
         </h2>
 
-        <div className='grid grid-cols-2 justify-items-center gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+        <div className='grid grid-cols-2 justify-items-center gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 md:gap-x-5 md:gap-y-10 lg:grid-cols-5'>
           {isLoadingNowPlaying
             ? Array.from({ length: 10 }, (_, i) => (
                 <MovieCardSkeleton key={`skeleton-${i}`} />

@@ -98,8 +98,8 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
         </Link>
 
         {/* Rating Container - Star 18px mobile, 20px desktop */}
-        <div className='flex flex-row items-center gap-1'>
-          <StarFillIcon className='h-4.5 w-4.5 text-yellow-500 md:h-5 md:w-5' />
+        <div className='flex flex-row items-center gap-1.5'>
+          <StarFillIcon className='h-4.125 w-4.125 text-yellow-500 md:h-4.5 md:w-4.5' />
           <span className='font-poppins md:text-md text-sm font-normal text-neutral-400'>
             {movie.vote_average.toFixed(1)}/10
           </span>
@@ -115,7 +115,7 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
 export const TrendingCardSkeleton: FC = () => (
   <div className='flex w-43.25 shrink-0 animate-pulse flex-col gap-2 md:w-54 md:gap-3'>
     <div className='h-66.5 w-full rounded-lg bg-neutral-800 md:h-80.25 md:rounded-xl' />
-    <div className='flex flex-col gap-1'>
+    <div className='flex flex-col gap-1.5'>
       <div className='h-5 w-3/4 rounded bg-neutral-800' />
       <div className='h-4 w-1/3 rounded bg-neutral-800' />
     </div>

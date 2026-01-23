@@ -31,7 +31,13 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
       scrollWidth,
       clientWidth,
     } = scrollContainerRef.current;
-    setCanScrollLeft(sl > 10);
+
+    // Use a larger threshold on mobile to prevent the narrow left arrow/overlay
+    // from showing when snapped at the start (avoiding subpixel or snapping issues).
+    const isMobile = window.innerWidth < 768;
+    const threshold = isMobile ? 30 : 10;
+
+    setCanScrollLeft(sl > threshold);
     setCanScrollRight(sl + clientWidth < scrollWidth - 10);
   }, []);
 
@@ -121,7 +127,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
       {/* Left Fade Overlay & Navigation Arrow */}
       {canScrollLeft && (
-        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-30.75 items-center justify-start bg-linear-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
+        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-20 items-center justify-start bg-linear-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('left')}
             className='pointer-events-auto ml-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:ml-4 md:size-14'
@@ -134,7 +140,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
       {/* Right Fade Overlay & Navigation Arrow */}
       {canScrollRight && (
-        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-30.75 items-center justify-end bg-linear-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
+        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-20 items-center justify-end bg-linear-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('right')}
             className='pointer-events-auto mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:mr-4 md:size-14'

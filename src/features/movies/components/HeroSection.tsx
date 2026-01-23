@@ -26,7 +26,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   // (no skeleton needed - hero has reveal animation)
   if (isLoading || !movies?.length) {
     return (
-      <header className='relative min-h-133.25 w-full bg-black md:h-202.5'>
+      <header className='relative h-143.25 w-full bg-black md:h-202.5'>
         <div className='absolute inset-0 bg-linear-to-t from-black to-transparent' />
       </header>
     );
@@ -39,7 +39,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   };
 
   return (
-    <header className='relative min-h-133.25 w-full overflow-hidden bg-black md:h-202.5'>
+    <header className='relative h-143.25 w-full overflow-hidden bg-black md:h-202.5'>
       <div
         className={cn(
           'absolute inset-0 transition-opacity duration-500',
@@ -64,11 +64,11 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
         >
           <div className='flex flex-col gap-6 md:gap-12'>
             {/* Text Content */}
-            <div className='gap-spacing-sm flex flex-col md:gap-4'>
+            <div className='flex flex-col gap-1.5 md:gap-4'>
               <h1 className='text-display-xs md:text-display-2xl text-neutral-25 animate-fade-in-up fill-mode-forwards font-bold opacity-0 delay-100'>
                 {movie.title}
               </h1>
-              <p className='md:text-md animate-fade-in-up fill-mode-forwards line-clamp-3 max-w-158.75 text-sm font-normal text-neutral-400 opacity-0 delay-200'>
+              <p className='md:text-md animate-fade-in-up fill-mode-forwards line-clamp-5 max-w-158.75 text-sm font-normal text-neutral-400 opacity-0 delay-200 md:line-clamp-3'>
                 {movie.overview}
               </p>
             </div>
@@ -77,7 +77,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
               <Button
                 variant='primary'
                 size='lg'
-                className='w-full gap-2 md:w-auto md:min-w-57.5'
+                className='md:text-md h-11 w-full gap-2 text-sm font-semibold md:h-13 md:w-auto md:min-w-57.5'
                 onClick={handleOpenTrailer}
               >
                 Watch Trailer
@@ -87,7 +87,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
                 <Button
                   variant='secondary'
                   size='lg'
-                  className='w-full md:w-auto md:min-w-57.5'
+                  className='md:text-md h-11 w-full gap-2 text-sm font-semibold md:h-13 md:w-auto md:min-w-57.5'
                 >
                   See Detail
                 </Button>

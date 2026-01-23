@@ -117,8 +117,8 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
             </Link>
 
             {/* Rating */}
-            <div className='flex items-center gap-1'>
-              <StarFillIcon className='size-4.5 text-[#E4A802] md:size-6' />
+            <div className='flex items-center gap-1.5'>
+              <StarFillIcon className='size-4 text-[#E4A802] md:size-5.5' />
               <span className='text-sm font-medium text-white md:text-lg'>
                 {movie.vote_average.toFixed(1)}/10
               </span>

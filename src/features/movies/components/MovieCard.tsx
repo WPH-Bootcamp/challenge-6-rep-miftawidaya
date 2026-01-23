@@ -88,9 +88,9 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
         </Link>
 
         {/* Rating Container */}
-        <div className='flex flex-row items-center gap-1'>
+        <div className='flex flex-row items-center gap-1.5'>
           {/* Star Icon */}
-          <StarFillIcon className='h-4.5 w-4.5 text-yellow-500 md:h-5 md:w-5' />
+          <StarFillIcon className='h-4.125 w-4.125 text-yellow-500 md:h-4.5 md:w-4.5' />
 
           {/* Rating Value */}
           <span className='font-poppins md:text-md font-regular text-sm text-neutral-400'>
@@ -108,7 +108,7 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
 export const MovieCardSkeleton: FC = () => (
   <div className='flex w-full animate-pulse flex-col gap-2 md:gap-3'>
     {/* Poster Skeleton */}
-    <div className='aspect-[2/3] w-full rounded-lg bg-neutral-800 md:rounded-xl' />
+    <div className='aspect-2/3 w-full rounded-lg bg-neutral-800 md:rounded-xl' />
     {/* Title Skeleton */}
     <div className='h-5 w-3/4 rounded bg-neutral-800 md:h-6' />
     {/* Rating Skeleton */}
