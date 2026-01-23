@@ -100,7 +100,7 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
  * Skeleton loader for TrendingCard - responsive.
  */
 export const TrendingCardSkeleton: FC = () => (
-  <div className='flex w-43.25 animate-pulse flex-col gap-2 md:w-54 md:gap-3'>
+  <div className='flex w-43.25 shrink-0 animate-pulse flex-col gap-2 md:w-54 md:gap-3'>
     <div className='h-66.5 w-full rounded-lg bg-neutral-800 md:h-80.25 md:rounded-xl' />
     <div className='flex flex-col gap-1'>
       <div className='h-5 w-3/4 rounded bg-neutral-800' />
