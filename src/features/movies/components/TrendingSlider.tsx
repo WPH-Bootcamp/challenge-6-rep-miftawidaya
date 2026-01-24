@@ -2,6 +2,7 @@ import { type FC, useRef, useState, useCallback, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { TrendingCard, TrendingCardSkeleton } from './TrendingCard';
 import type { Movie } from '../../../types/movie';
+import { cn } from '../../../lib/cn';
 
 interface TrendingSliderProps {
   movies: Movie[];
@@ -110,9 +111,10 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
-        className={`slider-padding scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth md:snap-none md:gap-5 ${
+        className={cn(
+          'slider-padding scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth md:snap-none md:gap-5',
           isDragging ? 'cursor-grabbing !scroll-auto' : 'cursor-grab'
-        }`}
+        )}
       >
         {movies.slice(0, 10).map((movie, index) => (
           <div
@@ -130,7 +132,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-20 items-center justify-start bg-linear-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('left')}
-            className='pointer-events-auto ml-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:ml-4 md:size-14'
+            className='pointer-events-auto ml-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:ml-6 md:size-14'
             aria-label='Scroll left'
           >
             <ChevronLeft className='text-neutral-10 size-5.5 md:size-7' />
@@ -143,7 +145,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-20 items-center justify-end bg-linear-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
           <button
             onClick={() => scrollByAmount('right')}
-            className='pointer-events-auto mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:mr-4 md:size-14'
+            className='pointer-events-auto mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:mr-6 md:size-14'
             aria-label='Scroll right'
           >
             <ChevronRight className='text-neutral-10 size-5.5 md:size-7' />

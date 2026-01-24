@@ -206,9 +206,12 @@
   .slider-padding {
     padding-left: max(calc((100vw - 1208px) / 2 + 24px), 16px);
     padding-right: max(calc((100vw - 1208px) / 2 + 24px), 16px);
+    scroll-padding-left: max(calc((100vw - 1208px) / 2 + 24px), 16px);
+    scroll-padding-right: max(calc((100vw - 1208px) / 2 + 24px), 16px);
   }
 
   .slider-padding-left {
     padding-left: max(calc((100vw - 1208px) / 2 + 24px), 16px);
+    scroll-padding-left: max(calc((100vw - 1208px) / 2 + 24px), 16px);
   }
 }
