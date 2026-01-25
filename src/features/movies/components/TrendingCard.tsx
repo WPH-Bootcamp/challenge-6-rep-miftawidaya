@@ -28,7 +28,7 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
   return (
     <div
       className={cn(
-        'group flex w-(--card-grid-width) shrink-0 flex-col items-start gap-2 md:gap-3',
+        'group w-card-grid-width flex shrink-0 flex-col items-start gap-2 md:gap-3',
         className
       )}
     >
@@ -112,7 +112,7 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
  * Skeleton loader for TrendingCard - responsive.
  */
 export const TrendingCardSkeleton: FC = () => (
-  <div className='flex w-(--card-grid-width) shrink-0 animate-pulse flex-col gap-2 md:gap-3'>
+  <div className='group w-card-grid-width flex shrink-0 animate-pulse flex-col gap-2 md:gap-3'>
     <div className='aspect-poster w-full rounded-lg bg-neutral-800 md:rounded-xl' />
     <div className='flex flex-col gap-1.5'>
       <div className='h-5 w-3/4 rounded bg-neutral-800' />

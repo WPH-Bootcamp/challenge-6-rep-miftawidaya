@@ -27,7 +27,7 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
   return (
     <div
       className={cn(
-        'group flex w-[var(--card-grid-width)] flex-col items-start gap-2 md:gap-3',
+        'group w-card-grid-width flex flex-col items-start gap-2 md:gap-3',
         className
       )}
     >
@@ -106,7 +106,7 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
  * Skeleton loader for MovieCard.
  */
 export const MovieCardSkeleton: FC = () => (
-  <div className='flex w-[var(--card-grid-width)] animate-pulse flex-col gap-2 md:gap-3'>
+  <div className='group w-card-grid-width flex shrink-0 animate-pulse flex-col gap-2 md:gap-3'>
     {/* Poster Skeleton */}
     <div className='aspect-poster w-full rounded-lg bg-neutral-800 md:rounded-xl' />
     {/* Title Skeleton */}
