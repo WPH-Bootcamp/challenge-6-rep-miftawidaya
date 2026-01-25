@@ -111,12 +111,12 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
 
         {/* Left Fade Overlay */}
         {canScrollLeft && (
-          <div className='md:from-base-black nav-lg:w-142.5 from-base-black/80 absolute top-0 left-0 h-full w-22.5 bg-linear-to-r to-transparent transition-[width] duration-300' />
+          <div className='nav-lg:from-base-black nav-lg:w-107.5 from-base-black/80 absolute top-0 left-0 h-full w-22.5 bg-linear-to-r to-transparent transition-[width] duration-300' />
         )}
 
         {/* Right Fade Overlay */}
         {canScrollRight && (
-          <div className='from-base-black/80 nav-lg:w-142.5 absolute top-0 right-0 h-full w-22.5 bg-linear-to-l to-transparent transition-[width] duration-300' />
+          <div className='nav-lg:from-base-black nav-lg:w-107.5 from-base-black/80 absolute top-0 right-0 h-full w-22.5 bg-linear-to-l to-transparent transition-[width] duration-300' />
         )}
 
         {/* Left Navigation Arrow */}
