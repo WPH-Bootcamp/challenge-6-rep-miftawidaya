@@ -145,36 +145,39 @@
 
   /* --- Card Sizing (Dynamic Sync with Grid) --- */
   --aspect-ratio-poster: 2 / 3;
+
+  /* Map the CSS variable to a Tailwind spacing token */
+  --spacing-card-grid-width: var(--card-grid-width);
+}
+
+/* --- Responsive Layout Tokens --- */
+:root {
+  /* Default (Mobile): 2 cols, 1rem gap, 1rem pad */
+  --card-grid-width: calc((100vw - 2rem - 1rem) / 2);
+
+  @media (width >= 40rem) {
+    /* sm: 3 cols, 1rem gap, 1rem pad */
+    --card-grid-width: calc((100vw - 2rem - 2rem) / 3);
+  }
+
+  @media (width >= 48rem) {
+    /* md: 4 cols, 1.25rem gap, 1.5rem pad */
+    --card-grid-width: calc((100vw - 3rem - 3.75rem) / 4);
+  }
+
+  @media (width >= 64rem) {
+    /* lg: 5 cols, 1.25rem gap, 1.5rem pad */
+    --card-grid-width: calc((100vw - 3rem - 5rem) / 5);
+  }
+
+  /* max-width cap: (1208px - 3rem - 5rem) / 5 = 216px (13.5rem) */
+  @media (width >= 75.5rem) {
+    --card-grid-width: 13.5rem;
+  }
 }
 
 /* --- Global Base Styles --- */
 @layer base {
-  :root {
-    /* Formula: (100vw - (2 * padding) - ((cols - 1) * gap)) / cols */
-    /* Mobile: 2 cols, 1rem gap, 1rem pad */
-    --spacing-card-grid-width: calc((100vw - 2rem - 1rem) / 2);
-
-    @media (width >= 40rem) {
-      /* sm: 3 cols, 1rem gap, 1rem pad */
-      --spacing-card-grid-width: calc((100vw - 2rem - 2rem) / 3);
-    }
-
-    @media (width >= 48rem) {
-      /* md: 4 cols, 1.25rem gap, 1.5rem pad */
-      --spacing-card-grid-width: calc((100vw - 3rem - 3.75rem) / 4);
-    }
-
-    @media (width >= 64rem) {
-      /* lg: 5 cols, 1.25rem gap, 1.5rem pad */
-      --spacing-card-grid-width: calc((100vw - 3rem - 5rem) / 5);
-    }
-
-    /* max-width cap: (1208px - 3rem - 5rem) / 5 = 216px (13.5rem) */
-    @media (width >= 75.5rem) {
-      --spacing-card-grid-width: 13.5rem;
-    }
-  }
-
   html {
     font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
@@ -212,8 +215,8 @@
 
   .glassmorphism {
     background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
