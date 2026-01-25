@@ -144,36 +144,45 @@
   --spacing-full-overlap: calc(100% - 1px);
 
   /* --- Card Sizing (Dynamic Sync with Grid) --- */
-  --aspect-ratio-poster: 2 / 3;
+  --aspect-poster: 2 / 3;
 
-  /* Map the CSS variable to a Tailwind spacing token */
+  /* Map spacing tokens to CSS variables defined in :root */
   --spacing-card-grid-width: var(--card-grid-width);
+  --spacing-overlay-height: var(--overlay-height);
 }
 
-/* --- Responsive Layout Tokens --- */
 :root {
-  /* Default (Mobile): 2 cols, 1rem gap, 1rem pad */
-  --card-grid-width: calc((100vw - 2rem - 1rem) / 2);
+  /* Base Card Widths (Breakpoint Driven) */
+  --card-grid-width: calc((100vw - 3rem) / 2); /* Default Mobile */
 
   @media (width >= 40rem) {
-    /* sm: 3 cols, 1rem gap, 1rem pad */
-    --card-grid-width: calc((100vw - 2rem - 2rem) / 3);
+    --card-grid-width: calc((100vw - 4rem) / 3);
   }
+  @media (width >= 48rem) {
+    --card-grid-width: calc((100vw - 6.75rem) / 4);
+  }
+  @media (width >= 64rem) {
+    --card-grid-width: calc((100vw - 8rem) / 5);
+  }
+  @media (width >= 75.5rem) {
+    --card-grid-width: 13.5rem; /* Capped at 1208px container */
+  }
+
+  /* Composite Card & Overlay Calculations */
+  --card-image-height: calc(var(--card-grid-width) * 1.5);
+  --card-info-area: 4.25rem;
+  --container-pb: 2.5rem;
 
   @media (width >= 48rem) {
-    /* md: 4 cols, 1.25rem gap, 1.5rem pad */
-    --card-grid-width: calc((100vw - 3rem - 3.75rem) / 4);
+    --card-info-area: 4.75rem;
+    --container-pb: 5.625rem;
   }
 
-  @media (width >= 64rem) {
-    /* lg: 5 cols, 1.25rem gap, 1.5rem pad */
-    --card-grid-width: calc((100vw - 3rem - 5rem) / 5);
-  }
-
-  /* max-width cap: (1208px - 3rem - 5rem) / 5 = 216px (13.5rem) */
-  @media (width >= 75.5rem) {
-    --card-grid-width: 13.5rem;
-  }
+  /* Final Load More Overlay Height */
+  --overlay-height: calc(
+    var(--card-image-height) + var(--card-info-area) + var(--container-pb) +
+      1rem
+  );
 }
 
 /* --- Global Base Styles --- */
@@ -253,5 +262,9 @@
   .slider-padding-left {
     padding-left: max(calc((100vw - 1208px) / 2 + 24px), 16px);
     scroll-padding-left: max(calc((100vw - 1208px) / 2 + 24px), 16px);
+  }
+
+  .aspect-poster {
+    aspect-ratio: 2 / 3;
   }
 }
