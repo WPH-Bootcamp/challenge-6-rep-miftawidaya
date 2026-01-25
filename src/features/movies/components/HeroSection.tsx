@@ -27,7 +27,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   if (isLoading || !movies?.length) {
     return (
       <header className='relative h-143.25 w-full bg-black md:h-202.5'>
-        <div className='absolute inset-0 bg-linear-to-t from-black to-transparent' />
+        <div className='absolute inset-0 bg-linear-to-b from-transparent to-black to-95%' />
       </header>
     );
   }
@@ -55,7 +55,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
         />
 
         {/* Gradient Overlay */}
-        <div className='absolute inset-0 bg-linear-to-t from-black to-transparent' />
+        <div className='absolute inset-0 bg-linear-to-b from-transparent to-black to-95%' />
 
         {/* Content Container */}
         <div

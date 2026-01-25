@@ -134,6 +134,14 @@
       transform: translateY(0);
     }
   }
+
+  /* --- Custom Breakpoints --- */
+  --breakpoint-nav-lg: 72.5rem; /* 1160px */
+
+  /* --- Navigation & UI Specific --- */
+  --spacing-nav-top-left: 40%;
+  --spacing-nav-top-right: 40%;
+  --spacing-full-overlap: calc(100% - 1px);
 }
 
 /* --- Global Base Styles --- */

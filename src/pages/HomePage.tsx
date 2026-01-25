@@ -89,7 +89,7 @@ export const HomePage: FC = () => {
       />
 
       {/* Trending Section */}
-      <section className='flex flex-col gap-6 pb-10 md:z-10 md:-mt-11.5 md:gap-10 md:pb-20'>
+      <section className='bg-base-black flex w-full flex-col gap-6 pb-10 md:z-10 md:-mt-11.5 md:gap-10 md:pb-20'>
         <h2 className='slider-padding-left text-display-xs text-neutral-10 md:text-display-lg font-bold'>
           Trending Now
         </h2>

@@ -102,7 +102,46 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
   }
 
   return (
-    <div className='relative'>
+    <div className='relative w-full overflow-hidden'>
+      {/* Navigation & Overlays Container (Centered, max 1440px) */}
+      <div className='pointer-events-none absolute inset-0 z-10 mx-auto max-w-360'>
+        {/* Side Blockers - Overlap by 1px to prevent subpixel gaps */}
+        <div className='bg-base-black right-full-overlap absolute -top-px -bottom-px w-screen' />
+        <div className='bg-base-black left-full-overlap absolute -top-px -bottom-px w-screen' />
+
+        {/* Left Fade Overlay */}
+        {canScrollLeft && (
+          <div className='md:from-base-black nav-lg:w-142.5 from-base-black/80 absolute top-0 left-0 h-full w-22.5 bg-linear-to-r to-transparent transition-[width] duration-300' />
+        )}
+
+        {/* Right Fade Overlay */}
+        {canScrollRight && (
+          <div className='from-base-black/80 nav-lg:w-142.5 absolute top-0 right-0 h-full w-22.5 bg-linear-to-l to-transparent transition-[width] duration-300' />
+        )}
+
+        {/* Left Navigation Arrow */}
+        {canScrollLeft && (
+          <button
+            onClick={() => scrollByAmount('left')}
+            className='nav-lg:left-15 top-nav-top-left pointer-events-auto absolute left-1.5 size-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-neutral-800 md:size-14'
+            aria-label='Scroll left'
+          >
+            <ChevronLeft className='text-neutral-10 mx-auto size-5 md:size-6' />
+          </button>
+        )}
+
+        {/* Right Navigation Arrow */}
+        {canScrollRight && (
+          <button
+            onClick={() => scrollByAmount('right')}
+            className='nav-lg:right-15 top-nav-top-right pointer-events-auto absolute right-1.5 size-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-neutral-800 md:size-14'
+            aria-label='Scroll right'
+          >
+            <ChevronRight className='text-neutral-10 mx-auto size-5 md:size-6' />
+          </button>
+        )}
+      </div>
+
       <section
         ref={scrollContainerRef}
         aria-label='Trending movies carousel'
@@ -113,7 +152,7 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
         onMouseLeave={handleMouseLeave}
         className={cn(
           'slider-padding scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth md:snap-none md:gap-5',
-          isDragging ? 'cursor-grabbing !scroll-auto' : 'cursor-grab'
+          isDragging ? 'cursor-grabbing scroll-auto!' : 'cursor-grab'
         )}
       >
         {movies.slice(0, 10).map((movie, index) => (
@@ -126,32 +165,6 @@ export const TrendingSlider: FC<Readonly<TrendingSliderProps>> = ({
           </div>
         ))}
       </section>
-
-      {/* Left Fade Overlay & Navigation Arrow */}
-      {canScrollLeft && (
-        <div className='pointer-events-none absolute top-0 left-0 z-10 flex h-66.5 w-20 items-center justify-start bg-linear-to-r from-black to-transparent md:h-80.25 md:w-107.5'>
-          <button
-            onClick={() => scrollByAmount('left')}
-            className='pointer-events-auto ml-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:ml-6 md:size-14'
-            aria-label='Scroll left'
-          >
-            <ChevronLeft className='text-neutral-10 size-5.5 md:size-7' />
-          </button>
-        </div>
-      )}
-
-      {/* Right Fade Overlay & Navigation Arrow */}
-      {canScrollRight && (
-        <div className='pointer-events-none absolute top-0 right-0 z-10 flex h-66.5 w-20 items-center justify-end bg-linear-to-l from-black to-transparent md:h-80.25 md:w-107.5'>
-          <button
-            onClick={() => scrollByAmount('right')}
-            className='pointer-events-auto mr-2 flex size-11 cursor-pointer items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md transition-transform hover:scale-105 md:mr-6 md:size-14'
-            aria-label='Scroll right'
-          >
-            <ChevronRight className='text-neutral-10 size-5.5 md:size-7' />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
