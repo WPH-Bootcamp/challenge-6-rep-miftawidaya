@@ -57,10 +57,9 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
         {/* Gradient Overlay */}
         <div className='absolute inset-0 bg-linear-to-b from-transparent to-black to-95%' />
 
-        {/* Content Container */}
         <div
           key={`content-${movie.id}`} // Force text animation restart
-          className='custom-container absolute inset-0 z-20 flex flex-col justify-start pt-55.75 md:pt-74.5'
+          className='custom-container absolute inset-0 z-20 flex flex-col justify-end pt-0 pb-10 md:justify-start md:pt-74.5 md:pb-0'
         >
           <div className='flex flex-col gap-6 md:gap-12'>
             {/* Text Content */}
