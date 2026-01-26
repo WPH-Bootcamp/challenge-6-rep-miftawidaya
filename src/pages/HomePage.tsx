@@ -1,6 +1,7 @@
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { movieKeys } from '../api/query-keys';
 import { getTrendingMovies } from '../api/movies';
 import { useTitle } from '../hooks/useTitle';
 import { useInfiniteMovies } from '../hooks/useInfiniteMovies';
@@ -32,7 +33,7 @@ export const HomePage: FC = () => {
     isError: isErrorTrending,
     error: errorTrending,
   } = useQuery<Movie[]>({
-    queryKey: ['trending'],
+    queryKey: movieKeys.trending(),
     queryFn: getTrendingMovies,
   });
 

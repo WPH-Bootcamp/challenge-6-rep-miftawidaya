@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { movieKeys } from '../../api/query-keys';
 import { getMovieDetails, getMovieCredits } from '../../api/movies';
 import { Button } from '../../components/ui/Button';
 import {
@@ -37,13 +38,13 @@ export const MovieDetailPage: FC = () => {
     isLoading,
     error,
   } = useQuery<MovieDetails>({
-    queryKey: ['movie', id],
+    queryKey: movieKeys.details(id!),
     queryFn: () => getMovieDetails(Number(id)),
     enabled: !!id,
   });
 
   const { data: credits } = useQuery<MovieCredits>({
-    queryKey: ['movie', id, 'credits'],
+    queryKey: movieKeys.credits(id!),
     queryFn: () => getMovieCredits(Number(id)),
     enabled: !!id,
   });

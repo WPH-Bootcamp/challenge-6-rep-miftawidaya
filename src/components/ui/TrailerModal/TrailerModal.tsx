@@ -1,6 +1,7 @@
 import { type FC, useEffect, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getMovieVideos } from '../../../api/movies';
+import { movieKeys } from '../../../api/query-keys';
 import { TrailerContent } from './TrailerContent';
 import type { MovieVideo } from '../../../types/movie';
 
@@ -29,7 +30,7 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
     isLoading,
     isError,
   } = useQuery<MovieVideo[]>({
-    queryKey: ['movie', movieId, 'videos'],
+    queryKey: movieKeys.videos(movieId),
     queryFn: () => getMovieVideos(movieId),
     enabled: isOpen && !!movieId,
     retry: 2,
@@ -100,7 +101,7 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
 
       {/* Layer 2: Modal container */}
       <div
-        className='relative w-full max-w-302'
+        className='max-w-container-max relative w-full'
         onClick={(e) => e.stopPropagation()}
       >
         {/* Screen reader title */}

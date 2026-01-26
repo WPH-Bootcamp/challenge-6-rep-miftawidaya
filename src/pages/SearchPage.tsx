@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchMovies } from '../api/movies';
+import { movieKeys } from '../api/query-keys';
 import {
   MovieListItem,
   MovieListItemSkeleton,
@@ -32,7 +33,7 @@ export const SearchPage: FC = () => {
     isError,
     error,
   } = useInfiniteQuery({
-    queryKey: ['search', query],
+    queryKey: movieKeys.search(query),
     queryFn: ({ pageParam }) => searchMovies(query, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
