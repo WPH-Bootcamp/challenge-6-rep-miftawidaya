@@ -90,7 +90,7 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
         {/* Rating Container */}
         <div className='flex flex-row items-center gap-1.5'>
           {/* Star Icon */}
-          <StarFillIcon className='h-4.125 w-4.125 text-yellow-500 md:h-4.5 md:w-4.5' />
+          <StarFillIcon className='h-4.5 w-4.5 text-yellow-500 md:h-4.5 md:w-4.5' />
 
           {/* Rating Value */}
           <span className='font-poppins md:text-md font-regular text-sm text-neutral-400'>

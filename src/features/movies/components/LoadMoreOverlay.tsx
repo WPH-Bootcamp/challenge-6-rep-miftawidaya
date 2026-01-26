@@ -13,7 +13,7 @@ export const LoadMoreOverlay: FC<Readonly<LoadMoreOverlayProps>> = ({
 }) => {
   return (
     <div className='absolute bottom-0 left-1/2 z-30 flex w-screen -translate-x-1/2 flex-col justify-end'>
-      <div className='from-base-black to-base-black/60 h-overlay-height relative flex w-full flex-col items-center justify-end bg-linear-to-t from-10% pb-22.5 md:justify-center md:from-20% md:pb-0'>
+      <div className='from-base-black to-base-black/60 h-overlay-height relative flex w-full flex-col items-center justify-end bg-linear-to-t from-8% pb-22.5 md:justify-center md:from-20% md:pb-0'>
         <Button
           variant='secondary'
           size='lg'
