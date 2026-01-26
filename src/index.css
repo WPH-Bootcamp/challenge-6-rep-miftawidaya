@@ -105,6 +105,9 @@
   --radius-3xl: 1.25rem;
   --radius-4xl: 1.5rem;
 
+  /* --- Blur System --- */
+  --blur-glass: 20px;
+
   /* Video Container */
   --min-h-video: clamp(12.5rem, 50vw, 30rem);
 
@@ -222,28 +225,17 @@
     @apply max-w-302 pr-4 pl-4 md:pr-6 md:pl-6;
   }
 
-  .glassmorphism {
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .glass-surface {
+    @apply backdrop-blur-glass border border-neutral-900 bg-neutral-950/60;
+  }
+
+  .glass-surface-black {
+    @apply backdrop-blur-glass bg-black/25;
   }
 }
 
 /* --- Functional Utilities Layer --- */
 @layer utilities {
-  .flex-center {
-    @apply flex items-center justify-center;
-  }
-
-  .flex-between {
-    @apply flex items-center justify-between;
-  }
-
-  .flex-start {
-    @apply flex items-center justify-start;
-  }
-
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

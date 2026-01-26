@@ -57,7 +57,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
       <button
         onClick={toggleFavorite}
         className={cn(
-          'glassmorphism backdrop-blur-5 absolute top-0 right-0 hidden size-11 cursor-pointer items-center justify-center rounded-full border-neutral-900 transition-all hover:scale-105 md:flex md:size-14',
+          'glass-surface absolute top-0 right-0 hidden size-11 cursor-pointer items-center justify-center rounded-full border-neutral-900 transition-all hover:scale-105 md:flex md:size-14',
           isFav ? 'text-primary-300' : 'text-white'
         )}
         aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
@@ -157,7 +157,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
         <button
           onClick={toggleFavorite}
           className={cn(
-            'glassmorphism backdrop-blur-5 flex size-11 cursor-pointer items-center justify-center rounded-full border-neutral-800 transition-all hover:scale-105',
+            'glass-surface flex size-11 cursor-pointer items-center justify-center rounded-full border-neutral-800 transition-all hover:scale-105',
             isFav ? 'text-primary-300' : 'text-white'
           )}
         >
