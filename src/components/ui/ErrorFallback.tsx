@@ -26,6 +26,12 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
     () => `ERROR_${Math.random().toString(36).substring(7).toUpperCase()}`
   );
 
+  // Check for configuration errors (missing .env)
+  const isEnvIssue =
+    !import.meta.env.VITE_BASE_URL ||
+    !import.meta.env.VITE_READ_ACCESS_TOKEN ||
+    error?.message.toLowerCase().includes('data is undefined');
+
   return (
     <div
       className='relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden text-white'
@@ -92,7 +98,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
             className='font-bold tracking-tight text-white'
             style={{ fontSize: '1.875rem', lineHeight: '2.25rem' }}
           >
-            Oops! Something went wrong
+            {isEnvIssue ? 'Configuration Error' : 'Oops! Something went wrong'}
           </h1>
           <p
             style={{
@@ -101,10 +107,42 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
               color: '#a4a7ae',
             }}
           >
-            An unexpected error occurred. Please try refreshing the page or
-            returning to the home screen.
+            {isEnvIssue
+              ? 'It looks like your environment variables are not set correctly. Please check your .env file.'
+              : 'An unexpected error occurred. Please try refreshing the page or returning to the home screen.'}
           </p>
         </div>
+
+        {/* Developer Tip (Only in Dev Mode) */}
+        {import.meta.env.DEV && isEnvIssue && (
+          <div
+            className='border-primary-300/30 bg-primary-300/5 w-full scale-95 animate-pulse rounded-lg border p-4 text-left'
+            style={{ marginTop: '0.5rem' }}
+          >
+            <p className='text-primary-300 mb-2 flex items-center gap-2 text-sm font-bold'>
+              <AlertTriangle className='size-4' />
+              Developer Tip:
+            </p>
+            <ul className='flex flex-col gap-1.5 text-xs text-neutral-400'>
+              <li className='flex items-start gap-2'>
+                <span className='bg-primary-300 mt-1 block size-1 rounded-full' />
+                Ensure <code className='text-zinc-300'>.env</code> file exists
+                in the root directory.
+              </li>
+              <li className='flex items-start gap-2'>
+                <span className='bg-primary-300 mt-1 block size-1 rounded-full' />
+                Verify
+                <code className='text-zinc-300'>VITE_READ_ACCESS_TOKEN</code> is
+                provided.
+              </li>
+              <li className='flex items-start gap-2'>
+                <span className='bg-primary-300 mt-1 block size-1 rounded-full' />
+                Check if <code className='text-zinc-300'>VITE_BASE_URL</code> is
+                correct.
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* Actions */}
         <div
