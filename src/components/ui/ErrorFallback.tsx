@@ -80,9 +80,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
             boxShadow: '0 0 0 8px rgba(150, 18, 0, 0.05)',
           }}
         >
-          <AlertTriangle
-            style={{ width: '2.5rem', height: '2.5rem', color: '#b96155' }}
-          />
+          <AlertTriangle className='h-10 w-10 text-[#b96155]' />
         </div>
 
         {/* Message */}
@@ -118,7 +116,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
             onClick={onRefresh}
             variant='primary'
           >
-            <RefreshCw style={{ width: '1.25rem', height: '1.25rem' }} />
+            <RefreshCw className='h-5 w-5 stroke-2' />
             <span>Refresh</span>
           </Button>
           <Button
@@ -126,7 +124,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
             onClick={onReset}
             variant='secondary'
           >
-            <Home style={{ width: '1.25rem', height: '1.25rem' }} />
+            <Home className='h-5 w-5 stroke-2' />
             <span>Go to Home</span>
           </Button>
         </div>
