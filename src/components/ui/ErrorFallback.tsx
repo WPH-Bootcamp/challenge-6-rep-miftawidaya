@@ -73,19 +73,25 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
             <ul className='flex flex-col gap-1.5 text-xs text-neutral-400'>
               <li className='flex items-start gap-2'>
                 <span className='bg-primary-300 mt-1 block size-1 rounded-full' />
-                Ensure <code className='text-zinc-300'>.env</code> file exists
-                in the root directory.
+                <span>
+                  Ensure <code className='text-zinc-300'>.env</code> file exists
+                  in the root directory.
+                </span>
               </li>
               <li className='flex items-start gap-2'>
                 <span className='bg-primary-300 mt-1 block size-1 rounded-full' />
-                Verify
-                <code className='text-zinc-300'>VITE_READ_ACCESS_TOKEN</code> is
-                provided.
+                <span>
+                  Verify{' '}
+                  <code className='text-zinc-300'>VITE_READ_ACCESS_TOKEN</code>{' '}
+                  is provided.
+                </span>
               </li>
               <li className='flex items-start gap-2'>
                 <span className='bg-primary-300 mt-1 block size-1 rounded-full' />
-                Check if <code className='text-zinc-300'>VITE_BASE_URL</code> is
-                correct.
+                <span>
+                  Check if <code className='text-zinc-300'>VITE_BASE_URL</code>{' '}
+                  is correct.
+                </span>
               </li>
             </ul>
           </div>
