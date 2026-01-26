@@ -109,7 +109,9 @@ export const SearchPage: FC = () => {
             alt='Not Found'
             className='mb-6 size-40 opacity-80 mix-blend-luminosity'
           />
-          <h2 className='text-md mb-2 font-bold text-white'>Data Not Found</h2>
+          <h2 className='text-md text-base-white mb-2 font-bold'>
+            Data Not Found
+          </h2>
           <p className='text-sm text-neutral-500'>Try other keywords</p>
         </div>
       )}

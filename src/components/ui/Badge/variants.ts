@@ -6,12 +6,12 @@ export const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          'border-transparent bg-neutral-800 text-white hover:bg-neutral-700',
+          'border-transparent bg-neutral-800 text-base-white hover:bg-neutral-700',
         secondary:
           'border-transparent bg-neutral-900 text-neutral-400 hover:bg-neutral-800',
         outline: 'text-neutral-300',
         primary:
-          'border-transparent bg-primary-300 text-white hover:bg-primary-400',
+          'border-transparent bg-primary-300 text-base-white hover:bg-primary-400',
       },
     },
     defaultVariants: {

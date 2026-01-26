@@ -23,9 +23,9 @@ export const HeroBackdrop: FC<Readonly<HeroBackdropProps>> = ({
         />
       )}
       {/* Gradient overlay - inside backdrop */}
-      <div className='absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent' />
+      <div className='from-base-black via-base-black/60 absolute inset-0 bg-linear-to-t to-transparent' />
     </div>
     {/* Extended gradient - blends backdrop into content area */}
-    <div className='absolute inset-x-0 top-90 h-20 bg-linear-to-b from-transparent to-black' />
+    <div className='to-base-black absolute inset-x-0 top-90 h-20 bg-linear-to-b from-transparent' />
   </>
 );

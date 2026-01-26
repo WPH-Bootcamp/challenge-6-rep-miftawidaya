@@ -8,7 +8,7 @@ export const MovieDetailSkeleton: FC = () => (
   <div className='relative min-h-screen pb-37.5'>
     {/* Backdrop Skeleton */}
     <div className='absolute inset-x-0 top-0 h-103 w-full bg-neutral-900'>
-      <div className='absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent' />
+      <div className='from-base-black via-base-black/60 absolute inset-0 bg-linear-to-t to-transparent' />
     </div>
 
     {/* Main Content Skeleton */}
@@ -45,7 +45,7 @@ export const MovieDetailSkeleton: FC = () => (
               {Array.from({ length: 3 }, (_, i) => (
                 <div
                   key={i}
-                  className='flex flex-col items-center gap-1 rounded-xl border border-neutral-700 bg-black p-3 sm:gap-2 sm:rounded-2xl sm:p-5'
+                  className='bg-base-black flex flex-col items-center gap-1 rounded-xl border border-neutral-700 p-3 sm:gap-2 sm:rounded-2xl sm:p-5'
                 >
                   <div className='size-6 rounded-full bg-neutral-800 md:size-8' />
                   <div className='flex flex-col items-center gap-0.5'>

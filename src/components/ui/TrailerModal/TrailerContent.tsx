@@ -54,7 +54,9 @@ export const TrailerContent: FC<Readonly<TrailerContentProps>> = ({
             </svg>
           </div>
           <div>
-            <p className='text-lg font-semibold text-white'>Failed to Load</p>
+            <p className='text-base-white text-lg font-semibold'>
+              Failed to Load
+            </p>
             <p className='mt-1 text-sm text-neutral-400'>
               Unable to fetch trailer. Please try again.
             </p>
@@ -113,7 +115,7 @@ export const TrailerContent: FC<Readonly<TrailerContentProps>> = ({
           </svg>
         </div>
         <div>
-          <p className='text-md font-semibold text-white md:text-lg'>
+          <p className='text-md text-base-white font-semibold md:text-lg'>
             No Trailer Available
           </p>
           <p className='mt-1 hidden text-sm text-neutral-400 md:block'>

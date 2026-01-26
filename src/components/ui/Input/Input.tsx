@@ -44,7 +44,7 @@ export const Input: FC<InputProps> = ({
         <button
           type='button'
           onClick={onClear}
-          className='flex size-5 shrink-0 items-center justify-center text-white transition-opacity hover:opacity-80'
+          className='text-base-white flex size-5 shrink-0 items-center justify-center transition-opacity hover:opacity-80'
           aria-label='Clear search'
         >
           <CloseRoundedIcon size={20} className='text-neutral-700' />

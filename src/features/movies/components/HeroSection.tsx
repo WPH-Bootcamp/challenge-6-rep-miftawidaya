@@ -26,8 +26,8 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   // (no skeleton needed - hero has reveal animation)
   if (isLoading || !movies?.length) {
     return (
-      <header className='relative h-143.25 w-full bg-black md:h-202.5'>
-        <div className='absolute inset-0 bg-linear-to-b from-transparent to-black to-95%' />
+      <header className='bg-base-black relative h-143.25 w-full md:h-202.5'>
+        <div className='to-base-black absolute inset-0 bg-linear-to-b from-transparent to-95%' />
       </header>
     );
   }
@@ -39,7 +39,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
   };
 
   return (
-    <header className='relative h-143.25 w-full overflow-hidden bg-black md:h-202.5'>
+    <header className='bg-base-black relative h-143.25 w-full overflow-hidden md:h-202.5'>
       <div
         className={cn(
           'absolute inset-0 transition-opacity duration-500',
@@ -55,7 +55,7 @@ export const HeroSection: FC<Readonly<HeroSectionProps>> = ({
         />
 
         {/* Gradient Overlay */}
-        <div className='absolute inset-0 bg-linear-to-b from-transparent to-black to-95%' />
+        <div className='to-base-black absolute inset-0 bg-linear-to-b from-transparent to-95%' />
 
         <div
           key={`content-${movie.id}`} // Force text animation restart

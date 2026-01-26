@@ -22,7 +22,7 @@ export const PlayIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 48 48'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('h-4.5 w-4.5 text-white md:h-6 md:w-6', className)}
+    className={cn('text-base-white h-4.5 w-4.5 md:h-6 md:w-6', className)}
     {...props}
   >
     <path
@@ -48,7 +48,7 @@ export const HeartFillIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -72,7 +72,7 @@ export const HeartOutlineIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -99,7 +99,7 @@ export const CloseRoundedIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -130,7 +130,7 @@ export const ArrowLeftIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -158,7 +158,7 @@ export const CheckIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -189,7 +189,7 @@ export const MenuIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -221,7 +221,7 @@ export const EmojiHappyIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -245,7 +245,7 @@ export const CloseIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -272,7 +272,7 @@ export const StarFillIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 21 20'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -298,7 +298,7 @@ export const CalendarIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -392,7 +392,7 @@ export const VideoIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path

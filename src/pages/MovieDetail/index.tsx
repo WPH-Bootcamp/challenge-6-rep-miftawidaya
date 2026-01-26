@@ -62,7 +62,7 @@ export const MovieDetailPage: FC = () => {
       } else {
         addFavorite(movie);
         toast.success('Success Add to Favorites', {
-          icon: <CheckIcon size={24} className='text-white' />,
+          icon: <CheckIcon size={24} className='text-base-white' />,
         });
       }
     } catch (err) {
@@ -120,7 +120,7 @@ export const MovieDetailPage: FC = () => {
               </h1>
               <div className='flex items-center gap-2'>
                 <CalendarIcon className='text-neutral-10 size-4 md:size-6' />
-                <span className='md:text-md text-sm font-normal text-white'>
+                <span className='md:text-md text-base-white text-sm font-normal'>
                   {releaseDate}
                 </span>
               </div>

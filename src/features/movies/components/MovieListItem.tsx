@@ -58,14 +58,14 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
         onClick={toggleFavorite}
         className={cn(
           'glass-surface absolute top-0 right-0 hidden size-11 cursor-pointer items-center justify-center rounded-full border-neutral-900 transition-all hover:scale-105 md:flex md:size-14',
-          isFav ? 'text-primary-300' : 'text-white'
+          isFav ? 'text-primary-300' : 'text-base-white'
         )}
         aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
       >
         {isFav ? (
           <HeartFillIcon size={24} className='text-primary-300' />
         ) : (
-          <HeartOutlineIcon size={24} className='text-white' />
+          <HeartOutlineIcon size={24} className='text-base-white' />
         )}
       </button>
 
@@ -111,15 +111,15 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
           <div className='flex flex-col gap-1 md:gap-3'>
             {/* Title */}
             <Link to={`/movie/${movie.id}`}>
-              <h3 className='hover:text-primary-300 text-md md:text-display-xs line-clamp-2 font-bold text-white transition-colors md:line-clamp-1 md:pr-15'>
+              <h3 className='hover:text-primary-300 text-md md:text-display-xs text-base-white line-clamp-2 font-bold transition-colors md:line-clamp-1 md:pr-15'>
                 {movie.title}
               </h3>
             </Link>
 
             {/* Rating */}
             <div className='flex items-center gap-1.5'>
-              <StarFillIcon className='size-4 text-[#E4A802] md:size-5.5' />
-              <span className='text-sm font-medium text-white md:text-lg'>
+              <StarFillIcon className='size-4 text-yellow-500 md:size-5.5' />
+              <span className='text-base-white text-sm font-medium md:text-lg'>
                 {movie.vote_average.toFixed(1)}/10
               </span>
             </div>
@@ -138,7 +138,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
               onClick={onWatchTrailer}
             >
               Watch Trailer
-              <PlayIcon size={24} className='text-white' />
+              <PlayIcon size={24} className='text-base-white' />
             </Button>
           </div>
         </div>
@@ -152,19 +152,19 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
           onClick={onWatchTrailer}
         >
           Watch Trailer
-          <PlayIcon size={18} className='text-white' />
+          <PlayIcon size={18} className='text-base-white' />
         </Button>
         <button
           onClick={toggleFavorite}
           className={cn(
             'glass-surface flex size-11 cursor-pointer items-center justify-center rounded-full border-neutral-800 transition-all hover:scale-105',
-            isFav ? 'text-primary-300' : 'text-white'
+            isFav ? 'text-primary-300' : 'text-base-white'
           )}
         >
           {isFav ? (
             <HeartFillIcon size={18} className='text-primary-300' />
           ) : (
-            <HeartOutlineIcon size={18} className='text-white' />
+            <HeartOutlineIcon size={18} className='text-base-white' />
           )}
         </button>
       </div>

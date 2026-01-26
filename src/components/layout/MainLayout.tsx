@@ -12,7 +12,7 @@ import { useTrailerStore } from '../../store/trailer';
  */
 export const MainLayout: FC = () => {
   return (
-    <div className='bg-background flex min-h-screen flex-col text-white'>
+    <div className='bg-background text-base-white flex min-h-screen flex-col'>
       <Navbar />
       <ErrorBoundary>
         <Suspense

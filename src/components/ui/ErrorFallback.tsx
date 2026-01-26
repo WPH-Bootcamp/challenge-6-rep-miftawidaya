@@ -33,7 +33,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
     error?.message.toLowerCase().includes('data is undefined');
 
   return (
-    <div className='bg-background relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-4 py-40 text-white'>
+    <div className='bg-background text-base-white relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-4 py-40'>
       {/* Background Decorative Blurs */}
       <div
         className='bg-primary-300/20 pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full blur-3xl'
@@ -45,7 +45,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
       />
 
       {/* Main Card */}
-      <div className='bg-base-black/40 relative z-10 flex w-full max-w-168 flex-col items-center gap-6 rounded-4xl border border-white/10 px-8 py-10 text-center shadow-2xl backdrop-blur-lg'>
+      <div className='bg-base-black/40 border-base-white/10 relative z-10 flex w-full max-w-168 flex-col items-center gap-6 rounded-4xl border px-8 py-10 text-center shadow-2xl backdrop-blur-lg'>
         {/* Error Icon */}
         <div className='bg-primary-300/20 flex h-20 w-20 items-center justify-center rounded-full shadow-[0_0_0_8px_rgba(150,18,0,0.05)]'>
           <AlertTriangle className='text-primary-200 h-10 w-10' />
@@ -53,7 +53,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
 
         {/* Message */}
         <div className='flex max-w-112 flex-col gap-3'>
-          <h1 className='text-display-sm font-bold tracking-tight text-white'>
+          <h1 className='text-display-sm text-base-white font-bold tracking-tight'>
             {isEnvIssue ? 'Configuration Error' : 'Oops! Something went wrong'}
           </h1>
           <p className='text-md leading-relaxed text-neutral-400'>
@@ -119,10 +119,10 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
 
         {/* Technical Details (Collapsible) */}
         {error && (
-          <div className='mt-2 w-full border-t border-white/10 pt-6'>
+          <div className='border-base-white/10 mt-2 w-full border-t pt-6'>
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className='mx-auto flex items-center justify-center text-neutral-500 transition-colors hover:text-white'
+              className='hover:text-base-white mx-auto flex items-center justify-center text-neutral-500 transition-colors'
               style={{ gap: '0.5rem' }}
               type='button'
             >
@@ -138,7 +138,7 @@ const ErrorFallback = ({ error, onReset, onRefresh }: ErrorFallbackProps) => {
 
             {showDetails && (
               <div className='mt-4 text-left'>
-                <div className='rounded-xl border border-white/5 bg-neutral-900/50 p-4 font-mono text-xs shadow-inner'>
+                <div className='border-base-white/5 rounded-xl border bg-neutral-900/50 p-4 font-mono text-xs shadow-inner'>
                   <p className='text-primary-200 mb-1 font-bold'>
                     Error Message:
                   </p>

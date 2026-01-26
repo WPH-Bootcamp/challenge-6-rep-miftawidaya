@@ -71,7 +71,7 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
   return (
     // Layer 1: Overlay
     <div
-      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm'
+      className='bg-base-black/80 fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm'
       onClick={onClose}
       role='dialog'
       aria-modal='true'
@@ -80,7 +80,7 @@ export const TrailerModal: FC<Readonly<TrailerModalProps>> = ({
       {/* Close button - fixed at top right corner of modal */}
       <button
         onClick={onClose}
-        className='absolute top-4 right-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/20 md:top-6 md:right-6'
+        className='bg-base-white/10 text-base-white hover:bg-base-white/20 absolute top-4 right-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full backdrop-blur-sm transition-all hover:scale-105 md:top-6 md:right-6'
         aria-label='Close trailer'
       >
         <svg

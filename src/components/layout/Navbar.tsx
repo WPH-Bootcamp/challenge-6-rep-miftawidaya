@@ -139,7 +139,7 @@ export const Navbar: FC = () => {
                     className={cn(
                       'hover:text-primary-300 text-md p-2 font-normal transition-colors',
                       location.pathname === link.path
-                        ? 'text-white'
+                        ? 'text-base-white'
                         : 'text-neutral-300'
                     )}
                   >
@@ -169,17 +169,17 @@ export const Navbar: FC = () => {
               <div className='flex items-center gap-6 md:hidden'>
                 <button
                   onClick={() => navigate('/search')}
-                  className='hover:text-primary-300 transform cursor-pointer text-white transition-all active:scale-95'
+                  className='hover:text-primary-300 text-base-white transform cursor-pointer transition-all active:scale-95'
                   aria-label='Activate search'
                 >
                   <Search className='size-6' />
                 </button>
                 <button
                   onClick={() => setIsMenuOpen(true)}
-                  className='hover:text-primary-300 cursor-pointer text-white transition-colors'
+                  className='hover:text-primary-300 text-base-white cursor-pointer transition-colors'
                   aria-label='Open menu'
                 >
-                  <MenuIcon size={24} className='text-white' />
+                  <MenuIcon size={24} className='text-base-white' />
                 </button>
               </div>
             </div>
@@ -193,7 +193,7 @@ export const Navbar: FC = () => {
                 className='flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors hover:opacity-80'
                 aria-label='Back'
               >
-                <ArrowLeftIcon size={24} className='text-white' />
+                <ArrowLeftIcon size={24} className='text-base-white' />
               </button>
               <form onSubmit={handleSearchSubmit} className='flex-1'>
                 <Input
@@ -214,7 +214,7 @@ export const Navbar: FC = () => {
       {/* Mobile Menu Overlay */}
       <div
         className={cn(
-          'fixed inset-0 z-100 bg-black transition-transform duration-500 md:hidden',
+          'bg-base-black fixed inset-0 z-100 transition-transform duration-500 md:hidden',
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
@@ -224,10 +224,10 @@ export const Navbar: FC = () => {
           </Link>
           <button
             onClick={() => setIsMenuOpen(false)}
-            className='hover:text-primary-300 -mr-2 flex size-10 cursor-pointer items-center justify-center text-white transition-colors'
+            className='hover:text-primary-300 text-base-white -mr-2 flex size-10 cursor-pointer items-center justify-center transition-colors'
             aria-label='Close menu'
           >
-            <X size={24} className='text-white' />
+            <X size={24} className='text-base-white' />
           </button>
         </div>
 
@@ -239,7 +239,7 @@ export const Navbar: FC = () => {
               className={cn(
                 'hover:text-primary-300 p-2 text-base font-normal transition-colors',
                 location.pathname === link.path
-                  ? 'text-white'
+                  ? 'text-base-white'
                   : 'text-neutral-400'
               )}
               onClick={() => setIsMenuOpen(false)}

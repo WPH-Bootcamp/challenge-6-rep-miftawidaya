@@ -19,7 +19,7 @@ export const MovieStats: FC<Readonly<MovieStatsProps>> = ({
 }) => (
   <div className='grid grid-cols-3 gap-3 md:gap-5'>
     {/* Rating Card */}
-    <div className='flex flex-col items-center gap-1 rounded-xl border border-neutral-700 bg-black p-3 sm:gap-2 sm:rounded-2xl sm:p-5'>
+    <div className='bg-base-black flex flex-col items-center gap-1 rounded-xl border border-neutral-700 p-3 sm:gap-2 sm:rounded-2xl sm:p-5'>
       <StarFillIcon className='size-6 text-yellow-500 md:size-8' />
       <div className='flex flex-col items-center gap-0.5'>
         <span className='md:text-md text-xs font-normal text-neutral-300'>
@@ -32,7 +32,7 @@ export const MovieStats: FC<Readonly<MovieStatsProps>> = ({
     </div>
 
     {/* Genre Card */}
-    <div className='flex flex-col items-center gap-1 rounded-xl border border-neutral-700 bg-black p-3 sm:gap-2 sm:rounded-2xl sm:p-5'>
+    <div className='bg-base-black flex flex-col items-center gap-1 rounded-xl border border-neutral-700 p-3 sm:gap-2 sm:rounded-2xl sm:p-5'>
       <VideoIcon className='text-neutral-10 size-6 md:size-8' />
       <div className='flex flex-col items-center gap-0.5'>
         <span className='md:text-md text-xs font-normal text-neutral-300'>
@@ -45,7 +45,7 @@ export const MovieStats: FC<Readonly<MovieStatsProps>> = ({
     </div>
 
     {/* Age Limit Card */}
-    <div className='flex flex-col items-center gap-1 rounded-xl border border-neutral-700 bg-black p-3 sm:gap-2 sm:rounded-2xl sm:p-5'>
+    <div className='bg-base-black flex flex-col items-center gap-1 rounded-xl border border-neutral-700 p-3 sm:gap-2 sm:rounded-2xl sm:p-5'>
       <EmojiHappyIcon className='text-neutral-10 size-6 md:size-8' />
       <div className='flex flex-col items-center gap-0.5'>
         <span className='md:text-md text-xs font-normal text-neutral-300'>
