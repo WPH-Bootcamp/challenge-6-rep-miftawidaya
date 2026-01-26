@@ -98,7 +98,7 @@ export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
 
         {/* Rating Container - Star 18px mobile, 20px desktop */}
         <div className='flex flex-row items-center gap-1.5'>
-          <StarFillIcon className='h-4.125 w-4.125 text-yellow-500 md:h-4.5 md:w-4.5' />
+          <StarFillIcon className='h-4 w-4 text-yellow-500 md:h-4.5 md:w-4.5' />
           <span className='font-poppins md:text-md text-sm font-normal text-neutral-400'>
             {movie.vote_average.toFixed(1)}/10
           </span>
