@@ -190,7 +190,7 @@ export const Navbar: FC = () => {
             <div className='gap-xl animate-in fade-in slide-in-from-top-2 flex w-full items-center duration-300 md:hidden'>
               <button
                 onClick={() => navigate(-1)}
-                className='flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-white/10'
+                className='flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors hover:opacity-80'
                 aria-label='Back'
               >
                 <ArrowLeftIcon size={24} className='text-white' />
