@@ -171,7 +171,7 @@
   /* Composite Card & Overlay Calculations */
   --card-image-height: calc(var(--card-grid-width) * 1.5);
   --card-info-area: 4.25rem;
-  --container-pb: 2.5rem;
+  --container-pb: 1rem;
 
   @media (width >= 48rem) {
     --card-info-area: 4.75rem;

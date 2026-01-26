@@ -129,7 +129,7 @@ export const HomePage: FC = () => {
           New Release
         </h2>
 
-        <div className='relative pb-10 md:pb-22.5'>
+        <div className='relative pb-4 md:pb-22.5'>
           <div className='grid grid-cols-2 justify-items-center gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 md:gap-x-5 md:gap-y-10 lg:grid-cols-5'>
             {isLoadingNowPlaying
               ? Array.from({ length: 10 }, (_, i) => (
