@@ -177,7 +177,7 @@ export const MovieListItem: FC<Readonly<MovieListItemProps>> = ({
  */
 export const MovieListItemSkeleton: FC = () => (
   <div className='flex animate-pulse flex-col gap-6 md:flex-row md:gap-6'>
-    <div className='flex flex-1 gap-4 md:gap-6'>
+    <div className='relative flex flex-1 gap-4 md:gap-6'>
       {/* Poster Skeleton */}
       <div className='h-39 w-26 shrink-0 rounded-lg bg-neutral-800 md:h-67.5 md:w-45.5 md:rounded-xl' />
 
