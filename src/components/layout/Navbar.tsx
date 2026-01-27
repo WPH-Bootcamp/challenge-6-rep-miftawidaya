@@ -5,9 +5,9 @@ import {
   useLocation,
   useSearchParams,
 } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { Input } from '../ui/Input';
-import { ArrowLeftIcon, CloseRoundedIcon, MenuIcon } from '../ui/Icon';
+import { ArrowLeftIcon, MenuIcon } from '../ui/Icon';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '../../lib/cn';
 
@@ -15,7 +15,6 @@ import logo from '../../assets/images/logo.svg';
 
 /**
  * Navbar component with logo, navigation links, and search functionality.
- * Aligns with Figma designs for desktop and mobile states.
  */
 export const Navbar: FC = () => {
   const navigate = useNavigate();
@@ -74,8 +73,8 @@ export const Navbar: FC = () => {
   const handleSearchChange = (val: string) => {
     setSearch(val);
     const trimmed = val.trim();
-    // Incremental search: trigger navigation on 3+ characters
-    if (trimmed.length > 2) {
+    // Incremental search: trigger navigation on 1+ characters
+    if (trimmed.length > 0) {
       navigate(`/search?q=${encodeURIComponent(trimmed)}`, { replace: true });
     } else if (trimmed.length === 0 && location.pathname === '/search') {
       // Clear query while staying on search page
@@ -106,93 +105,95 @@ export const Navbar: FC = () => {
     <>
       <nav
         className={cn(
-          'fixed top-0 z-50 w-full transition-all duration-300',
-          isScrolled
-            ? 'glassmorphism h-16 border-b border-white/10 md:h-22.5'
-            : 'h-16 border-b border-transparent bg-transparent md:h-22.5'
+          'fixed top-0 z-50 flex h-16 w-full items-center py-3 transition-all duration-300 md:h-22.5 md:py-4',
+          isScrolled ? 'bg-neutral-950/60 backdrop-blur-lg' : 'bg-transparent'
         )}
       >
-        <div className='md:px-11xl flex h-full items-center justify-between px-4'>
-          {/* Default Mobile Nav Content (unless search is active) */}
-          {!isMobileSearchActive && (
-            <>
-              {/* Left: Logo & Desktop Links */}
-              <div className='gap-8xl flex items-center'>
-                <Link
-                  to='/'
-                  className='flex shrink-0 transform items-center transition-transform hover:scale-105'
-                >
-                  <img
-                    src={logo}
-                    alt='Movie Explorer'
-                    className='h-7 w-auto md:h-10'
-                  />
-                </Link>
+        <div className='custom-container flex w-full items-center justify-between'>
+          {/* Desktop Navbar - Always visible on md+ screens */}
+          {/* Mobile Navbar - Hidden when search is active */}
+          <div
+            className={cn(
+              'flex w-full items-center justify-between',
+              isMobileSearchActive ? 'hidden md:flex' : 'flex'
+            )}
+          >
+            {/* Left: Logo & Desktop Links */}
+            <div className='gap-8xl flex items-center'>
+              <Link
+                to='/'
+                className='flex shrink-0 transform items-center transition-transform hover:scale-105'
+              >
+                <img
+                  src={logo}
+                  alt='Movie Explorer'
+                  className='h-7 w-auto md:h-10'
+                />
+              </Link>
 
-                <div className='gap-6xl hidden items-center md:flex'>
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      className={cn(
-                        'hover:text-primary-300 text-base font-normal transition-colors',
-                        location.pathname === link.path
-                          ? 'text-white'
-                          : 'text-neutral-300'
-                      )}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right: Search & Mobile Menu Interface */}
-              <div className='gap-xl flex items-center'>
-                <form
-                  onSubmit={handleSearchSubmit}
-                  className='hidden w-60.75 md:block'
-                >
-                  <Input
-                    placeholder='Search movie...'
-                    value={search}
-                    onChange={(e) => handleSearchChange(e.target.value)}
-                    onClear={handleClear}
-                    className='border-neutral-800 bg-neutral-950/60'
-                    size='lg'
-                  />
-                </form>
-
-                {/* Mobile Actions */}
-                <div className='flex items-center gap-6 md:hidden'>
-                  <button
-                    onClick={() => navigate('/search')}
-                    className='hover:text-primary-300 transform cursor-pointer text-white transition-all active:scale-95'
-                    aria-label='Activate search'
+              <div className='gap-6xl hidden items-center md:flex'>
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={cn(
+                      'hover:text-primary-300 text-md p-2 font-normal transition-colors',
+                      location.pathname === link.path
+                        ? 'text-base-white'
+                        : 'text-neutral-300'
+                    )}
                   >
-                    <Search className='size-6' />
-                  </button>
-                  <button
-                    onClick={() => setIsMenuOpen(true)}
-                    className='hover:text-primary-300 cursor-pointer text-white transition-colors'
-                    aria-label='Open menu'
-                  >
-                    <MenuIcon size={24} className='text-white' />
-                  </button>
-                </div>
+                    {link.name}
+                  </Link>
+                ))}
               </div>
-            </>
-          )}
+            </div>
 
-          {/* Mobile Search Input Header (Active State on /search) */}
+            {/* Right: Search & Mobile Menu Interface */}
+            <div className='gap-xl flex items-center'>
+              <form
+                onSubmit={handleSearchSubmit}
+                className='hidden w-60.75 md:block'
+              >
+                <Input
+                  placeholder='Search movie...'
+                  value={search}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  onClear={handleClear}
+                  className='border-neutral-800 bg-neutral-950/60'
+                  size='lg'
+                />
+              </form>
+
+              {/* Mobile Actions */}
+              <div className='flex items-center gap-6 md:hidden'>
+                <button
+                  onClick={() => navigate('/search')}
+                  className='hover:text-primary-300 text-base-white transform cursor-pointer transition-all active:scale-95'
+                  aria-label='Activate search'
+                >
+                  <Search className='size-6' />
+                </button>
+                <button
+                  onClick={() => setIsMenuOpen(true)}
+                  className='hover:text-primary-300 text-base-white cursor-pointer transition-colors'
+                  aria-label='Open menu'
+                >
+                  <MenuIcon size={24} className='text-base-white' />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Search Input Header (Active State on /search) - Mobile only */}
           {isMobileSearchActive && (
-            <div className='gap-xl animate-in fade-in slide-in-from-top-2 flex w-full items-center duration-300'>
+            <div className='gap-xl animate-in fade-in slide-in-from-top-2 flex w-full items-center duration-300 md:hidden'>
               <button
                 onClick={() => navigate(-1)}
-                className='flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors hover:bg-white/10'
+                className='flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors hover:opacity-80'
                 aria-label='Back'
               >
-                <ArrowLeftIcon size={24} className='text-white' />
+                <ArrowLeftIcon size={24} className='text-base-white' />
               </button>
               <form onSubmit={handleSearchSubmit} className='flex-1'>
                 <Input
@@ -201,7 +202,7 @@ export const Navbar: FC = () => {
                   value={search}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   onClear={handleClear}
-                  className='focus-within:border-primary-300/50 rounded-xl border-neutral-800 bg-neutral-950/60 transition-all'
+                  className='rounded-xl border-neutral-800 bg-neutral-950/60 transition-all'
                   size='sm'
                 />
               </form>
@@ -213,7 +214,7 @@ export const Navbar: FC = () => {
       {/* Mobile Menu Overlay */}
       <div
         className={cn(
-          'fixed inset-0 z-100 bg-black transition-transform duration-500 md:hidden',
+          'bg-base-black fixed inset-0 z-100 transition-transform duration-500 md:hidden',
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
@@ -223,10 +224,10 @@ export const Navbar: FC = () => {
           </Link>
           <button
             onClick={() => setIsMenuOpen(false)}
-            className='hover:text-primary-300 mr-[-8px] flex size-10 cursor-pointer items-center justify-center text-white transition-colors'
+            className='hover:text-primary-300 text-base-white -mr-2 flex size-10 cursor-pointer items-center justify-center transition-colors'
             aria-label='Close menu'
           >
-            <CloseRoundedIcon size={24} className='text-neutral-700' />
+            <X size={24} className='text-base-white' />
           </button>
         </div>
 
@@ -238,7 +239,7 @@ export const Navbar: FC = () => {
               className={cn(
                 'hover:text-primary-300 p-2 text-base font-normal transition-colors',
                 location.pathname === link.path
-                  ? 'text-white'
+                  ? 'text-base-white'
                   : 'text-neutral-400'
               )}
               onClick={() => setIsMenuOpen(false)}

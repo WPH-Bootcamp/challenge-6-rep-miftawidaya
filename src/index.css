@@ -1,38 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
+/* --- Design Tokens & Theme Configuration --- */
 @theme {
-  /* --- Typography --- */
-  --font-poppins: 'Poppins', sans-serif;
+  /* Typography */
+  --font-sans: 'Poppins', sans-serif;
 
-  /* Text Sizes & Line Heights */
+  /* Text Sizes */
   --text-display-3xl: 3.75rem;
   --text-display-3xl--line-height: 4.5rem;
-
   --text-display-2xl: 3rem;
   --text-display-2xl--line-height: 3.75rem;
-  --text-display-2xl--letter-spacing: -2%;
-
+  --text-display-2xl--letter-spacing: -0.02em;
   --text-display-xl: 2.5rem;
-  --text-display-xl--line-height: 3rem;
-  --text-display-xl--letter-spacing: -2%;
-
+  --text-display-xl--line-height: 3.5rem;
+  --text-display-xl--letter-spacing: -0.02em;
   --text-display-lg: 2.25rem;
-  --text-display-lg--line-height: 2.75rem;
-  --text-display-lg--letter-spacing: -2%;
-
+  --text-display-lg--line-height: 3rem;
+  --text-display-lg--letter-spacing: -0.02em;
   --text-display-md: 2rem;
-  --text-display-md--line-height: 2.5rem;
-
+  --text-display-md--line-height: 2.875rem;
   --text-display-sm: 1.75rem;
   --text-display-sm--line-height: 2.375rem;
-
   --text-display-xs: 1.5rem;
   --text-display-xs--line-height: 2.25rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 2.125rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 2rem;
+  --text-md: 1rem;
+  --text-md--line-height: 1.875rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.75rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5rem;
 
-  /* --- Colors --- */
-
-  /* Neutral Palette */
+  /* Colors: Neutral Palette */
+  --color-neutral-10: #fdfdfd;
   --color-neutral-25: #fafafa;
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
@@ -46,18 +50,17 @@
   --color-neutral-900: #181d27;
   --color-neutral-950: #0a0d12;
 
-  /* Primary Palette */
+  /* Colors: Brand & Accent */
   --color-primary-100: #ead0cc;
   --color-primary-200: #b96155;
   --color-primary-300: #961200;
   --color-primary-400: #640c00;
-
-  /* Base Colors */
+  --color-yellow-500: #e4a802;
   --color-base-white: #ffffff;
   --color-base-black: #000000;
   --color-background: #000000;
 
-  /* --- Spacing System --- */
+  /* Spacing Scale */
   --spacing-xxs: 0.125rem;
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.375rem;
@@ -75,7 +78,7 @@
   --spacing-10xl: 8rem;
   --spacing-11xl: 8.75rem;
 
-  /* --- Border Radius --- */
+  /* Radius & Blur */
   --radius-xxs: 0.125rem;
   --radius-xs: 0.25rem;
   --radius-sm: 0.375rem;
@@ -85,51 +88,157 @@
   --radius-2xl: 1rem;
   --radius-3xl: 1.25rem;
   --radius-4xl: 1.5rem;
+  --blur-glass: 20px;
+
+  /* Layout */
+  --spacing-container-max: 75.5rem; /* 1208px */
+  --spacing-card-grid-width: var(--card-grid-width);
+  --spacing-overlay-height: var(--overlay-height);
+
+  /* Breakpoints */
+  --breakpoint-nav-lg: 72.5rem;
+
+  /* Misc */
+  --spacing-nav-top-left: 40%;
+  --spacing-nav-top-right: 40%;
+  --spacing-full-overlap: calc(100% - 1px);
+  --min-h-video: clamp(12.5rem, 50vw, 30rem);
+  --aspect-poster: 2 / 3;
+
+  /* Animations */
+  --animate-scale-up: scale-up 20s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  --animate-delay-100: 100ms;
+  --animate-delay-200: 200ms;
+  --animate-delay-300: 300ms;
 }
 
-/* --- Global Base Styles --- */
+/* --- Global Keyframes --- */
+@keyframes scale-up {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Global Variables --- */
+:root {
+  /* Base Card Width Calculation */
+  --card-grid-width: calc((100vw - 3rem) / 2); /* Default Mobile */
+
+  @media (width >= 40rem) {
+    --card-grid-width: calc((100vw - 4rem) / 3);
+  }
+  @media (width >= 48rem) {
+    --card-grid-width: calc((100vw - 6.75rem) / 4);
+  }
+  @media (width >= 64rem) {
+    --card-grid-width: calc((100vw - 8rem) / 5);
+  }
+  @media (width >= 75.5rem) {
+    --card-grid-width: 13.5rem; /* Capped at max container width */
+  }
+
+  /* Composite Card & Overlay Metrics */
+  --card-image-height: calc(var(--card-grid-width) * 1.5);
+  --card-info-area: 4.25rem;
+  --container-pb: 1rem;
+
+  @media (width >= 48rem) {
+    --card-info-area: 4.75rem;
+    --container-pb: 5.625rem;
+  }
+
+  /* Final Overlay Height Calculation */
+  --overlay-height: calc(
+    var(--card-image-height) + var(--card-info-area) + var(--container-pb) +
+      1rem
+  );
+}
+
+/* --- Base Layer --- */
 @layer base {
   html {
+    font-family: var(--font-sans);
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-base-white);
-    font-family: var(--font-poppins);
+    @apply bg-background text-neutral-25 antialiased;
     font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global Scrollbar Reset */
+  html,
+  body {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
   }
 }
 
-/* --- Reusable Components Layer --- */
+/* --- Components Layer --- */
 @layer components {
+  /* Standard Container */
   .custom-container {
-    margin-left: auto;
-    margin-right: auto;
-    @apply max-w-302 pr-6 pl-6;
+    @apply max-w-container-max mx-auto w-full px-4 md:px-6;
   }
 
-  .glassmorphism {
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Glass Surface Variants */
+  .glass-surface {
+    @apply backdrop-blur-glass border border-neutral-900 bg-neutral-950/60;
+  }
+
+  .glass-surface-black {
+    @apply backdrop-blur-glass bg-black/25;
   }
 }
 
-/* --- Functional Utilities Layer --- */
+/* --- Utilities Layer --- */
 @layer utilities {
-  .flex-center {
-    @apply flex items-center justify-center;
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
-  .flex-between {
-    @apply flex items-center justify-between;
+  /* Slider Padding Logic
+    Formula: max((Viewport - ContainerWidth) / 2 + Gutter, MinPadding)
+  */
+  .slider-padding {
+    --padding-logic: max(calc((100vw - 1208px) / 2 + 24px), 16px);
+
+    padding-inline: var(--padding-logic);
+    scroll-padding-inline: var(--padding-logic);
   }
 
-  .flex-start {
-    @apply flex items-center justify-start;
+  .slider-padding-left {
+    --padding-logic: max(calc((100vw - 1208px) / 2 + 24px), 16px);
+
+    padding-inline-start: var(--padding-logic);
+    scroll-padding-inline-start: var(--padding-logic);
+  }
+
+  /* Aspect Ratio Utility */
+  .aspect-poster {
+    aspect-ratio: var(--aspect-poster);
   }
 }

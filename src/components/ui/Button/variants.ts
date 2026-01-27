@@ -1,17 +1,17 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-700 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-5 [&_svg]:shrink-0 cursor-pointer',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-700 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer',
   {
     variants: {
       variant: {
         primary:
-          'bg-primary-300 text-white hover:bg-primary-400 active:bg-primary-200 shadow-sm [&_svg]:fill-current',
+          'bg-primary-300 text-base-white hover:bg-primary-400 active:bg-primary-200 shadow-sm',
         secondary:
-          'bg-neutral-900 text-white border border-neutral-700 hover:bg-neutral-800 active:bg-neutral-950 [&_svg]:fill-current',
+          'backdrop-blur-xl bg-neutral-950/60 text-base-white border border-neutral-900 hover:bg-neutral-900 active:bg-neutral-950',
         outline:
-          'border border-neutral-700 bg-transparent hover:bg-neutral-800 text-white',
-        ghost: 'bg-transparent hover:bg-neutral-800 text-white',
+          'border border-neutral-700 bg-transparent hover:bg-neutral-800 text-base-white',
+        ghost: 'bg-transparent hover:bg-neutral-800 text-base-white',
       },
       size: {
         sm: 'h-11 px-6 py-2',

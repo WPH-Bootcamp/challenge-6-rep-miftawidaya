@@ -22,7 +22,7 @@ export const PlayIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 48 48'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white h-4.5 w-4.5 md:h-6 md:w-6', className)}
     {...props}
   >
     <path
@@ -48,7 +48,7 @@ export const HeartFillIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -72,7 +72,7 @@ export const HeartOutlineIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -99,7 +99,7 @@ export const CloseRoundedIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -130,7 +130,7 @@ export const ArrowLeftIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -158,7 +158,7 @@ export const CheckIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -189,7 +189,7 @@ export const MenuIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -221,7 +221,7 @@ export const EmojiHappyIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -245,7 +245,7 @@ export const CloseIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -272,7 +272,7 @@ export const StarFillIcon: FC<Readonly<IconProps>> = ({
     viewBox='0 0 21 20'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className={cn('text-white', className)}
+    className={cn('text-base-white', className)}
     {...props}
   >
     <path
@@ -280,6 +280,124 @@ export const StarFillIcon: FC<Readonly<IconProps>> = ({
       fill='currentColor'
       stroke='currentColor'
       strokeWidth='1.5'
+    />
+  </svg>
+);
+
+/**
+ * Calendar Icon (vuesax/linear/calendar)
+ */
+export const CalendarIcon: FC<Readonly<IconProps>> = ({
+  size = 24,
+  className,
+  ...props
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={cn('text-base-white', className)}
+    {...props}
+  >
+    <path
+      d='M8 2V5'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M16 2V5'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M3.5 9.09H20.5'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M15.6947 13.7H15.7037'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M15.6947 16.7H15.7037'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M11.9955 13.7H12.0045'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M11.9955 16.7H12.0045'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M8.29431 13.7H8.30329'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M8.29431 16.7H8.30329'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+/**
+ * Video Icon
+ */
+export const VideoIcon: FC<Readonly<IconProps>> = ({
+  size = 24,
+  className,
+  ...props
+}) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className={cn('text-base-white', className)}
+    {...props}
+  >
+    <path
+      d='M21.15 6.17C20.74 5.95 19.88 5.72 18.71 6.54L17.24 7.58C17.13 4.47 15.78 3.25 12.5 3.25H6.5C3.08 3.25 1.75 4.58 1.75 8V16C1.75 18.3 3 20.75 6.5 20.75H12.5C15.78 20.75 17.13 19.53 17.24 16.42L18.71 17.46C19.33 17.9 19.87 18.04 20.3 18.04C20.67 18.04 20.96 17.93 21.15 17.83C21.56 17.62 22.25 17.05 22.25 15.62V8.38C22.25 6.95 21.56 6.38 21.15 6.17ZM11 11.38C9.97 11.38 9.12 10.54 9.12 9.5C9.12 8.46 9.97 7.62 11 7.62C12.03 7.62 12.88 8.46 12.88 9.5C12.88 10.54 12.03 11.38 11 11.38Z'
+      fill='currentColor'
     />
   </svg>
 );

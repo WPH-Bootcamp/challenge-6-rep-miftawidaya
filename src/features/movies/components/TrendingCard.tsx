@@ -2,20 +2,21 @@ import { Link } from 'react-router-dom';
 import { type FC, useState } from 'react';
 import { StarFillIcon } from '../../../components/ui/Icon';
 import { cn } from '../../../lib/cn';
-
 import type { Movie } from '../../../types/movie';
 
-interface MovieCardProps {
+interface TrendingCardProps {
   movie: Movie;
+  rank: number;
   className?: string;
 }
 
 /**
- * MovieCard component to display a movie poster with rating.
+ * TrendingCard component for the Trending Slider.
  * Includes individual image loading state for smooth UX.
  */
-export const MovieCard: FC<Readonly<MovieCardProps>> = ({
+export const TrendingCard: FC<Readonly<TrendingCardProps>> = ({
   movie,
+  rank,
   className,
 }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -27,10 +28,11 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
   return (
     <div
       className={cn(
-        'group w-card-grid-width flex flex-col items-start gap-2 md:gap-3',
+        'group w-card-grid-width flex shrink-0 flex-col items-start gap-2 md:gap-3',
         className
       )}
     >
+      {/* Image Container */}
       <Link to={`/movie/${movie.id}`} className='relative block w-full'>
         <div className='aspect-poster relative w-full overflow-hidden rounded-lg md:rounded-xl'>
           {imageUrl ? (
@@ -75,25 +77,29 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
               </svg>
             </div>
           )}
+
+          {/* Rank Badge - 32px mobile, 48px desktop */}
+          <div className='absolute top-2 left-2 flex size-8 items-center justify-center rounded-full bg-neutral-950/60 backdrop-blur-md md:top-3 md:left-3 md:size-12'>
+            <span className='text-neutral-10 text-sm font-semibold md:text-lg'>
+              {rank}
+            </span>
+          </div>
         </div>
       </Link>
 
       {/* Movie Info */}
-      <div className='flex flex-none grow-0 flex-col items-start gap-0.5 self-stretch'>
-        {/* Movie Title */}
+      <div className='flex flex-col items-start gap-0.5 self-stretch'>
+        {/* Movie Title - Text md/Semibold mobile, Text lg/Semibold desktop */}
         <Link to={`/movie/${movie.id}`} className='w-full'>
-          <h3 className='text-md font-poppins text-neutral-10 line-clamp-1 w-full font-semibold md:text-lg'>
+          <h3 className='font-poppins text-md text-neutral-10 line-clamp-1 w-full font-semibold md:text-lg'>
             {movie.title}
           </h3>
         </Link>
 
-        {/* Rating Container */}
+        {/* Rating Container - Star 18px mobile, 20px desktop */}
         <div className='flex flex-row items-center gap-1.5'>
-          {/* Star Icon */}
           <StarFillIcon className='h-4 w-4 text-yellow-500 md:h-4.5 md:w-4.5' />
-
-          {/* Rating Value */}
-          <span className='font-poppins md:text-md font-regular text-sm text-neutral-400'>
+          <span className='font-poppins md:text-md text-sm font-normal text-neutral-400'>
             {movie.vote_average.toFixed(1)}/10
           </span>
         </div>
@@ -103,15 +109,14 @@ export const MovieCard: FC<Readonly<MovieCardProps>> = ({
 };
 
 /**
- * Skeleton loader for MovieCard.
+ * Skeleton loader for TrendingCard - responsive.
  */
-export const MovieCardSkeleton: FC = () => (
+export const TrendingCardSkeleton: FC = () => (
   <div className='group w-card-grid-width flex shrink-0 animate-pulse flex-col gap-2 md:gap-3'>
-    {/* Poster Skeleton */}
     <div className='aspect-poster w-full rounded-lg bg-neutral-800 md:rounded-xl' />
-    {/* Title Skeleton */}
-    <div className='h-5 w-3/4 rounded bg-neutral-800 md:h-6' />
-    {/* Rating Skeleton */}
-    <div className='h-4 w-1/3 rounded bg-neutral-800' />
+    <div className='flex flex-col gap-1.5'>
+      <div className='h-5 w-3/4 rounded bg-neutral-800' />
+      <div className='h-4 w-1/3 rounded bg-neutral-800' />
+    </div>
   </div>
 );

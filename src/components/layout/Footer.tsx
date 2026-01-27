@@ -8,14 +8,14 @@ export const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='h-30 border-t border-[#252B37] bg-black'>
-      <div className='md:px-11xl flex h-full flex-col items-start px-4 py-6 md:flex-row md:items-center md:py-2'>
-        <div className='flex items-center'>
+    <footer className='bg-background border-t border-neutral-800'>
+      <div className='custom-container flex h-30 flex-col justify-center gap-2 sm:items-start md:flex-row md:items-center md:justify-between'>
+        <div className='flex flex-col items-start gap-4'>
           <img src={logo} alt='Movie Explorer' className='h-7 w-auto md:h-10' />
         </div>
-        <div className='mt-2 text-xs font-normal text-[#535862] md:mt-0 md:ml-auto md:text-base'>
-          Copyright © {currentYear} Movie Explorer
-        </div>
+        <p className='md:text-md text-xs text-neutral-500'>
+          Copyright ©{currentYear} Movie Explorer
+        </p>
       </div>
     </footer>
   );

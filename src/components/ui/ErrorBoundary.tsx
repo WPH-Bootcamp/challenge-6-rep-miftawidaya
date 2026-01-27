@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
+import ErrorFallback from './ErrorFallback';
 
 interface Props {
   children: ReactNode;
@@ -31,30 +32,18 @@ export class ErrorBoundary extends Component<Props, State> {
     globalThis.location.href = '/';
   };
 
+  private readonly handleRefresh = () => {
+    globalThis.location.reload();
+  };
+
   public render() {
     if (this.state.hasError) {
       return (
-        <div className='bg-background p-spacing-xl flex min-h-screen flex-col items-center justify-center text-white'>
-          <div className='glassmorphism gap-spacing-lg rounded-radius-2xl p-spacing-4xl flex max-w-md flex-col items-center text-center'>
-            <h1 className='text-display-sm text-primary-300 font-bold'>
-              Oops! Something went wrong
-            </h1>
-            <p className='text-neutral-400'>
-              An unexpected error occurred. Please try refreshing the page.
-            </p>
-            {this.state.error && (
-              <pre className='p-spacing-md overflow-auto rounded bg-neutral-900 text-xs text-red-400'>
-                {this.state.error.message}
-              </pre>
-            )}
-            <button
-              className='bg-primary-300 rounded-md px-4 py-2 text-white'
-              onClick={this.handleReset}
-            >
-              Go to Home
-            </button>
-          </div>
-        </div>
+        <ErrorFallback
+          error={this.state.error}
+          onReset={this.handleReset}
+          onRefresh={this.handleRefresh}
+        />
       );
     }
 
